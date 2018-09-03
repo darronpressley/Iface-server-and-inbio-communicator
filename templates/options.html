@@ -1,0 +1,56 @@
+<form method="POST">
+<table id="iface options">
+
+  <thead>
+    <tr>
+      <th col align="left" width="200">Device</th>
+      <th width="50">Uface</th>
+      <th width="50">Oldtime</th>
+      <th width="50">Prox</th>
+      <th width="50">NoPhoto</th>
+      <th width="50">NoFace</th>
+	  <th width="50">NoFinger</th>
+	  <th width="50">NoTime</th>
+	  <th width="50">Timezone</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+	{{ terminal_grid_options }}
+	<td>{{ squirrel }}</td>
+      <td col align="middle" ><input type="checkbox" name="vehicl1"></td>
+	        <td><input type="checkbox" name="vehicl2"></td>
+			      <td><input type="checkbox" name="vehicl3" value="Bike" checked=True></td>
+				        <td><input type="checkbox" name="vehicl4" value="Bike" checked=True></td>
+						      <td><input type="checkbox" name="vehicl5" value="Bike" checked=True></td>
+
+    </tr>
+    <tr>
+	<td>Jenny From Block</td>
+      <td><input type="checkbox" name="vehicl6" checked=True></td>
+	        <td><input type="checkbox" name="vehicl7" value="Bike" checked=True></td>
+			      <td><input type="checkbox" name="vehicl8" value="Bike" checked=True></td>
+				        <td><input type="checkbox" name="vehicl9" value="Bike" checked=True></td>
+						      <td><input type="checkbox" name="vehicl10" value="Bike" checked=True></td>
+    </tr>
+  </tbody>
+  
+</table>
+
+  <br><br>
+
+  <input type="submit" value="Submit" name="SUBMIT">
+  
+  <br><br><br><br>
+  <b>Device Options:</b><br>
+        <td width="100"><b>Uface</b></td> - tick to handle comms with new platform device's TC101, MB800, uface402 or any device with new menu style.<br>
+		<td width="100"><b>Oldtime</b></td> - tick to resolve time by one hour, use for prox terminals or uface.  If time is out by one hour change this option.<br>
+		<td width="100"><b>Prox</b></td> - tick to handle comms with prox terminals to prevent repolling<br>
+		<td width="100"><b>NoPhoto</b></td> - tick to remove Photo command being built.<br>
+		<td width="100"><b>NoFace</b></td> - tick to remove Face Template commands being built.<br>
+		<td width="100"><b>NoFinger</b></td> - Tick to remove finger commands being built.<br>
+		<td width="100"><b>NoTime</b></td> - tick to prevent time header being sent, use when setting server time is not suitable.<br>
+		<td width="100"><b>Timezone</b></td> - Enter plus or minus figure to change the time according to device local Timezone<br>
+		
+</form>
