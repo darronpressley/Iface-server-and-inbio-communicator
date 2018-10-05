@@ -1,5 +1,5 @@
 #IFACE TORNADO version
-#Author Darron Pressley
+#Author Darron Pressley darronpressley@gmail.com
 #there is a lot of commented out code in this project
 #this is to allow quickish switching between running this as a service and running as a application
 import decimal
@@ -45,6 +45,11 @@ FUNCTION_KEYS = False
 IFACE_FUNCTION_KEYS = False
 CC_FUNCTION_KEYS = False
 ORIGINAL_BOOKINGS = True
+
+#mins and max stamps allowed to be recorded to prevent repoll issues
+#criteris is > and < than
+MIN_STAMP = 9998
+MAX_STAMP = 199999999
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -214,6 +219,8 @@ class TestPage(tornado.web.RequestHandler):
                                                 + """Populating 'Original Bookings' = """ + str(ORIGINAL_BOOKINGS) + '.<br>' \
                                                 + 'Iface Function keys = ' + str(IFACE_FUNCTION_KEYS) + '.<br><br>' \
                                                 + 'License Year = ' + str(return_version()) + '.<br><br>'\
+                                                + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
+                                                + 'Max Stamp = ' + str(MAX_STAMP) + '.<br><br>'\
                                                + get_terminal_status_list() +'</HTML>')
         self.write(data)
 
@@ -410,7 +417,9 @@ def get_commands_list(sn):
 
 def save_op_stamp(stamp,terminal_id,sn):
     #if stamp is too big then bomb out for safety...do not record stamps than can be from 1970 eg 3300000000
-    if int(stamp) > 999999999: return
+    # typical stamp is 601659677, that is 9 digits long
+    #get MAX and MIN stamps from general.ini
+    if int(stamp) > MAX_STAMP or int(stamp) < MIN_STAMP: return
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     tx = "UPDATE d_iface_stamps SET stamp = " + stamp + ",date_added = " + date_now  + ",sn = '" + sn + "' WHERE table_name = 'op_stamp' AND terminal_id = " + str(terminal_id) + ""\
                 " IF @@ROWCOUNT=0" \
@@ -539,43 +548,6 @@ def build_power_on_get_request(sn):
             "\r\n"
     print(xx)
     return xx
-
-#def build_power_on_get_request(sn):
-#    terminal_id = get_terminal_id_from_sn(sn)
-#    if terminal_id=="": return ""
-#    att_stamp = 1
-#    op_stamp = 1
-#    tx = "SELECT table_name,stamp FROM d_iface_stamps WHERE terminal_id = " + str(terminal_id)
-#    ret = sqlconns.sql_select_into_list(tx)
-#    if ret!=-1:
-#        for index in range(len(ret)):
-#            if "att_stamp" in ret[index][0]:att_stamp = ret[index][1]
-#            if "op_stamp" in ret[index][0]:op_stamp = ret[index][1]
-#    tx =   "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
- #   notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
- #   stamp_strings = "\r\nAttStamp=" + str(att_stamp)
- #   if 'allstamps' in notepad_options:
- #       stamp_strings =  "\r\nAttStamp=" + str(att_stamp) + "\r\nStamp=" + str(att_stamp)
- #   elif 'prox' in notepad_options:
- #       stamp_strings = "\r\nStamp=" + str(att_stamp)
-  #  trans_flag_string = '1'
-  #  if 'uface' in notepad_options:
-  #      trans_flag_string = '1111111111'
-  #  xx = "GET OPTION FROM:" + sn + \
-  #          stamp_strings + \
-  #          "\r\nOpStamp=" + str(op_stamp) + \
-  #          "\r\nPhotoStamp=" + str(op_stamp) + \
-  #          "\r\nErrorDelay=" + "3" + "\r\nDelay=" + "15" + "\r\nTransTimes=" + "00:00;14:05" + \
-  #          "\r\nTransInterval=" + "1" + "\r\nTransFlag=" + trans_flag_string + "\r\nRealtime=" + \
-  #          "1" + "\r\nEncrypt=" + "0" + "\r\nTimeZone=" + "1" + "\r\n"
-  #  if str.lower('uface') in notepad_options:
-  #      xx = str.replace(xx,'AttStamp','ATTLOGStamp')
-   #     xx = str.replace(xx,'OpStamp','OPERLOGStamp')
-    #    xx = str.replace(xx,'PhotoStamp','ATTPHOTOStamp')
-
- #   print(xx)
-#    return xx
-
 
 def get_terminal_id_from_sn(sn):
     tx = "SELECT TOP 1 terminal_id from tterminal WHERE ip_address = '" + sn+"'"
@@ -735,6 +707,8 @@ def set_env():
     global IFACE_FUNCTION_KEYS
     global ORIGINAL_BOOKINGS
     global CC_FUNCTION_KEYS
+    global MIN_STAMP
+    global MAX_STAMP
     if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
         if sqlconns.readsql_connection_timeware_main_6() == 0:
             f.error_logging(APPNAME, "Error reading database.ini file.", "error_log","")
@@ -785,6 +759,10 @@ def set_env():
                         if "cost_centre_function_keys" in listme[index]:
                             if 'true' in str.split(listme[index], '=')[1]:
                                 CC_FUNCTION_KEYS = True
+                        if "max_stamp" in listme[index]:
+                            MAX_STAMP = str.split(listme[index], '=')[1]
+                        if "min_stamp" in listme[index]:
+                            MIN_STAMP = str.split(listme[index], '=')[1]
 
                 except Exception as e:
                     return False
