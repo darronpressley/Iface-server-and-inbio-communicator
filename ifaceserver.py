@@ -56,7 +56,6 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('templates/index.html')
 
-
 class IclockHandler(tornado.web.RequestHandler):
 ##power on request
     def get(self):
@@ -68,15 +67,13 @@ class IclockHandler(tornado.web.RequestHandler):
         print(sn)
         ret = sqlconns.sql_command("UPDATE tterminal SET poll_success = ? WHERE ip_address = ?",datetime.now(),sn)
         if ret==-1: return
-        #orginal headers
-        self.set_status(200)
-        self.set_header("content-type","text/plain")
-        dte = date_time_string(sn)
-        if dte != None: self.set_header("date", dte)
         #power on send stamps and options
         power_on_getrequest = build_power_on_get_request(sn)
-        if power_on_getrequest == "": return
-        self.write(power_on_getrequest)
+        if power_on_getrequest != "": self.write(power_on_getrequest)
+        dte = date_time_string(sn)
+        bDateHeader = True # are we sending the date header?
+        if dte != None: bDateHeader = False
+        self.device_headers(dte,bDateHeader)
 
     def post(self):
         terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
@@ -106,11 +103,25 @@ class IclockHandler(tornado.web.RequestHandler):
             for index in range(len(list)):
                 ret = insert_booking(str(list[index]),terminal_id,sn,configuration,stamp)
                 if ret == -1: return
-        self.set_status(200)
-        self.set_header("content-type","text/plain")
-        dte = date_time_string(sn)
-        if dte != None: self.set_header("date", dte)
         self.write("OK")
+        dte = date_time_string(sn)
+        bDateHeader = True # are we sending the date header?
+        if dte != None: bDateHeader = False
+        self.device_headers(dte,bDateHeader)
+
+    def device_headers(self,dte,bDateHeader):
+        #self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_headers("Server")
+        self.clear("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status","OK")
+        self.set_header("cotent-type", "text/plain")
+        #send time header or not
+        if bDateHeader:
+            self.set_header("Date",dte)
+        else:
+            self.clear_headers("Date")
+
 
 class IclockDevicecmdHandler(tornado.web.RequestHandler):
 #####devicecmd page, to update if commands are successful
@@ -131,10 +142,25 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
                 tx = "UPDATE d_iface_commands SET completed_flag = 1, completed_date = ?,returned = 0 WHERE iface_command_id = ?"
                 ret = sqlconns.sql_command(tx,datetime.now(),id)
                 if ret==-1: return
-        self.set_header("content-type","text/plain")
-        dte = date_time_string(sn)
-        if dte != None: self.set_header("date", dte)
         self.write("OK")
+        dte = date_time_string(sn)
+        bDateHeader = True # are we sending the date header?
+        if dte != None: bDateHeader = False
+        self.device_headers(dte,bDateHeader)
+
+    def device_headers(self,dte,bDateHeader):
+        #self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_headers("Server")
+        self.clear("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status","OK")
+        self.set_header("cotent-type", "text/plain")
+        #send time header or not
+        if bDateHeader:
+            self.set_header("Date",dte)
+        else:
+            self.clear_headers("Date")
+
 
 class IclockGetrequestHandler(tornado.web.RequestHandler):
 ###cdata page to send commands to the clock
@@ -142,19 +168,10 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        uface = False
+        uface = False#TODO this line is legacy. can it be removed
         tx = "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
         notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
-        if "uface" in str.lower(notepad_options):uface = True
-        #OVERRIDE whether UFACE OR NOT with uface=~True
-        uface = True
-        self.set_status(200)
-        #lines below awapped
-        #if uface==True: self.set_header("HTTP","1.1")
-        self.set_header("HTTP", "1.1")
-        self.set_header("content-type","text/plain")
-        dte = date_time_string(sn)
-        if dte != None: self.set_header("date", dte)
+        if "uface" in str.lower(notepad_options):uface = True #TODO this line is legacy, can it be removed
         data_list = get_commands_list(sn)
         if data_list==-1:
             return
@@ -167,9 +184,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         #used to do this for uface terminals now do for all
         if len(data_list) == 0:
             ok = "OK"
-            self.set_header("Content-Length", len(ok))
             self.write(ok)
-
         for index in range(len(data_list)):
             if data_list[index][1] == "REBOOT":
                 reboot = 1
@@ -183,7 +198,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
             ret = update_commands_to_sent_status(data_list[index][0])
             if ret==-1:return
         if data!="":
-            self.set_header("Content-Length", len(data))
             self.write(data)
             return
         if clear_data==1:
@@ -192,6 +206,23 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         if reboot==1:
             self.write("C:ID"+str(data_list[index][0])+":REBOOT\r\n")
         return
+        dte = date_time_string(sn)
+        bDateHeader = True # are we sending the date header?
+        if dte != None: bDateHeader = False
+        self.device_headers(dte,bDateHeader)
+
+    def device_headers(self,dte,bDateHeader):
+        #self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_headers("Server")
+        self.clear("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status","OK")
+        self.set_header("cotent-type", "text/plain")
+        #send time header or not
+        if bDateHeader:
+            self.set_header("Date",dte)
+        else:
+            self.clear_headers("Date")
 
 class TestPage(tornado.web.RequestHandler):
     def get(self):
@@ -419,11 +450,17 @@ def save_op_stamp(stamp,terminal_id,sn):
     #if stamp is too big then bomb out for safety...do not record stamps than can be from 1970 eg 3300000000
     # typical stamp is 601659677, that is 9 digits long
     #get MAX and MIN stamps from general.ini
-    if int(stamp) > MAX_STAMP or int(stamp) < MIN_STAMP: return
+
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     tx = "UPDATE d_iface_stamps SET stamp = " + stamp + ",date_added = " + date_now  + ",sn = '" + sn + "' WHERE table_name = 'op_stamp' AND terminal_id = " + str(terminal_id) + ""\
                 " IF @@ROWCOUNT=0" \
                 " INSERT INTO d_iface_stamps(table_name,stamp,terminal_id,date_added,sn) VALUES ('op_stamp','" + stamp + "','" + str(terminal_id) + "'," + date_now + ",'" + sn + "')"
+
+    #just replace op_stamp with bad_op_stamp
+    if int(stamp) > MAX_STAMP or int(stamp) < MIN_STAMP:
+        tx =str.replace(tx, 'op_stamp', 'bad_op_stamp')
+        return
+
     ret = sqlconns.sql_command(tx)
     if ret==-1: return -1
     return
@@ -434,8 +471,9 @@ def save_op_log(xx,terminal_id,sn):
         dte = list[2]
         #push button
         if list[3] == "53":
-            tx = "INSERT INTO taccess_archive (user_id,employee_id,terminal_id,date_and_time,flag,badge) VALUES (0,0,?,?,?,0)"
-            ret = sqlconns.sql_command(tx,terminal_id,dte,8)
+            tx = "if (SELECT COUNT (*) from taccess_archive WHERE terminal_id = ? AND date_And_time = ? AND flag = ?)>0"\
+                 "INSERT INTO taccess_archive (user_id,employee_id,terminal_id,date_and_time,flag,badge) VALUES (0,0,?,?,?,0)"
+            ret = sqlconns.sql_command(tx,terminal_id,dte,8,terminal_id,dte,8)
             if ret==-1: return -1
     return
 
@@ -448,6 +486,25 @@ def save_user_face(xx,terminal_id):
     valid = list[3].replace("VALID=","")
     tmp = list[4].replace("TMP=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
+    #check if already there
+    tx = "SELECT TOP 1 d_iface_face_id from d_iface_tmp WHERE terminal_id="+ str(terminal_id)+ " AND employee_id ="+ user_id+ " AND fid="+fid+" AND [tmp] ='"+ tmp+ "'"
+    ret = sqlconns.sql_select_single_field(tx)
+    print('return from see if duplicate face')
+    if int(ret) > 0:
+        tx = "If ("
+        "SELECT count(*) from d_iface_tmp"
+        " where d_iface_face_id = " + str(int(ret)) + " and repoll_count is null) > 0"
+        " UPDATE d_iface_tmp"
+        " SET repoll_count = 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_face_id =" + str(int(ret)) + ""
+        " ELSE"
+        " UPDATE d_iface_tmp"
+        " SET repoll_count = repoll_count + 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_Face_id = " + str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        return 1
     tx = "UPDATE d_iface_tmp SET size = '" + size + "',[valid]="+valid+", [tmp]='" + tmp + "',date_added="+date_now+",terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + " AND fid="+fid+"" \
                 " IF @@ROWCOUNT=0" \
                 " INSERT INTO d_iface_tmp(employee_id,size,tmp,date_added,[valid],fid,terminal_id) VALUES ('"+user_id+"','"+size+"','"+tmp+"',"+date_now+","+valid+","+fid+","+str(terminal_id)+")"
@@ -466,6 +523,24 @@ def save_user_finger(xx,terminal_id):
     size = list[2].replace("Size=","")
     valid = list[3].replace("Valid=","")
     tmp = list[4].replace("TMP=","")
+    #check if exists
+    tx = "Select top 1 [d_iface_finger_id] from d_iface_finger WHERE employee_id =" + user_id + " AND fid="+fid+ " AND terminal_id = "+ str(terminal_id)+" AND tmp = '"+ tmp + "'"
+    ret = sqlconns.sql_command_args(tx)
+    if int(ret) > 0:
+        tx = "If ("
+        "SELECT count(*) from d_iface_finger"
+        " where d_iface_finger_id = "+str(int(ret))+ " and repoll_count is null) > 0"
+        " UPDATE d_iface_finger"
+        " SET repoll_count = 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_finger_id ="+ str(int(ret))+ ""
+        " ELSE"
+        " UPDATE d_iface_finger"
+        " SET repoll_count = repoll_count + 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_finger_id = "+ str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        return 1
     #clear old templates
     tx = "DELETE from d_iface_finger WHERE employee_id = " + str(user_id) + " AND date_added < dateadd(minute,-" + str(FINGER_DELETION_MINS) + ",getdate())"
     sqlconns.sql_command(tx)
@@ -499,6 +574,24 @@ def save_user_photo(xx,terminal_id):
     size = list[2].replace("Size=","")
     content = list[3].replace("Content=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
+    #check exixts and dont write
+    tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND terminal_id = "+ str(terminal_id)+" AND content = '"+ content + "'"
+    ret = sqlconns.sql_command_args(tx)
+    if int(ret) > 0:
+        tx = "If ("
+        "SELECT count(*) from d_iface_photo"
+        " where d_iface_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"
+        " UPDATE d_iface_photo"
+        " SET repoll_count = 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_photo_id ="+ str(int(ret))+ ""
+        " ELSE"
+        " UPDATE d_iface_photo"
+        " SET repoll_count = repoll_count + 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_photo_id = "+ str(int(ret))
+        return 1
+    #photo does not exist, carry on
     tx = "UPDATE d_iface_photo SET size = '" + size + "', content='" + content + "',date_added="+date_now+",terminal_id="+str(terminal_id)+",new=1 WHERE employee_id =" + user_id + "" \
                     " IF @@ROWCOUNT=0" \
                     " INSERT INTO d_iface_photo(employee_id,file_name,size,content,date_added,terminal_id,new) VALUES ('"+user_id+"','"+file_name+"','"+size+"','"+content+"',"+date_now+","+str(terminal_id)+",1)"
@@ -600,6 +693,28 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     emp_id = int(list[0])
     booking = list[1]
     flag = 0
+    #if stamp is bad do not save it
+    if int(stamp) >= int(MAX_STAMP) or int(stamp) <= int(MIN_STAMP):
+        date_now = f.get_sql_date(datetime.now(), "yyyy-mm-dd hh:mm:ss")
+        tx = "UPDATE d_iface_stamps SET stamp = " + stamp + ",date_added = " + date_now + ",sn = '" + str(
+            sn) + "'  WHERE table_name = 'bad_att_stamp' AND terminal_id = " + str(terminal_id) + "" \
+            " IF @@ROWCOUNT=0" \
+            " INSERT INTO d_iface_stamps(table_name,stamp,terminal_id,date_added,sn) VALUES ('bad_att_stamp','" + stamp + "'," + str(
+            terminal_id) + "," + \
+             date_now + ",'" + str(sn) + "')"
+        ret = sqlconns.sql_command(tx)
+        if ret == -1: return -1
+        return 1 #bad stamp, do not save the record
+
+    #check if in att log table and bail out if need be
+    test_dte = f.iface_string_to_date_format(booking)
+    test_booking = f.get_sql_date(test_dte, "yyyy-mm-dd hh:mm:ss")
+    if int(list[2]) != 100:
+        if bAttNotFound (sn,emp_id,test_booking): return 1
+    #if a cost centre clocking then check att_log_table and bail out if need be
+    else:
+        if bAttEventNotFound(terminal_id, emp_id, test_booking): return 1
+
     if IFACE_FUNCTION_KEYS == True:
         if int(list[4])  == 3: flag = 3
     #backup attendance clocking, may add as an option in future, may add a purge to the build commands script anything older than a year?
@@ -611,8 +726,11 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     if ret==-1: return -1
 
     dte = f.iface_string_to_date_format(booking)
+
+    #DEVICE = ACCESS CONTROL TERMINAL
     if configuration == ACCESS_TERMINAL:
         booking = f.get_sql_date(dte,"yyyy-mm-dd hh:mm:ss")
+        #if booking not found then write it
         tx = "INSERT INTO taccess_archive (user_id,employee_id,terminal_id,date_and_time,flag,badge)"\
             "   VALUES (0," + str(emp_id) + "," + str(terminal_id) + "," + booking + ",1,0)"
         ret = sqlconns.sql_command(tx)
@@ -624,11 +742,10 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         if roll_call_enabled ==True:
             ret = update_roll_call_table (emp_id,reader,reader_direction,reader_description,terminal_id,zone_id,dte)
             if ret ==-1 : return -1
-
     elif configuration == ATTENDANCE_TERMINAL:
         booking = f.get_sql_date(dte, "yyyy-mm-dd hh:mm")
         #cost centre clocking = 100
-        #if code is differt to 100 then it also needs an attendance entry
+        #if code is differentt to 100 then it also needs an attendance entry
         if int(list[2]) !=100:
             #this is the ACTUAL ATTENDANCE swipe
             tx = "INSERT INTO twork_unprocessed (employee_id,terminal_id,date_and_time,[type],flag,[key],memo,authorisation,authorisation_finalised,source)"\
@@ -672,9 +789,54 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
                     " IF @@ROWCOUNT=0" \
                     " INSERT INTO d_iface_stamps(table_name,stamp,terminal_id,date_added,sn) VALUES ('att_stamp','" + stamp + "'," + str(terminal_id) + "," + \
                     date_now + ",'" + str(sn) + "')"
+
     ret = sqlconns.sql_command(tx)
     if ret==-1: return -1
     return 1
+
+def bAttNotFound (sn,emp_id,booking):
+    tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE sn = '"+ sn+ "' AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
+    ret = sqlconns.sql_select_single_field(tx)
+    print('ret from see if att log is there',ret)
+    if int(ret) > 0:
+        tx = "If ("
+        "SELECT count(*) from d_iface_att"
+        " where d_iface_events_id = "+str(int(ret))+ " and repoll_count is null) > 0"
+        " UPDATE d_iface_att"
+        " SET repoll_count = 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_events_id ="+ str(int(ret))+ ""
+        " ELSE"
+        " UPDATE d_iface_att"
+        " SET repoll_count = repoll_count + 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_events_id = "+ str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        return False
+    else:
+        return True
+
+def bAttEventNotFound (terminal_id,emp_id,booking):
+    tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE terminal_id = "+ str(terminal_id) + " AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
+    ret = sqlconns.sql_select_single_field(tx)
+    print('ret from see if att EVENT log is there',ret)
+    if int(ret) > 0:
+        tx = "If ("
+        "SELECT count(*) from d_iface_att_event"
+        " where d_iface_events_id = "+str(int(ret))+ " and repoll_count is null) > 0"
+        " UPDATE d_iface_att_event"
+        " SET repoll_count = 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_events_id ="+ str(int(ret))+ ""
+        " ELSE"
+        " UPDATE d_iface_att_event"
+        " SET repoll_count = repoll_count + 1,"
+        " repoll_date = getdate()"
+        " WHERE d_iface_events_id = "+ str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        return False
+    else:
+        return True
 
 def get_terminal_roll_call_info(terminal_id):
     tx = "SELECT TOP 1 roll_call_enabled,r1_direction,r1_description,r1_zone_id FROM tterminal WHERE terminal_id = " + str(terminal_id)
