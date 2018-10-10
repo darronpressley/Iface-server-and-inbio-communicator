@@ -49,7 +49,7 @@ ORIGINAL_BOOKINGS = True
 #mins and max stamps allowed to be recorded to prevent repoll issues
 #criteris is > and < than
 MIN_STAMP = 9998
-MAX_STAMP = 199999999
+MAX_STAMP = 1999999999
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -57,6 +57,8 @@ class MainHandler(tornado.web.RequestHandler):
         self.render('templates/index.html')
 
 class IclockHandler(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
 ##power on request
     def get(self):
         print(self.request.remote_ip)
@@ -71,8 +73,8 @@ class IclockHandler(tornado.web.RequestHandler):
         power_on_getrequest = build_power_on_get_request(sn)
         if power_on_getrequest != "": self.write(power_on_getrequest)
         dte = date_time_string(sn)
-        bDateHeader = True # are we sending the date header?
-        if dte != None: bDateHeader = False
+        bDateHeader = False # are we sending the date header?
+        #if dte != None: bDateHeader = True do not send dte heaaer in power on
         self.device_headers(dte,bDateHeader)
 
     def post(self):
@@ -105,14 +107,13 @@ class IclockHandler(tornado.web.RequestHandler):
                 if ret == -1: return
         self.write("OK")
         dte = date_time_string(sn)
-        bDateHeader = True # are we sending the date header?
-        if dte != None: bDateHeader = False
+        bDateHeader = False # are we sending the date header?
+        if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
 
     def device_headers(self,dte,bDateHeader):
-        #self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
         self.clear_header("Server")
-        self.clear_header("Etag")
         self.set_header("HTTP", "1.1")
         self.set_header("Status","OK")
         self.set_header("cotent-type", "text/plain")
@@ -124,10 +125,13 @@ class IclockHandler(tornado.web.RequestHandler):
 
 
 class IclockDevicecmdHandler(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
 #####devicecmd page, to update if commands are successful
     def post(self):
+        print("ARRIVED at return the cmd if ok")
         sn = self.request.uri.replace("/iclock/devicecmd?SN=","")
-        terminal_id = get_terminal_id_from_sn(sn)
+        #terminal_id = get_terminal_id_from_sn(sn)#TODO is this line used?
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         cmd_list = postvars.split("\n")
@@ -141,17 +145,17 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
                 returned = int(commands[1].replace("Return=",""))
                 tx = "UPDATE d_iface_commands SET completed_flag = 1, completed_date = ?,returned = 0 WHERE iface_command_id = ?"
                 ret = sqlconns.sql_command(tx,datetime.now(),id)
+                print(tx," ret = ", ret,id)
                 if ret==-1: return
         self.write("OK")
         dte = date_time_string(sn)
-        bDateHeader = True # are we sending the date header?
-        if dte != None: bDateHeader = False
+        bDateHeader = False # are we sending the date header?
+        if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
 
     def device_headers(self,dte,bDateHeader):
-        #self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
         self.clear_header("Server")
-        self.clear_header("Etag")
         self.set_header("HTTP", "1.1")
         self.set_header("Status","OK")
         self.set_header("cotent-type", "text/plain")
@@ -163,11 +167,14 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
 
 
 class IclockGetrequestHandler(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
 ###cdata page to send commands to the clock
     def get(self):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        print("asked for commands", sn)
         uface = False#TODO this line is legacy. can it be removed
         tx = "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
         notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
@@ -197,24 +204,27 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
                 data = data + "C:ID"+str(data_list[index][0])+":"+data_list[index][1]+"\r\n"
             ret = update_commands_to_sent_status(data_list[index][0])
             if ret==-1:return
+        print('COMMANDS', data)
         if data!="":
             self.write(data)
+            dte = date_time_string(sn)
+            bDateHeader = False  # are we sending the date header?
+            if dte != None: bDateHeader = True
+            self.device_headers(dte, bDateHeader)
             return
         if clear_data==1:
             self.write("C:ID"+str(data_list[index][0])+":CLEAR DATA\r\n")
             self.write(data)
         if reboot==1:
             self.write("C:ID"+str(data_list[index][0])+":REBOOT\r\n")
-        return
         dte = date_time_string(sn)
-        bDateHeader = True # are we sending the date header?
-        if dte != None: bDateHeader = False
+        bDateHeader = False # are we sending the date header?
+        if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
 
     def device_headers(self,dte,bDateHeader):
-        #self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
         self.clear_header("Server")
-        self.clear_header("Etag")
         self.set_header("HTTP", "1.1")
         self.set_header("Status","OK")
         self.set_header("cotent-type", "text/plain")
@@ -225,6 +235,9 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
             self.clear_header("Date")
 
 class TestPage(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
+
     def get(self):
         if OLD_TIME == True:
             old_time_status = 'Oldtime option = ON.<br>'
@@ -254,6 +267,22 @@ class TestPage(tornado.web.RequestHandler):
                                                 + 'Max Stamp = ' + str(MAX_STAMP) + '.<br><br>'\
                                                + get_terminal_status_list() +'</HTML>')
         self.write(data)
+        self.device_headers(None,False)
+
+    def device_headers(self, dte, bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("Etag", "")
+        self.clear_header("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status", "OK")
+        #line removed for the test page
+        #self.set_header("content-type", "text/plain")
+        # send time header or not
+        if bDateHeader:
+            self.set_header("Date", dte)
+        else:
+            self.clear_header("Date")
 
 
 class DeviceOptions(tornado.web.RequestHandler):
@@ -467,6 +496,7 @@ def save_op_stamp(stamp,terminal_id,sn):
 
 def save_op_log(xx,terminal_id,sn):
     list = xx.split("\t")
+    print('OPLOG LIST', list)
     if list[0] == "OPLOG 3":
         dte = list[2]
         #push button
@@ -474,6 +504,7 @@ def save_op_log(xx,terminal_id,sn):
             tx = "if (SELECT COUNT (*) from taccess_archive WHERE terminal_id = ? AND date_And_time = ? AND flag = ?)>0"\
                  "INSERT INTO taccess_archive (user_id,employee_id,terminal_id,date_and_time,flag,badge) VALUES (0,0,?,?,?,0)"
             ret = sqlconns.sql_command(tx,terminal_id,dte,8,terminal_id,dte,8)
+            print(tx," ret from this insert ",ret)
             if ret==-1: return -1
     return
 
@@ -604,6 +635,7 @@ def save_user_photo(xx,terminal_id):
     return ret
 
 def build_power_on_get_request(sn):
+    print("power on ", datetime.now())
     terminal_id = get_terminal_id_from_sn(sn)
     if terminal_id=="": return ""
     att_stamp = 1
@@ -618,8 +650,6 @@ def build_power_on_get_request(sn):
         return ret
     tx =   "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
     notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
-    #stamp_strings = "\r\nStamp=" + str(att_stamp)
-
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
     trans_flag_string = "1"
     if 'uface' in notepad_options:

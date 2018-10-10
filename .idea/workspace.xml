@@ -2,14 +2,15 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="758" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="247" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="632" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="788" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="260" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="662" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tut20.py" beforeDir="false" afterPath="$PROJECT_DIR$/tut20.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,12 +47,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="3395" />
+          <entry key="Python" value="3976" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3395" />
+          <entry key="py" value="3976" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -67,12 +68,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="579" column="34" selection-start-line="579" selection-start-column="34" selection-end-line="579" selection-end-column="34" />
+            <state relative-caret-position="671">
+              <caret line="766" column="92" lean-forward="true" selection-start-line="766" selection-start-column="92" selection-end-line="766" selection-end-column="92" />
               <folding>
-                <marker date="1539100130769" expanded="true" signature="2004:2008" ph="..." />
-                <marker date="1539100130769" expanded="true" signature="2023:2032" ph="..." />
-                <marker date="1539100130769" expanded="true" signature="35194:37113" ph="..." />
+                <marker date="1539163576241" expanded="true" signature="2089:2093" ph="..." />
+                <marker date="1539163576241" expanded="true" signature="2108:2117" ph="..." />
+                <marker date="1539163576241" expanded="true" signature="36381:38300" ph="..." />
               </folding>
             </state>
           </provider>
@@ -102,8 +103,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tut20.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1649">
-              <caret line="97" selection-start-line="97" selection-end-line="97" />
+            <state relative-caret-position="493">
+              <caret line="98" column="29" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -111,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/iface analyser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="288" column="32" lean-forward="true" selection-start-line="288" selection-start-column="32" selection-end-line="288" selection-end-column="32" />
+            <state relative-caret-position="375">
+              <caret line="324" column="17" lean-forward="true" selection-start-line="324" selection-start-column="17" selection-end-line="324" selection-end-column="17" />
               <folding>
                 <element signature="e#424#435#0" expanded="true" />
               </folding>
@@ -123,8 +124,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="136">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#234#269#0" expanded="true" />
               </folding>
@@ -143,12 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>uface</find>
-      <find>notime</find>
-      <find>commands</find>
-      <find>cdata</find>
-      <find>started</find>
-      <find>power</find>
       <find>cmd</find>
       <find>photo</find>
       <find>print</find>
@@ -165,7 +160,6 @@
       <find>save_user_face</find>
       <find>save_op_stamp</find>
       <find>save</find>
-      <find>save_op_log</find>
       <find>header</find>
       <find>insert</find>
       <find>bad_att</find>
@@ -173,6 +167,13 @@
       <find>bad</find>
       <find>493:0</find>
       <find>493</find>
+      <find>200</find>
+      <find>bDateHeader</find>
+      <find>powe</find>
+      <find>power</find>
+      <find>oplog</find>
+      <find>save_op_log</find>
+      <find>access_archive</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -240,9 +241,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1814" />
-    <option name="y" value="97" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-1663" />
+    <option name="y" value="206" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -592,8 +593,8 @@
       <list>
         <item itemvalue="Python.iface analyser" />
         <item itemvalue="Python.iface tester" />
-        <item itemvalue="Python.SQL Connector" />
         <item itemvalue="Python.tut20" />
+        <item itemvalue="Python.SQL Connector" />
         <item itemvalue="Python.https_test" />
       </list>
     </recent_temporary>
@@ -644,7 +645,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-40" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15331928" />
@@ -964,15 +965,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tut20.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
+        <state relative-caret-position="493">
+          <caret line="98" column="29" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#234#269#0" expanded="true" />
           </folding>
@@ -981,8 +982,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/iface analyser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="288" column="32" lean-forward="true" selection-start-line="288" selection-start-column="32" selection-end-line="288" selection-end-column="32" />
+        <state relative-caret-position="375">
+          <caret line="324" column="17" lean-forward="true" selection-start-line="324" selection-start-column="17" selection-end-line="324" selection-end-column="17" />
           <folding>
             <element signature="e#424#435#0" expanded="true" />
           </folding>
@@ -991,12 +992,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="579" column="34" selection-start-line="579" selection-start-column="34" selection-end-line="579" selection-end-column="34" />
+        <state relative-caret-position="671">
+          <caret line="766" column="92" lean-forward="true" selection-start-line="766" selection-start-column="92" selection-end-line="766" selection-end-column="92" />
           <folding>
-            <marker date="1539100130769" expanded="true" signature="2004:2008" ph="..." />
-            <marker date="1539100130769" expanded="true" signature="2023:2032" ph="..." />
-            <marker date="1539100130769" expanded="true" signature="35194:37113" ph="..." />
+            <marker date="1539163576241" expanded="true" signature="2089:2093" ph="..." />
+            <marker date="1539163576241" expanded="true" signature="2108:2117" ph="..." />
+            <marker date="1539163576241" expanded="true" signature="36381:38300" ph="..." />
           </folding>
         </state>
       </provider>
