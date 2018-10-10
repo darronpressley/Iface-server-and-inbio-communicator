@@ -2,13 +2,13 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="756" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="758" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="247" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="632" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
@@ -46,12 +46,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="3050" />
+          <entry key="Python" value="3395" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3050" />
+          <entry key="py" value="3395" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -67,12 +67,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="144" selection-start-line="144" selection-end-line="144" />
+            <state relative-caret-position="348">
+              <caret line="579" column="34" selection-start-line="579" selection-start-column="34" selection-end-line="579" selection-end-column="34" />
               <folding>
-                <marker date="1539096716890" expanded="true" signature="2004:2008" ph="..." />
-                <marker date="1539096716890" expanded="true" signature="2023:2032" ph="..." />
-                <marker date="1539096716890" expanded="true" signature="35176:36945" ph="..." />
+                <marker date="1539100130769" expanded="true" signature="2004:2008" ph="..." />
+                <marker date="1539100130769" expanded="true" signature="2023:2032" ph="..." />
+                <marker date="1539100130769" expanded="true" signature="35194:37113" ph="..." />
               </folding>
             </state>
           </provider>
@@ -111,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/iface analyser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4828">
-              <caret line="294" column="28" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
+            <state relative-caret-position="528">
+              <caret line="288" column="32" lean-forward="true" selection-start-line="288" selection-start-column="32" selection-end-line="288" selection-end-column="32" />
               <folding>
                 <element signature="e#424#435#0" expanded="true" />
               </folding>
@@ -143,12 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>finger</find>
-      <find>save_user_finger</find>
-      <find>pow</find>
-      <find>returned</find>
-      <find>at</find>
-      <find>op_stamp</find>
       <find>uface</find>
       <find>notime</find>
       <find>commands</find>
@@ -166,13 +160,19 @@
       <find>count</find>
       <find>count(*)</find>
       <find>repol</find>
-      <find>insert</find>
       <find>repoll</find>
       <find>save_user_photo</find>
       <find>save_user_face</find>
       <find>save_op_stamp</find>
       <find>save</find>
       <find>save_op_log</find>
+      <find>header</find>
+      <find>insert</find>
+      <find>bad_att</find>
+      <find>MIN_STAMP</find>
+      <find>bad</find>
+      <find>493:0</find>
+      <find>493</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -241,8 +241,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1945" />
-    <option name="y" value="10" />
+    <option name="x" value="-1814" />
+    <option name="y" value="97" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -314,7 +314,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.iface tester">
+  <component name="RunManager" selected="Python.iface analyser">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -590,8 +590,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.iface tester" />
         <item itemvalue="Python.iface analyser" />
+        <item itemvalue="Python.iface tester" />
         <item itemvalue="Python.SQL Connector" />
         <item itemvalue="Python.tut20" />
         <item itemvalue="Python.https_test" />
@@ -652,13 +652,13 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8967334" weight="0.283857" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3625793" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.89620656" visible="true" weight="0.283857" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.1032666" side_tool="true" visible="true" weight="0.283857" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.103793465" side_tool="true" visible="true" weight="0.283857" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32980973" />
@@ -945,18 +945,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="144" selection-start-line="144" selection-end-line="144" />
-          <folding>
-            <marker date="1539096716890" expanded="true" signature="2004:2008" ph="..." />
-            <marker date="1539096716890" expanded="true" signature="2023:2032" ph="..." />
-            <marker date="1539096716890" expanded="true" signature="35176:36945" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SQL Connector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1207">
@@ -981,22 +969,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/iface analyser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4828">
-          <caret line="294" column="28" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
-          <folding>
-            <element signature="e#424#435#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#234#269#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iface analyser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="288" column="32" lean-forward="true" selection-start-line="288" selection-start-column="32" selection-end-line="288" selection-end-column="32" />
+          <folding>
+            <element signature="e#424#435#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="579" column="34" selection-start-line="579" selection-start-column="34" selection-end-line="579" selection-end-column="34" />
+          <folding>
+            <marker date="1539100130769" expanded="true" signature="2004:2008" ph="..." />
+            <marker date="1539100130769" expanded="true" signature="2023:2032" ph="..." />
+            <marker date="1539100130769" expanded="true" signature="35194:37113" ph="..." />
           </folding>
         </state>
       </provider>
