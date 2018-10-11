@@ -61,12 +61,9 @@ class IclockHandler(tornado.web.RequestHandler):
         return None
 ##power on request
     def get(self):
-        print(self.request.remote_ip)
         list = self.request.uri.split("?SN=")
-        print(list)
         list2 = list[1].split("&")
         sn = list2[0]
-        print(sn)
         ret = sqlconns.sql_command("UPDATE tterminal SET poll_success = ? WHERE ip_address = ?",datetime.now(),sn)
         if ret==-1: return
         #power on send stamps and options
@@ -86,7 +83,6 @@ class IclockHandler(tornado.web.RequestHandler):
         if table_type =="": return
         if table_type == "OPERLOG":
             for index in range(len(list)):
-                print(list)
                 if "USERPIC" in list[index]:
                     ret = save_user_photo(list[index],terminal_id)
                     if ret==-1: return -1.
@@ -129,13 +125,11 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
         return None
 #####devicecmd page, to update if commands are successful
     def post(self):
-        print("ARRIVED at return the cmd if ok")
         sn = self.request.uri.replace("/iclock/devicecmd?SN=","")
         #terminal_id = get_terminal_id_from_sn(sn)#TODO is this line used?
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         cmd_list = postvars.split("\n")
-        print (cmd_list)
         for index in range(len(cmd_list)):
             commands = cmd_list[index].split("&")
             if len(commands)==3:
@@ -145,7 +139,6 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
                 returned = int(commands[1].replace("Return=",""))
                 tx = "UPDATE d_iface_commands SET completed_flag = 1, completed_date = ?,returned = 0 WHERE iface_command_id = ?"
                 ret = sqlconns.sql_command(tx,datetime.now(),id)
-                print(tx," ret = ", ret,id)
                 if ret==-1: return
         self.write("OK")
         dte = date_time_string(sn)
@@ -174,7 +167,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        print("asked for commands", sn)
         uface = False#TODO this line is legacy. can it be removed
         tx = "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
         notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
@@ -204,7 +196,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
                 data = data + "C:ID"+str(data_list[index][0])+":"+data_list[index][1]+"\r\n"
             ret = update_commands_to_sent_status(data_list[index][0])
             if ret==-1:return
-        print('COMMANDS', data)
         if data!="":
             self.write(data)
             dte = date_time_string(sn)
@@ -450,10 +441,10 @@ def date_time_string_test(tx):
     return s
 
 def log_initialise():
-    f.error_logging(APPNAME, "server started", "error_log","")
+    f.error_logging(APPNAME, "server started.", "error_log","")
 
 def log_exit():
-    f.error_logging(APPNAME, "iface clean exit", "error_log","")
+    f.error_logging(APPNAME, "iface clean exit.", "error_log","")
 
 def log_arg(tx):
     #delete when not needed
@@ -496,7 +487,6 @@ def save_op_stamp(stamp,terminal_id,sn):
 
 def save_op_log(xx,terminal_id,sn):
     list = xx.split("\t")
-    print('OPLOG LIST', list)
     if list[0] == "OPLOG 3":
         dte = list[2]
         #push button
@@ -504,7 +494,6 @@ def save_op_log(xx,terminal_id,sn):
             tx = "if (SELECT COUNT (*) from taccess_archive WHERE terminal_id = ? AND date_And_time = ? AND flag = ?)>0"\
                  "INSERT INTO taccess_archive (user_id,employee_id,terminal_id,date_and_time,flag,badge) VALUES (0,0,?,?,?,0)"
             ret = sqlconns.sql_command(tx,terminal_id,dte,8,terminal_id,dte,8)
-            print(tx," ret from this insert ",ret)
             if ret==-1: return -1
     return
 
@@ -520,7 +509,6 @@ def save_user_face(xx,terminal_id):
     #check if already there
     tx = "SELECT TOP 1 d_iface_face_id from d_iface_tmp WHERE employee_id ="+ user_id+ " AND fid="+fid+" AND [tmp] ='"+ tmp+ "'"
     ret = sqlconns.sql_select_single_field(tx)
-    print('return from see if duplicate face')
     if ret!= "" and int(ret) > 0:
         tx = "If ("
         "SELECT count(*) from d_iface_tmp"
@@ -635,7 +623,6 @@ def save_user_photo(xx,terminal_id):
     return ret
 
 def build_power_on_get_request(sn):
-    print("power on ", datetime.now())
     terminal_id = get_terminal_id_from_sn(sn)
     if terminal_id=="": return ""
     att_stamp = 1
@@ -669,7 +656,6 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
-    print(xx)
     return xx
 
 def get_terminal_id_from_sn(sn):
@@ -723,10 +709,8 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     emp_id = int(list[0])
     booking = list[1]
     flag = 0
-    print("start of insert booking",emp_id,booking)
     #if stamp is bad do not save it
     if int(stamp) >= int(MAX_STAMP) or int(stamp) <= int(MIN_STAMP):
-        print("MIND MAX STAMP OK")
         date_now = f.get_sql_date(datetime.now(), "yyyy-mm-dd hh:mm:ss")
         tx = "UPDATE d_iface_stamps SET stamp = " + stamp + ",date_added = " + date_now + ",sn = '" + str(
             sn) + "'  WHERE table_name = 'bad_att_stamp' AND terminal_id = " + str(terminal_id) + "" \
@@ -740,7 +724,6 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     #check if in att log table and bail out if need be
     test_dte = f.iface_string_to_date_format(booking)
     test_booking = f.get_sql_date(test_dte, "yyyy-mm-dd hh:mm:ss")
-    print("pre check if attendance found")
     if int(list[2]) != 100:
         if bAttFound (sn,emp_id,test_booking): return 1
     #if a cost centre clocking then check att_log_table and bail out if need be
@@ -753,7 +736,6 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     #this is handled in the application script
     tx = "INSERT INTO d_iface_att (stamp,emp_id,date_and_time,sn)"\
         " VALUES ('" + stamp + "'," + str(emp_id) + ",'" + booking + "','" + sn + "')"
-    print(tx)
     ret = sqlconns.sql_command(tx)
     if ret==-1: return -1
 
@@ -828,13 +810,9 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 
 def bAttFound (sn,emp_id,booking):
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE sn = '"+ sn+ "' AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
-    print(tx)
     ret = sqlconns.sql_select_single_field(tx)
-    print("IN bAttFound",ret)
     if ret == "":
-        print("ATT booking not found")
         return False
-    print('ret from see if att log is there',ret)
     if int(ret) > 0:
         tx = "If ("
         "SELECT count(*) from d_iface_att"
@@ -856,7 +834,6 @@ def bAttFound (sn,emp_id,booking):
 def bAttEventFound (terminal_id,emp_id,booking):
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE terminal_id = "+ str(terminal_id) + " AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
     ret = sqlconns.sql_select_single_field(tx)
-    print('ret from see if att EVENT log is there',ret)
     if ret == "": return False
     if int(ret) > 0:
         tx = "If ("
@@ -963,7 +940,7 @@ def set_env():
                             MAX_STAMP = str.split(listme[index], '=')[1]
                         if "min_stamp" in listme[index]:
                             MIN_STAMP = str.split(listme[index], '=')[1]
-
+                    f.error_logging(APPNAME, "Port is now: "+str(gl.server_port), "error_log", "")
                 except Exception as e:
                     return False
                 return True
@@ -1010,16 +987,16 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
 
 
-    if set_env()==True:
-        if version_check()==True:
-            log_initialise()
-            app = make_app()
-            app.listen(gl.server_port)
-            SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+   # if set_env()==True:
+    #    if version_check()==True:
+     #       log_initialise()
+      #      app = make_app()
+       #     app.listen(gl.server_port)
+        #    SERVER_STARTED = 1
+         #   logging.getLogger('tornado.access').disabled = True
+          #  tornado.ioloop.IOLoop.current().start()
 

@@ -4,7 +4,7 @@ import py2exe
 
 sys.argv.append('py2exe')
 
-packages = ["Crypto"]
+packages = ["Crypto", "encodings"]
   
 includes = ["pyodbc","os","datetime","threading","sys","time","ctypes","base64",
             "inspect","decimal","servicemanager","win32serviceutil","win32service","win32event",

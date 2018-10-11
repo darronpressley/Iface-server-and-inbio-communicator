@@ -1,56 +1,63 @@
-import sys
-import time
-import http.server
-from ctypes import *
+import win32serviceutil
+import win32service
+import win32event
+import servicemanager
+import configparser
+import os
+import inspect
+import logging
+from logging.handlers import RotatingFileHandler
 
-class MyHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        try:
-            print("IN GET" + str(self.path))
-            data = create_string_buffer(str.encode("<HTML>there's life jim ---</HTML>" + str(self.date_time_string())))
-            self.send_response(200)
-            self.do_HEAD()
-            self.wfile.write(data)
-        except Exception as e:
-            print(e)
+class AppServerSvc (win32serviceutil.ServiceFramework):
+    _svc_name_ = "MyService"
+    _svc_display_name_ = "My Service"
 
-    def do_HEAD(self):
-        print("headers")
-        self.send_header("Content-type:","text/plain")
-        self.send_header('Date', self.date_time_string())
-        self.end_headers()
+    _config = configparser.ConfigParser()
 
-    def do_POST(self):
-        print("in POST")
+    def __init__(self,args):
+        win32serviceutil.ServiceFramework.__init__(self,args)
+        self.hWaitStop = win32event.CreateEvent(None,0,0,None)
+        self._config.read(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) + '/config.ini')
+        print(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+        print(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) + '/teconfig.ini')
 
-    def log_request(self, code=None, size=None):
-        print("in log_request")
-        return
+        print(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+        print(self._config.sections())
+        logDir = self._config["DEFAULT"]["loggingDir"]
+        logPath = logDir + "/service-log.log"
 
-    def log_message(self, format, *args):
-        print("in log_message")
-        print("format = " + str(format))
-        print("args = " + str(args))
-        return
+        self._logger = logging.getLogger("MyService")
+        self._logger.setLevel(logging.DEBUG)
+        handler = RotatingFileHandler(logPath, maxBytes=4096, backupCount=10)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        self._logger.addHandler(handler)
 
-    def date_time_string(self):
-        now = time.time()
-        year, month, day, hh, mm, ss, wd, y, z = time.localtime(now)
-        #there was a space between first , and %02d
-        s = "%s,%02d %3s %4d %02d:%02d:%02d GMT" % (
-        self.weekdayname[wd],
-        day, self.monthname[month], year,hh, mm, ss)
-        return s
+    def SvcStop(self):
+        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
+        win32event.SetEvent(self.hWaitStop)
 
-class test_server():
-    server_class = http.server.HTTPServer
-    httpd = server_class(("",82), MyHandler)
-    try:
-        httpd.serve_forever()
-    except Exception as e:
-        print(e)
-        httpd.server_close()
-        sys.exit()
+    def SvcDoRun(self):
+        self.ReportServiceStatus(win32service.SERVICE_RUNNING)
+        servicemanager.LogMsg(servicemanager.EVENTLOG_INFORMATION_TYPE,
+                              servicemanager.PYS_SERVICE_STARTED,
+                              (self._svc_name_,''))
+
+        self._logger.info("Service Is Starting")
+
+        self.main()
+
+    def main(self):
+        # your code could go here
+        rc = None
+        while rc != win32event.WAIT_OBJECT_0:
+
+            # your code here...
+
+            # hang for 1 minute or until service is stopped - whichever comes first
+            rc = win32event.WaitForSingleObject(self.hWaitStop, (1 * 60 * 1000))
+
+            # your code also here ...
 
 if __name__ == '__main__':
-    tx = test_server
+    win32serviceutil.HandleCommandLine(AppServerSvc)
