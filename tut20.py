@@ -28,7 +28,14 @@ class AppServerSvc (win32serviceutil.ServiceFramework):
         pass
 
 if __name__ == '__main__':
-    win32serviceutil.HandleCommandLine(AppServerSvc)
+#win32serviceutil.HandleCommandLine(AppServerSvc)
 
+    from datetime import datetime
+    then = datetime(2018, 10, 12, 12, 8, 15)  # Random date in the past
+    now = datetime.now()  # Now
+    duration = now - then  # For build-in functions
+    duration_in_s = duration.total_seconds()
+    hours = int(divmod(duration_in_s, 3600)[0])
+    print(hours)
 
 

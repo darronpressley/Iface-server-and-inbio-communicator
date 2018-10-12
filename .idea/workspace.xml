@@ -8,11 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifaceeserver diagnostic previous version.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceeserver diagnostic previous version.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servertest.py" beforeDir="false" afterPath="$PROJECT_DIR$/servertest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup_py2exe_iface_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup_py2exe_iface_server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iface timezone resolver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tut20.py" beforeDir="false" afterPath="$PROJECT_DIR$/tut20.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
@@ -32,30 +28,31 @@
         <counts>
           <entry key="project.closed" value="10" />
           <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.5" value="4" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="17" />
+          <entry key="py" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="17" />
+          <entry key="Python" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="4053" />
+          <entry key="Python" value="6991" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="4053" />
+          <entry key="py" value="6991" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -68,21 +65,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-978">
-              <caret line="551" column="32" selection-start-line="551" selection-start-column="32" selection-end-line="551" selection-end-column="32" />
-              <folding>
-                <element signature="e#226#240#0" expanded="true" />
-                <marker date="1539247033116" expanded="true" signature="2013:2017" ph="..." />
-                <marker date="1539247033116" expanded="true" signature="2032:2041" ph="..." />
-                <marker date="1539247033116" expanded="true" signature="35764:37494" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -148,35 +130,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ifaceeserver diagnostic previous version.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="1006" column="53" selection-start-line="1006" selection-start-column="53" selection-end-line="1006" selection-end-column="53" />
+            <state relative-caret-position="314">
+              <caret line="318" column="74" lean-forward="true" selection-start-line="318" selection-start-column="74" selection-end-line="318" selection-end-column="74" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/iface analyser.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/iface timezone resolver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5100">
-              <caret line="310" selection-start-line="310" selection-end-line="310" />
+            <state relative-caret-position="347">
+              <caret line="238" column="9" lean-forward="true" selection-start-line="238" selection-start-column="9" selection-end-line="238" selection-end-column="9" />
               <folding>
-                <element signature="e#424#435#0" expanded="true" />
+                <element signature="e#876#887#0" expanded="true" />
+                <marker date="1539350439791" expanded="true" signature="1268:10694" ph="..." />
+                <marker date="1539350439791" expanded="true" signature="3820:6825" ph="..." />
+                <marker date="1539350439791" expanded="true" signature="6839:6844" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
+        <entry file="file://$PROJECT_DIR$/tut20.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
-              <folding>
-                <element signature="e#234#269#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="544">
+              <caret line="36" column="12" selection-start-line="35" selection-end-line="38" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -192,10 +174,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FUNCTION_KEYS</find>
-      <find>INSERT INTO d_iface_att</find>
-      <find>stamp</find>
-      <find>if (select</find>
       <find>count</find>
       <find>count(*)</find>
       <find>repol</find>
@@ -222,6 +200,10 @@
       <find>start</find>
       <find>setenv</find>
       <find>started</find>
+      <find>def set_</find>
+      <find>set_env</find>
+      <find>sqlconn</find>
+      <find>PRINT</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -235,7 +217,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/test_to_sql.py" />
         <option value="$PROJECT_DIR$/ifaceserver2.py" />
         <option value="$PROJECT_DIR$/iface_2.py" />
         <option value="$PROJECT_DIR$/ifacetornado.py" />
@@ -278,20 +259,21 @@
         <option value="$PROJECT_DIR$/gl.py" />
         <option value="$PROJECT_DIR$/setup_cx_iface.py" />
         <option value="$PROJECT_DIR$/../iface tester/iface tester.py" />
-        <option value="$PROJECT_DIR$/iface analyser.py" />
         <option value="$PROJECT_DIR$/set_sql_connector.py" />
         <option value="$PROJECT_DIR$/https_test.py" />
         <option value="$PROJECT_DIR$/ifaceeserver diagnostic previous version.py" />
         <option value="$PROJECT_DIR$/setup_py2exe_iface_server.py" />
-        <option value="$PROJECT_DIR$/tut20.py" />
         <option value="$PROJECT_DIR$/servertest.py" />
         <option value="$PROJECT_DIR$/ifaceserver.py" />
+        <option value="$PROJECT_DIR$/iface analyser.py" />
+        <option value="$PROJECT_DIR$/tut20.py" />
+        <option value="$PROJECT_DIR$/iface timezone resolver.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1663" />
-    <option name="y" value="206" />
+    <option name="x" value="-1303" />
+    <option name="y" value="417" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -303,6 +285,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Iface server and inbio communicator" type="cbb8eebc:String" user="Iface server and inbio communicator" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -313,17 +306,6 @@
             <path>
               <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Iface server and inbio communicator" type="cbb8eebc:String" user="Iface server and inbio communicator" />
             </path>
           </expand>
           <select />
@@ -363,7 +345,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ifaceeserver diagnostic previous version">
+  <component name="RunManager" selected="Python.iface timezone resolver">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -425,7 +407,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="iface tester" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="iface timezone resolver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iface server and inbio communicator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -433,11 +415,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Python34\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../iface tester" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../iface tester/iface tester.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/iface timezone resolver.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -632,18 +614,18 @@
       <item itemvalue="Python.ifacetornado" />
       <item itemvalue="Python.ifaceserver" />
       <item itemvalue="Python.iface analyser" />
-      <item itemvalue="Python.tut20" />
-      <item itemvalue="Python.iface tester" />
       <item itemvalue="Python.servertest" />
       <item itemvalue="Python.ifaceeserver diagnostic previous version" />
+      <item itemvalue="Python.iface timezone resolver" />
+      <item itemvalue="Python.tut20" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.iface timezone resolver" />
+        <item itemvalue="Python.tut20" />
         <item itemvalue="Python.ifaceeserver diagnostic previous version" />
         <item itemvalue="Python.servertest" />
         <item itemvalue="Python.iface analyser" />
-        <item itemvalue="Python.iface tester" />
-        <item itemvalue="Python.tut20" />
       </list>
     </recent_temporary>
   </component>
@@ -694,19 +676,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18229716" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8946259" weight="0.283857" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.89409906" visible="true" weight="0.283857" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.105374075" side_tool="true" visible="true" weight="0.283857" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.10590095" side_tool="true" visible="true" weight="0.283857" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32980973" />
@@ -768,13 +751,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/setup_inbio_config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="7" selection-end-line="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/personnel.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -968,10 +944,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tut20.py">
+    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
+        <state relative-caret-position="8925">
+          <caret line="551" column="32" selection-start-line="551" selection-start-column="32" selection-end-line="551" selection-end-column="32" />
+          <folding>
+            <element signature="e#226#240#0" expanded="true" />
+            <marker date="1539247033116" expanded="true" signature="2013:2017" ph="..." />
+            <marker date="1539247033116" expanded="true" signature="2032:2041" ph="..." />
+            <marker date="1539247033116" expanded="true" signature="35764:37494" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1028,43 +1010,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/iface analyser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5100">
-          <caret line="310" selection-start-line="310" selection-end-line="310" />
-          <folding>
-            <element signature="e#424#435#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+        <state relative-caret-position="525">
+          <caret line="135" column="21" lean-forward="true" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="21" />
           <folding>
             <element signature="e#234#269#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
+    <entry file="file://$PROJECT_DIR$/iface analyser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-978">
-          <caret line="551" column="32" selection-start-line="551" selection-start-column="32" selection-end-line="551" selection-end-column="32" />
+        <state relative-caret-position="170">
+          <caret line="231" column="17" lean-forward="true" selection-start-line="231" selection-start-column="17" selection-end-line="231" selection-end-column="17" />
           <folding>
-            <element signature="e#226#240#0" expanded="true" />
-            <marker date="1539247033116" expanded="true" signature="2013:2017" ph="..." />
-            <marker date="1539247033116" expanded="true" signature="2032:2041" ph="..." />
-            <marker date="1539247033116" expanded="true" signature="35764:37494" ph="..." />
+            <element signature="e#424#435#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tut20.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="36" column="12" selection-start-line="35" selection-end-line="38" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceeserver diagnostic previous version.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="1006" column="53" selection-start-line="1006" selection-start-column="53" selection-end-line="1006" selection-end-column="53" />
+        <state relative-caret-position="314">
+          <caret line="318" column="74" lean-forward="true" selection-start-line="318" selection-start-column="74" selection-end-line="318" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iface timezone resolver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="238" column="9" lean-forward="true" selection-start-line="238" selection-start-column="9" selection-end-line="238" selection-end-column="9" />
+          <folding>
+            <element signature="e#876#887#0" expanded="true" />
+            <marker date="1539350439791" expanded="true" signature="1268:10694" ph="..." />
+            <marker date="1539350439791" expanded="true" signature="3820:6825" ph="..." />
+            <marker date="1539350439791" expanded="true" signature="6839:6844" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
