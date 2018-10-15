@@ -2,16 +2,13 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="773" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="778" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="251" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="652" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="656" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iface timezone resolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/iface timezone resolver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tut20.py" beforeDir="false" afterPath="$PROJECT_DIR$/tut20.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,12 +46,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7549" />
+          <entry key="Python" value="7673" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7549" />
+          <entry key="py" value="7673" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -70,13 +67,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="612" column="51" lean-forward="true" selection-start-line="612" selection-start-column="51" selection-end-line="612" selection-end-column="51" />
+            <state relative-caret-position="170">
+              <caret line="582" column="29" lean-forward="true" selection-start-line="582" selection-start-column="29" selection-end-line="582" selection-end-column="29" />
               <folding>
                 <element signature="e#226#240#0" expanded="true" />
-                <marker date="1539589011379" expanded="true" signature="2013:2017" ph="..." />
-                <marker date="1539589011379" expanded="true" signature="2032:2041" ph="..." />
-                <marker date="1539589011379" expanded="true" signature="35973:37814" ph="..." />
+                <marker date="1539599314716" expanded="true" signature="2013:2017" ph="..." />
+                <marker date="1539599314716" expanded="true" signature="2032:2041" ph="..." />
+                <marker date="1539599314716" expanded="true" signature="36154:37987" ph="..." />
               </folding>
             </state>
           </provider>
@@ -125,11 +122,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>repoll</find>
-      <find>save_user_photo</find>
-      <find>save_user_face</find>
       <find>save_op_stamp</find>
-      <find>save</find>
       <find>header</find>
       <find>insert</find>
       <find>bad_att</find>
@@ -153,8 +146,12 @@
       <find>PRINT</find>
       <find>sqlconn</find>
       <find>python_sql</find>
-      <find>batt</find>
       <find>if (</find>
+      <find>att</find>
+      <find>batt</find>
+      <find>build_power</find>
+      <find>save</find>
+      <find>save_user_finger</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -222,9 +219,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-1303" />
-    <option name="y" value="417" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-1929" />
+    <option name="y" value="-32" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -626,7 +623,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
+    <frame x="-1929" y="-32" width="1936" height="1056" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18229716" />
@@ -997,13 +994,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="612" column="51" lean-forward="true" selection-start-line="612" selection-start-column="51" selection-end-line="612" selection-end-column="51" />
+        <state relative-caret-position="170">
+          <caret line="582" column="29" lean-forward="true" selection-start-line="582" selection-start-column="29" selection-end-line="582" selection-end-column="29" />
           <folding>
             <element signature="e#226#240#0" expanded="true" />
-            <marker date="1539589011379" expanded="true" signature="2013:2017" ph="..." />
-            <marker date="1539589011379" expanded="true" signature="2032:2041" ph="..." />
-            <marker date="1539589011379" expanded="true" signature="35973:37814" ph="..." />
+            <marker date="1539599314716" expanded="true" signature="2013:2017" ph="..." />
+            <marker date="1539599314716" expanded="true" signature="2032:2041" ph="..." />
+            <marker date="1539599314716" expanded="true" signature="36154:37987" ph="..." />
           </folding>
         </state>
       </provider>

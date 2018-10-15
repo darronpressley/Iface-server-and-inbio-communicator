@@ -545,7 +545,8 @@ def save_user_finger(xx,terminal_id):
     tmp = list[4].replace("TMP=","")
     #check if exists
     tx = "Select top 1 [d_iface_finger_id] from d_iface_finger WHERE employee_id =" + user_id + " AND fid="+fid+ " AND tmp = '"+ tmp + "'"
-    ret = sqlconns.sql_command_args(tx)
+    ret = sqlconns.sql_select_single_field(tx)
+    print('ret = ', ret, 'save user finger check', tx)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
         "SELECT count(*) from d_iface_finger"\
@@ -559,6 +560,7 @@ def save_user_finger(xx,terminal_id):
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
         " WHERE d_iface_finger_id = "+ str(int(ret))
+        print(tx)
         ret = sqlconns.sql_command(tx)
         return 1
         if ret == -1: print('RET Error save_finger', tx)
@@ -597,9 +599,10 @@ def save_user_photo(xx,terminal_id):
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
     tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
-    ret = sqlconns.sql_command_args(tx)
+    ret = sqlconns.sql_select_single_field(tx)
+    print('ret = ', ret, 'save user photo check', tx)
     if ret != "" and int(ret) > 0:
-        tx = "If ("
+        tx = "If ("\
         "SELECT count(*) from d_iface_photo"\
         " where d_iface_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
         " UPDATE d_iface_photo"\
@@ -611,8 +614,9 @@ def save_user_photo(xx,terminal_id):
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
         " WHERE d_iface_photo_id = "+ str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        print('RET Error save_user_photo', tx)
         return 1
-        if ret == -1: print('RET Error save_user_photo', tx)
     #photo does not exist, carry on
     tx = "UPDATE d_iface_photo SET size = '" + size + "', content='" + content + "',date_added="+date_now+",terminal_id="+str(terminal_id)+",new=1 WHERE employee_id =" + user_id + "" \
                     " IF @@ROWCOUNT=0" \
@@ -634,8 +638,8 @@ def build_power_on_get_request(sn):
     ret = sqlconns.sql_select_into_list(tx)
     if ret!=-1:
         for index in range(len(ret)):
-            if "att_stamp" in ret[index][0]:att_stamp = ret[index][1]
-            if "op_stamp" in ret[index][0]:op_stamp = ret[index][1]
+            if ret[index][0]== "att_stamp": att_stamp = ret[index][1]
+            if ret[index][0]== "op_stamp": op_stamp = ret[index][1]
     else:
         return ret
     tx =   "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
@@ -659,6 +663,7 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
+    print(xx)
     return xx
 
 def get_terminal_id_from_sn(sn):
@@ -818,18 +823,18 @@ def bAttFound (sn,emp_id,booking):
     if ret == "":
         return False
     if int(ret) > 0:
-        tx = "If ("
+        tx = "If ("\
         "SELECT count(*) from d_iface_att" \
-        " where d_iface_events_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+        " where d_iface_att_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
         " UPDATE d_iface_att"\
         " SET repoll_count = 1,"\
         " repoll_date = getdate()"\
-        " WHERE d_iface_events_id ="+ str(int(ret))+ ""\
+        " WHERE d_iface_att_id ="+ str(int(ret))+ ""\
         " ELSE"\
         " UPDATE d_iface_att"\
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
-        " WHERE d_iface_events_id = "+ str(int(ret))
+        " WHERE d_iface_att_id = "+ str(int(ret))
         ret = sqlconns.sql_command(tx)
         print(tx)
         if ret==-1 : print('RET Error, battfound',tx)
