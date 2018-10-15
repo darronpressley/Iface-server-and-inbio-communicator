@@ -178,11 +178,22 @@ def set_env():
     global CC_FUNCTION_KEYS
     global MIN_STAMP
     global MAX_STAMP
+
+    gl.SERVER = "localhost"
+    gl.SQL_LOGIN = "sa"
+    gl.PASSWORD = "Sky6fall!ng"
+    gl.DATABASE = "timeware_main_6"
     if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
-        if sqlconns.readsql_connection_timeware_main_6() == 0:
-            f.error_logging(APPNAME, "Error reading database.ini file.", "error_log","")
-            return False
+        #if sqlconns.readsql_connection_timeware_main_6() == 0:
+         #   f.error_logging(APPNAME, "Error reading database.ini file.", "error_log","")
+          #  return False
+        if  1<0:
+            return
         elif sqlconns.readsql_connection_timeware_main_6() == 1:
+            gl.SERVER = "localhost"
+            gl.SQL_LOGIN = "sa"
+            gl.PASSWORD = "Sky6fall!ng"
+            gl.DATABASE = "timeware_main_6"
             test_comms = sqlconns.testsql(gl.SERVER, gl.SQL_LOGIN, gl.PASSWORD, gl.DATABASE)
             if test_comms == 0:
                     f.error_logging(APPNAME, "Error connecting to SQL server.", "error_log","")
