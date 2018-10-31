@@ -8,10 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/pword.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/daznotes.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/decrypted.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.docx" beforeDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,12 +54,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="8991" />
+          <entry key="Python" value="9219" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="8991" />
+          <entry key="py" value="9219" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -71,14 +75,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="69" column="56" lean-forward="true" selection-start-line="69" selection-start-column="56" selection-end-line="69" selection-end-column="56" />
+            <state relative-caret-position="228">
+              <caret line="809" column="111" selection-start-line="809" selection-start-column="111" selection-end-line="809" selection-end-column="111" />
               <folding>
                 <element signature="e#226#240#0" expanded="true" />
-                <marker date="1540983740491" expanded="true" signature="2266:2270" ph="..." />
-                <marker date="1540983740491" expanded="true" signature="2285:2294" ph="..." />
-                <marker date="1540983740491" expanded="true" signature="12657:12792" ph="..." />
-                <marker date="1540983740491" expanded="true" signature="36570:38403" ph="..." />
+                <marker date="1541003215461" expanded="true" signature="2266:2270" ph="..." />
+                <marker date="1541003215461" expanded="true" signature="2285:2294" ph="..." />
+                <marker date="1541003215461" expanded="true" signature="12657:12792" ph="..." />
+                <marker date="1541003215461" expanded="true" signature="36711:38544" ph="..." />
               </folding>
             </state>
           </provider>
@@ -95,7 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bad</find>
       <find>493:0</find>
       <find>493</find>
       <find>200</find>
@@ -125,6 +128,7 @@
       <find>uri</find>
       <find>last</find>
       <find>remote</find>
+      <find>function</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -192,7 +196,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-1928" />
     <option name="y" value="-40" />
     <option name="width" value="1936" />
@@ -600,6 +604,15 @@
       <configuration name="Unittests in ifacetornado (2)" configurationId="tests" />
     </history-entry>
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
@@ -609,17 +622,17 @@
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8651212" visible="true" weight="0.28710726" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.86406744" visible="true" weight="0.28710726" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49841937" weight="0.32936078" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.13487881" side_tool="true" visible="true" weight="0.28710726" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.13593256" side_tool="true" visible="true" weight="0.28710726" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.32980973" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49791667" weight="0.32980973" />
+      <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49841937" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49683878" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -949,14 +962,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="69" column="56" lean-forward="true" selection-start-line="69" selection-start-column="56" selection-end-line="69" selection-end-column="56" />
+        <state relative-caret-position="228">
+          <caret line="809" column="111" selection-start-line="809" selection-start-column="111" selection-end-line="809" selection-end-column="111" />
           <folding>
             <element signature="e#226#240#0" expanded="true" />
-            <marker date="1540983740491" expanded="true" signature="2266:2270" ph="..." />
-            <marker date="1540983740491" expanded="true" signature="2285:2294" ph="..." />
-            <marker date="1540983740491" expanded="true" signature="12657:12792" ph="..." />
-            <marker date="1540983740491" expanded="true" signature="36570:38403" ph="..." />
+            <marker date="1541003215461" expanded="true" signature="2266:2270" ph="..." />
+            <marker date="1541003215461" expanded="true" signature="2285:2294" ph="..." />
+            <marker date="1541003215461" expanded="true" signature="12657:12792" ph="..." />
+            <marker date="1541003215461" expanded="true" signature="36711:38544" ph="..." />
           </folding>
         </state>
       </provider>

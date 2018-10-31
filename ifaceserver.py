@@ -778,7 +778,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         booking = f.get_sql_date(dte, "yyyy-mm-dd hh:mm")
         #cost centre clocking = 100
         #if code is differentt to 100 then it also needs an attendance entry
-        if int(list[2]) !=100:
+        if int(list[2]) < 100:
             #this is the ACTUAL ATTENDANCE swipe
             tx = "INSERT INTO twork_unprocessed (employee_id,terminal_id,date_and_time,[type],flag,[key],memo,authorisation,authorisation_finalised,source)"\
                 " VALUES (" + str(emp_id) + "," + str(terminal_id) + "," + booking + ",1000," + str(flag) + ",0,'',3,1,0)"
@@ -804,16 +804,19 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
                 ret = sqlconns.sql_command(tx)
                 if ret==-1: return -1
         if CC_FUNCTION_KEYS == True:
-            #cc function keys if code is greater than 100 then make the booking but other than that ignore it.
-                ##cost centres will be on 100
-            if int(list[2]) == 100:
-                cc_id = int(list[4])
-                if cc_id >0:
-                    tx = "INSERT INTO d_iface_att_event (employee_id,date_and_time,event,handled,terminal_id,work_code_id)" \
-                         " VALUES (" + str(emp_id) + "," + booking + "," + str(list[2]) + ",0," + str(
-                        terminal_id) + "," + str(cc_id) + ")"
-                    ret = sqlconns.sql_command(tx)
-                    if ret == -1: return -1
+            ########## Work codes have been removed, list[4] is now nothing pending ticket from ZK
+            ########## Now use punch key over 100
+            ########## 100 can be use for Dummy default button
+            # cc function keys if code is greater than 100 then make the booking but other than that ignore it.
+            print(list)
+            if int(list[2]) >= 100:
+                #cc_id = int(list[4])
+                #if cc_id >0:
+                tx = "INSERT INTO d_iface_att_event (employee_id,date_and_time,event,handled,terminal_id)" \
+                     " VALUES (" + str(emp_id) + "," + booking + "," + str(list[2]) + ",0," + str(
+                    terminal_id) + ")"
+                ret = sqlconns.sql_command(tx)
+                if ret == -1: return -1
     else:
         return -1
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
