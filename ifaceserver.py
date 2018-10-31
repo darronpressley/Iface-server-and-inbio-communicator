@@ -66,6 +66,10 @@ class IclockHandler(tornado.web.RequestHandler):
         sn = list2[0]
         ret = sqlconns.sql_command("UPDATE tterminal SET poll_success = ? WHERE ip_address = ?",datetime.now(),sn)
         if ret==-1: return
+        #record ip address, you may have bother with this if https is ever used
+        x_real_ip = self.request.headers.get("X-Real-IP")
+        remote_ip = x_real_ip or self.request.remote_ip
+        if remote_ip != None: log_ip_address(sn,remote_ip)
         #power on send stamps and options
         power_on_getrequest = build_power_on_get_request(sn)
         if power_on_getrequest != "": self.write(power_on_getrequest)
@@ -298,6 +302,12 @@ def make_app():
         (r"/iclock/devicecmd",IclockDevicecmdHandler),
         (r"/options",DeviceOptions)
     ])
+
+
+def log_ip_address(sn, ip):
+    tx = "UPDATE d_iface_stamps SET last_ip = '"+ ip+ "' WHERE sn = '"+ sn+ "'"
+    ret = sqlconns.sql_command(tx)
+    print(tx,ret)
 
 def get_terminal_status_list():
     terminal_list = sqlconns.sql_select_into_list('SELECT description, ip_address, configuration,poll_success FROM tterminal WHERE \

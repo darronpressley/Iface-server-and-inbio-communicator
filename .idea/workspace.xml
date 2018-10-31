@@ -2,12 +2,15 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="778" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="251" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="656" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="788" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="255" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="666" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/pword.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
@@ -25,33 +28,34 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
-          <entry key="project.open.time.10" value="1" />
+          <entry key="project.closed" value="13" />
+          <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.5" value="4" />
-          <entry key="project.open.time.6" value="3" />
-          <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.open.time.5" value="5" />
+          <entry key="project.open.time.6" value="4" />
+          <entry key="project.open.time.7" value="4" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="22" />
+          <entry key="py" value="24" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="22" />
+          <entry key="Python" value="24" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7673" />
+          <entry key="Python" value="8991" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7673" />
+          <entry key="py" value="8991" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -67,45 +71,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="582" column="29" lean-forward="true" selection-start-line="582" selection-start-column="29" selection-end-line="582" selection-end-column="29" />
+            <state relative-caret-position="160">
+              <caret line="69" column="56" lean-forward="true" selection-start-line="69" selection-start-column="56" selection-end-line="69" selection-end-column="56" />
               <folding>
                 <element signature="e#226#240#0" expanded="true" />
-                <marker date="1539599314716" expanded="true" signature="2013:2017" ph="..." />
-                <marker date="1539599314716" expanded="true" signature="2032:2041" ph="..." />
-                <marker date="1539599314716" expanded="true" signature="36154:37987" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#136#151#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gl.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/servertest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <marker date="1540983740491" expanded="true" signature="2266:2270" ph="..." />
+                <marker date="1540983740491" expanded="true" signature="2285:2294" ph="..." />
+                <marker date="1540983740491" expanded="true" signature="12657:12792" ph="..." />
+                <marker date="1540983740491" expanded="true" signature="36570:38403" ph="..." />
               </folding>
             </state>
           </provider>
@@ -122,11 +95,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>save_op_stamp</find>
-      <find>header</find>
-      <find>insert</find>
-      <find>bad_att</find>
-      <find>MIN_STAMP</find>
       <find>bad</find>
       <find>493:0</find>
       <find>493</find>
@@ -152,6 +120,11 @@
       <find>build_power</find>
       <find>save</find>
       <find>save_user_finger</find>
+      <find>booking</find>
+      <find>stamp</find>
+      <find>uri</find>
+      <find>last</find>
+      <find>remote</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -165,7 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ifaceserver2.py" />
         <option value="$PROJECT_DIR$/iface_2.py" />
         <option value="$PROJECT_DIR$/ifacetornado.py" />
         <option value="$PROJECT_DIR$/setup_py2ese_communicator.py" />
@@ -215,13 +187,14 @@
         <option value="$PROJECT_DIR$/sqlconns.py" />
         <option value="$PROJECT_DIR$/iface timezone resolver.py" />
         <option value="$PROJECT_DIR$/tut20.py" />
+        <option value="$PROJECT_DIR$/pword.py" />
         <option value="$PROJECT_DIR$/ifaceserver.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-1929" />
-    <option name="y" value="-32" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-1928" />
+    <option name="y" value="-40" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -233,17 +206,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Iface server and inbio communicator" type="cbb8eebc:String" user="Iface server and inbio communicator" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,6 +216,22 @@
             <path>
               <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.4 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Iface server and inbio communicator" type="cbb8eebc:String" user="Iface server and inbio communicator" />
             </path>
           </expand>
           <select />
@@ -343,7 +321,7 @@
       </envs>
       <option name="SDK_HOME" value="C:\Python34\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/iface analyser.py" />
@@ -443,7 +421,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="servertest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="pword" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iface server and inbio communicator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -455,7 +433,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/servertest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pword.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -561,19 +539,19 @@
     <list>
       <item itemvalue="Python.ifacetornado" />
       <item itemvalue="Python.ifaceserver" />
-      <item itemvalue="Python.iface analyser" />
-      <item itemvalue="Python.servertest" />
       <item itemvalue="Python.ifaceeserver diagnostic previous version" />
       <item itemvalue="Python.iface timezone resolver" />
       <item itemvalue="Python.tut20" />
+      <item itemvalue="Python.pword" />
+      <item itemvalue="Python.iface analyser" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.iface analyser" />
+        <item itemvalue="Python.pword" />
         <item itemvalue="Python.tut20" />
         <item itemvalue="Python.iface timezone resolver" />
         <item itemvalue="Python.ifaceeserver diagnostic previous version" />
-        <item itemvalue="Python.servertest" />
-        <item itemvalue="Python.iface analyser" />
       </list>
     </recent_temporary>
   </component>
@@ -623,21 +601,21 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1929" y="-32" width="1936" height="1056" extended-state="1" />
+    <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18229716" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49846154" visible="true" weight="0.13856691" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.89409906" visible="true" weight="0.283857" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8651212" visible="true" weight="0.28710726" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.10590095" side_tool="true" visible="true" weight="0.283857" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.13487881" side_tool="true" visible="true" weight="0.28710726" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32980973" />
@@ -699,9 +677,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/personnel.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.1/system/python_stubs/-1442825926/builtins.py" />
     <entry file="file://$PROJECT_DIR$/test filre.py" />
     <entry file="file://$PROJECT_DIR$/updateESS.py" />
@@ -889,35 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="135" column="21" lean-forward="true" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="21" />
-          <folding>
-            <element signature="e#234#269#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iface analyser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="231" column="17" lean-forward="true" selection-start-line="231" selection-start-column="17" selection-end-line="231" selection-end-column="17" />
-          <folding>
-            <element signature="e#424#435#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#136#151#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -946,12 +892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="192" column="1" selection-start-line="192" selection-start-column="1" selection-end-line="195" selection-end-column="43" />
-          <folding>
-            <element signature="e#876#887#0" expanded="true" />
-            <marker date="1539352846951" expanded="true" signature="1268:11006" ph="..." />
-            <marker date="1539352846951" expanded="true" signature="3820:6825" ph="..." />
-            <marker date="1539352846951" expanded="true" signature="6839:6844" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -966,9 +906,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="14" column="62" lean-forward="true" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -976,9 +913,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
           <caret line="100" column="53" lean-forward="true" selection-start-line="100" selection-start-column="53" selection-end-line="100" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -986,21 +920,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iface analyser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="235" column="32" selection-start-line="235" selection-start-column="32" selection-end-line="235" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="582" column="29" lean-forward="true" selection-start-line="582" selection-start-column="29" selection-end-line="582" selection-end-column="29" />
+        <state relative-caret-position="160">
+          <caret line="69" column="56" lean-forward="true" selection-start-line="69" selection-start-column="56" selection-end-line="69" selection-end-column="56" />
           <folding>
             <element signature="e#226#240#0" expanded="true" />
-            <marker date="1539599314716" expanded="true" signature="2013:2017" ph="..." />
-            <marker date="1539599314716" expanded="true" signature="2032:2041" ph="..." />
-            <marker date="1539599314716" expanded="true" signature="36154:37987" ph="..." />
+            <marker date="1540983740491" expanded="true" signature="2266:2270" ph="..." />
+            <marker date="1540983740491" expanded="true" signature="2285:2294" ph="..." />
+            <marker date="1540983740491" expanded="true" signature="12657:12792" ph="..." />
+            <marker date="1540983740491" expanded="true" signature="36570:38403" ph="..." />
           </folding>
         </state>
       </provider>
