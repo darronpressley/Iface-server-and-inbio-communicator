@@ -307,7 +307,6 @@ def make_app():
 def log_ip_address(sn, ip):
     tx = "UPDATE d_iface_stamps SET last_ip = '"+ ip+ "' WHERE sn = '"+ sn+ "'"
     ret = sqlconns.sql_command(tx)
-    print(tx,ret)
 
 def get_terminal_status_list():
     terminal_list = sqlconns.sql_select_into_list('SELECT description, ip_address, configuration,poll_success FROM tterminal WHERE \
@@ -533,7 +532,7 @@ def save_user_face(xx,terminal_id):
         " repoll_date = getdate()"\
         " WHERE d_iface_Face_id = " + str(int(ret))
         ret = sqlconns.sql_command(tx)
-        if ret == -1: print('RET Error save_user_face',tx)
+
         return 1
     tx = "UPDATE d_iface_tmp SET size = '" + size + "',[valid]="+valid+", [tmp]='" + tmp + "',date_added="+date_now+",terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + " AND fid="+fid+"" \
                 " IF @@ROWCOUNT=0" \
@@ -556,7 +555,6 @@ def save_user_finger(xx,terminal_id):
     #check if exists
     tx = "Select top 1 [d_iface_finger_id] from d_iface_finger WHERE employee_id =" + user_id + " AND fid="+fid+ " AND tmp = '"+ tmp + "'"
     ret = sqlconns.sql_select_single_field(tx)
-    print('ret = ', ret, 'save user finger check', tx)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
         "SELECT count(*) from d_iface_finger"\
@@ -570,10 +568,8 @@ def save_user_finger(xx,terminal_id):
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
         " WHERE d_iface_finger_id = "+ str(int(ret))
-        print(tx)
         ret = sqlconns.sql_command(tx)
         return 1
-        if ret == -1: print('RET Error save_finger', tx)
     #clear old templates
     tx = "DELETE from d_iface_finger WHERE employee_id = " + str(user_id) + " AND date_added < dateadd(minute,-" + str(FINGER_DELETION_MINS) + ",getdate())"
     sqlconns.sql_command(tx)
@@ -610,7 +606,6 @@ def save_user_photo(xx,terminal_id):
     #check exixts and dont write
     tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
     ret = sqlconns.sql_select_single_field(tx)
-    print('ret = ', ret, 'save user photo check', tx)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
         "SELECT count(*) from d_iface_photo"\
@@ -625,7 +620,6 @@ def save_user_photo(xx,terminal_id):
         " repoll_date = getdate()"\
         " WHERE d_iface_photo_id = "+ str(int(ret))
         ret = sqlconns.sql_command(tx)
-        print('RET Error save_user_photo', tx)
         return 1
     #photo does not exist, carry on
     tx = "UPDATE d_iface_photo SET size = '" + size + "', content='" + content + "',date_added="+date_now+",terminal_id="+str(terminal_id)+",new=1 WHERE employee_id =" + user_id + "" \
@@ -673,7 +667,7 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
-    print(xx)
+
     return xx
 
 def get_terminal_id_from_sn(sn):
@@ -808,7 +802,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
             ########## Now use punch key over 100
             ########## 100 can be use for Dummy default button
             # cc function keys if code is greater than 100 then make the booking but other than that ignore it.
-            print(list)
+
             if int(list[2]) >= 100:
                 #cc_id = int(list[4])
                 #if cc_id >0:
@@ -832,7 +826,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 def bAttFound (sn,emp_id,booking):
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE sn = '"+ sn+ "' AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
     ret = sqlconns.sql_select_single_field(tx)
-    print('ret= ', ret, tx)
+
     if ret == "":
         return False
     if int(ret) > 0:
@@ -849,8 +843,7 @@ def bAttFound (sn,emp_id,booking):
         " repoll_date = getdate()"\
         " WHERE d_iface_att_id = "+ str(int(ret))
         ret = sqlconns.sql_command(tx)
-        print(tx)
-        if ret==-1 : print('RET Error, battfound',tx)
+
         return True
     else:
         return False
@@ -1011,16 +1004,16 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
 
 
-    if set_env()==True:
-        if version_check()==True:
-            log_initialise()
-            app = make_app()
-            app.listen(gl.server_port)
-            SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+#    if set_env()==True:
+ #       if version_check()==True:
+  #          log_initialise()
+   #         app = make_app()
+    #        app.listen(gl.server_port)
+     #       SERVER_STARTED = 1
+      #      logging.getLogger('tornado.access').disabled = True
+       #     tornado.ioloop.IOLoop.current().start()
 

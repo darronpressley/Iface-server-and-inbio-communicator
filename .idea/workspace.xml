@@ -2,20 +2,14 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="788" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="782" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="255" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="666" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="660" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/1.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/daznotes.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/decrypted.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.docx" beforeDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,10 +30,10 @@
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="4" />
+          <entry key="project.open.time.6" value="5" />
           <entry key="project.open.time.7" value="4" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -54,12 +48,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="9219" />
+          <entry key="Python" value="9228" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="9219" />
+          <entry key="py" value="9228" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -75,14 +69,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="809" column="111" selection-start-line="809" selection-start-column="111" selection-end-line="809" selection-end-column="111" />
+            <state relative-caret-position="276">
+              <caret line="1007" column="4" selection-start-line="1007" selection-start-column="4" selection-end-line="1007" selection-end-column="4" />
               <folding>
                 <element signature="e#226#240#0" expanded="true" />
-                <marker date="1541003215461" expanded="true" signature="2266:2270" ph="..." />
-                <marker date="1541003215461" expanded="true" signature="2285:2294" ph="..." />
-                <marker date="1541003215461" expanded="true" signature="12657:12792" ph="..." />
-                <marker date="1541003215461" expanded="true" signature="36711:38544" ph="..." />
+                <marker date="1541604727467" expanded="true" signature="2266:2270" ph="..." />
+                <marker date="1541604727467" expanded="true" signature="2285:2294" ph="..." />
+                <marker date="1541604727467" expanded="true" signature="12657:12774" ph="..." />
+                <marker date="1541604727467" expanded="true" signature="36368:38103" ph="..." />
               </folding>
             </state>
           </provider>
@@ -108,7 +102,6 @@
       <find>oplog</find>
       <find>save_op_log</find>
       <find>access_archive</find>
-      <find>print</find>
       <find>start</find>
       <find>setenv</find>
       <find>started</find>
@@ -129,6 +122,7 @@
       <find>last</find>
       <find>remote</find>
       <find>function</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -197,10 +191,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-1928" />
-    <option name="y" value="-40" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="212" />
+    <option name="y" value="130" />
+    <option name="width" value="1300" />
+    <option name="height" value="1044" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -614,7 +608,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-40" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49846154" visible="true" weight="0.13856691" />
@@ -622,13 +616,13 @@
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.86406744" visible="true" weight="0.28710726" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8630137" visible="true" weight="0.28710726" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49841937" weight="0.32936078" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.13593256" side_tool="true" visible="true" weight="0.28710726" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.1369863" side_tool="true" visible="true" weight="0.28710726" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49841937" weight="0.32936078" />
@@ -962,14 +956,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="809" column="111" selection-start-line="809" selection-start-column="111" selection-end-line="809" selection-end-column="111" />
+        <state relative-caret-position="276">
+          <caret line="1007" column="4" selection-start-line="1007" selection-start-column="4" selection-end-line="1007" selection-end-column="4" />
           <folding>
             <element signature="e#226#240#0" expanded="true" />
-            <marker date="1541003215461" expanded="true" signature="2266:2270" ph="..." />
-            <marker date="1541003215461" expanded="true" signature="2285:2294" ph="..." />
-            <marker date="1541003215461" expanded="true" signature="12657:12792" ph="..." />
-            <marker date="1541003215461" expanded="true" signature="36711:38544" ph="..." />
+            <marker date="1541604727467" expanded="true" signature="2266:2270" ph="..." />
+            <marker date="1541604727467" expanded="true" signature="2285:2294" ph="..." />
+            <marker date="1541604727467" expanded="true" signature="12657:12774" ph="..." />
+            <marker date="1541604727467" expanded="true" signature="36368:38103" ph="..." />
           </folding>
         </state>
       </provider>
