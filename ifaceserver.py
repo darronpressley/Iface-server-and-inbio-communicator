@@ -127,6 +127,7 @@ class IclockHandler(tornado.web.RequestHandler):
 class IclockDevicecmdHandler(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
+
 #####devicecmd page, to update if commands are successful
     def post(self):
         sn = self.request.uri.replace("/iclock/devicecmd?SN=","")
@@ -161,6 +162,7 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
             self.set_header("Date",dte)
         else:
             self.clear_header("Date")
+        print(dte)
 
 
 class IclockGetrequestHandler(tornado.web.RequestHandler):
@@ -228,6 +230,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
             self.set_header("Date",dte)
         else:
             self.clear_header("Date")
+        print(dte)
 
 class TestPage(tornado.web.RequestHandler):
     def compute_etag(self):
@@ -1004,16 +1007,16 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
 
 
-#    if set_env()==True:
- #       if version_check()==True:
-  #          log_initialise()
-   #         app = make_app()
-    #        app.listen(gl.server_port)
-     #       SERVER_STARTED = 1
-      #      logging.getLogger('tornado.access').disabled = True
-       #     tornado.ioloop.IOLoop.current().start()
+    if set_env()==True:
+        if version_check()==True:
+            log_initialise()
+            app = make_app()
+            app.listen(gl.server_port)
+            SERVER_STARTED = 1
+            logging.getLogger('tornado.access').disabled = True
+            tornado.ioloop.IOLoop.current().start()
 
