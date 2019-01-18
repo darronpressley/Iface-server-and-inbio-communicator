@@ -162,7 +162,6 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
             self.set_header("Date",dte)
         else:
             self.clear_header("Date")
-        print(dte)
 
 
 class IclockGetrequestHandler(tornado.web.RequestHandler):
@@ -230,7 +229,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
             self.set_header("Date",dte)
         else:
             self.clear_header("Date")
-        print(dte)
 
 class TestPage(tornado.web.RequestHandler):
     def compute_etag(self):
@@ -670,7 +668,6 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
-
     return xx
 
 def get_terminal_id_from_sn(sn):
@@ -735,11 +732,12 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
              date_now + ",'" + str(sn) + "')"
         ret = sqlconns.sql_command(tx)
         if ret == -1: return -1
+        return 1 #go no further if bad stamp, change on 18012019, this line was not here.
 
     #check if in att log table and bail out if need be
     test_dte = f.iface_string_to_date_format(booking)
     test_booking = f.get_sql_date(test_dte, "yyyy-mm-dd hh:mm:ss")
-    if int(list[2]) != 100:
+    if int(list[2]) != 100 :#100 is cost centre
         if bAttFound (sn,emp_id,test_booking): return 1
     #if a cost centre clocking then check att_log_table and bail out if need be
     else:
@@ -775,7 +773,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         booking = f.get_sql_date(dte, "yyyy-mm-dd hh:mm")
         #cost centre clocking = 100
         #if code is differentt to 100 then it also needs an attendance entry
-        if int(list[2]) < 100:
+        if int(list[2]) < 100 or int(list[2]) == 255: #255 is standard clocking from untweaked  UFACE
             #this is the ACTUAL ATTENDANCE swipe
             tx = "INSERT INTO twork_unprocessed (employee_id,terminal_id,date_and_time,[type],flag,[key],memo,authorisation,authorisation_finalised,source)"\
                 " VALUES (" + str(emp_id) + "," + str(terminal_id) + "," + booking + ",1000," + str(flag) + ",0,'',3,1,0)"
@@ -807,8 +805,6 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
             # cc function keys if code is greater than 100 then make the booking but other than that ignore it.
 
             if int(list[2]) >= 100:
-                #cc_id = int(list[4])
-                #if cc_id >0:
                 tx = "INSERT INTO d_iface_att_event (employee_id,date_and_time,event,handled,terminal_id)" \
                      " VALUES (" + str(emp_id) + "," + booking + "," + str(list[2]) + ",0," + str(
                     terminal_id) + ")"
@@ -1007,11 +1003,10 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
 
-
-    if set_env()==True:
+    """if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
@@ -1019,4 +1014,5 @@ if __name__ == "__main__":
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disabled = True
             tornado.ioloop.IOLoop.current().start()
+"""
 
