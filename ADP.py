@@ -26,8 +26,9 @@ OUT_GREEN=232
 OUT_BLUE=148
 
 import functions as f
-from PyQt5 import QtCore,QtGui,QtWidgets
-
+from PyQt4 import QtCore,QtGui
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 from datetime import datetime
 import sip
 import time
@@ -45,14 +46,14 @@ except AttributeError:
         return s
 
 try:
-    _encoding = QtWidgets.QApplication.UnicodeUTF8
+    _encoding = QtGui.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtWidgets.QApplication.translate(context, text, disambig)
+        return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_MainWindow(QtWidgets.QMainWindow):
+class Ui_MainWindow(QtGui.QMainWindow):
     def __init__(self):
 
 
@@ -60,54 +61,46 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         super(Ui_MainWindow,self).__init__()
         self.setupUi(self)
-#        self.timer  = QtCore.QTimer(self)
+        #self.timer  = QtCore.QTimer(self)
 
         #self.timer.start(100)
 
         #self.timer.timeout.connect(self.refreshTable)
 
-        print("before thread")
-        #self.timer = QtCore.QTimer.singleShot(1000, self.refreshTable)
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.refreshTable)
-        self.timer.start(1000)
+        self.timer = QtCore.QTimer.singleShot(1000, self.refreshTable)
 
-        print("after thread")
 
     def setupUi(self, MainWindow):
-        print('setupui')
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         self.setWindowIcon(QtGui.QIcon('python_small.ico'))
         MainWindow.resize(1300, 800)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget = QtGui.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(10, 10, 1300, 800))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(23)
-        self.tableItem= QtWidgets.QTableWidgetItem()
+        self.tableItem= QTableWidgetItem()
         #self.refreshTable()
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 850, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
-        self.actionExit = QtWidgets.QAction(MainWindow)
+        self.actionExit = QtGui.QAction(MainWindow)
         self.actionExit.setObjectName(_fromUtf8("actionExit"))
         self.actionExit.setShortcut("Ctrl+Q")
         self.actionExit.triggered.connect(self.close_application)
         self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
 
-        print('finish setup ui')
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        print('rewfresh ui')
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Attendance Panel", None))
@@ -130,7 +123,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     #@QtCore.pyqtSlot()
     def refreshTable(self):
-        print('refresh table')
         #global DATA_LIST
         DATA_LIST = [['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None'],
                           ['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', ]]
@@ -173,7 +165,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                                                     ' OUT  ', ' IN      ', ' OUT  ', ' IN       ', ' OUT  ',
                                                     ' IN      ', ' OUT   ', ' Total      '])
         for n in range(22):
-            self.tableWidget.horizontalHeaderItem(n).setTextAlignment(QtCore.Qt.AlignLeft)
+            self.tableWidget.horizontalHeaderItem(n).setTextAlignment(Qt.AlignLeft)
 
         rowcount = 0
         if len(DATA_LIST) == 1:
@@ -202,9 +194,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                     else:
                         field = str(DATA_LIST[n][y])
                     if column == 'left':
-                        self.tableWidget.setItem(row_number, yy, QtWidgets.QTableWidgetItem(field))
+                        self.tableWidget.setItem(row_number, yy, QTableWidgetItem(field))
                     else:
-                       self.tableWidget.setItem(row_number,yy+12, QtWidgets.QTableWidgetItem(field))
+                       self.tableWidget.setItem(row_number,yy+12, QTableWidgetItem(field))
 
             #green
             r=OUT_RED
@@ -220,15 +212,15 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             if swipes_count > 0:
                 display_emp_total = self.get_total_time(n,DATA_LIST)
                 if column == 'left':
-                    self.tableWidget.setItem(row_number, 10,QtWidgets.QTableWidgetItem(display_emp_total))
+                    self.tableWidget.setItem(row_number, 10, QTableWidgetItem(display_emp_total))
                 else:
-                   self.tableWidget.setItem(row_number, 22, QtWidgets.QTableWidgetItem(display_emp_total))
+                   self.tableWidget.setItem(row_number, 22, QTableWidgetItem(display_emp_total))
             else:
                 null_time = '0:00'
                 if column == 'left':
-                    self.tableWidget.setItem(row_number, 10, QtWidgets.QTableWidgetItem(null_time))
+                    self.tableWidget.setItem(row_number, 10, QTableWidgetItem(null_time))
                 else:
-                   self.tableWidget.setItem(row_number, 22, QtWidgets.QTableWidgetItem(null_time))
+                   self.tableWidget.setItem(row_number, 22, QTableWidgetItem(null_time))
 
             for col in range(11):
                 actual_col = col
@@ -241,21 +233,21 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tableWidget.setStyleSheet(stylesheet)
         self.tableWidget.resizeColumnsToContents()
         del DATA_LIST
-#        self.restart()
+        self.restart()
 
     def restart(self):
         del self.timer
         self.timer = QtCore.QTimer.singleShot(1000, self.refreshTable)
 
     def start(self):
-        self.timer.start()
+        #self.timer.start()
         v = 0
 
     def stop(self):
         self.timer.stop()
 
     def get_employee_details(self):
-        print('get emp details')
+
         # global DATA_LIST
         tx = "SELECT "
         if SQL_TOP != '': tx += SQL_TOP + ' '
@@ -392,13 +384,12 @@ def database_connections():
         return -1
 
 def showdialog(warning):
-    print('show dialog')
-    a = QtWidgets.QApplication(sys.argv)
-    w = QtWidgets.QWidget()
+    a = QApplication(sys.argv)
+    w = QWidget()
 
-    w.setWindowIcon(QtWidgets.QIcon("python_small.ico"))
-    result = QtWidgets.QMessageBox.warning(w, 'ADP Error', warning, QtWidgets.QMessageBox.Ok)
-    if result == QtWidgets.QMessageBox.Ok:
+    w.setWindowIcon(QIcon("python_small.ico"))
+    result = QMessageBox.warning(w, 'ADP Error', warning, QMessageBox.Ok)
+    if result == QMessageBox.Ok:
         sys.exit(a.exit())
     w.show()
 
@@ -460,8 +451,7 @@ def set_env():
 
 if __name__ == '__main__':
     if set_env() == True:
-        print(gl.PASSWORD)
-        app=QtWidgets.QApplication(sys.argv)
+        app=QtGui.QApplication(sys.argv)
         ex = Ui_MainWindow()
         ex.show()
         #ex.start()
