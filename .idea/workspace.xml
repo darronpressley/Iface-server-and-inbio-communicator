@@ -5,13 +5,10 @@
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="783" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="256" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="661" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ADP.py" line="118" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ADP.py" beforeDir="false" afterPath="$PROJECT_DIR$/ADP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adp.ini" beforeDir="false" afterPath="$PROJECT_DIR$/adp.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Job Costing Display Panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Job Costing Display Panel.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,7 +25,7 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="20" />
+          <entry key="project.closed" value="21" />
           <entry key="project.open.time.10" value="4" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.5" value="7" />
@@ -40,22 +37,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="33" />
+          <entry key="py" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="33" />
+          <entry key="Python" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="11029" />
+          <entry key="Python" value="12861" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="11029" />
+          <entry key="py" value="12861" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -84,25 +81,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Job Costing Display Panel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-571">
-              <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
+            <state relative-caret-position="1972">
+              <caret line="236" selection-start-line="236" selection-end-line="236" />
               <folding>
-                <element signature="e#616#627#0" expanded="true" />
+                <element signature="e#602#623#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ADP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="327" lean-forward="true" selection-start-line="327" selection-end-line="327" />
+            <state relative-caret-position="2237">
+              <caret line="168" lean-forward="true" selection-start-line="168" selection-end-line="168" />
               <folding>
-                <element signature="e#616#627#0" expanded="true" />
+                <element signature="e#602#623#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,13 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>oplog</find>
-      <find>save_op_log</find>
-      <find>access_archive</find>
-      <find>start</find>
-      <find>setenv</find>
-      <find>started</find>
-      <find>def set_</find>
       <find>set_env</find>
       <find>PRINT</find>
       <find>sqlconn</find>
@@ -158,6 +148,13 @@
       <find>#this is handled in the application scriptflag</find>
       <find>flag</find>
       <find>print</find>
+      <find>display</find>
+      <find>adp</find>
+      <find>209</find>
+      <find>SQL_COL_DESC</find>
+      <find>.</find>
+      <find>sql_col</find>
+      <find>ret</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -220,14 +217,13 @@
         <option value="$PROJECT_DIR$/tut20.py" />
         <option value="$PROJECT_DIR$/../doodle/Doodle/random numbers.py" />
         <option value="$PROJECT_DIR$/ifaceserver.py" />
-        <option value="$PROJECT_DIR$/Job Costing Display Panel.py" />
         <option value="$PROJECT_DIR$/ADP.py" />
+        <option value="$PROJECT_DIR$/Job Costing Display Panel.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="245" />
-    <option name="y" value="32" />
+    <option name="x" value="210" />
     <option name="width" value="1300" />
     <option name="height" value="1044" />
   </component>
@@ -313,7 +309,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ADP">
+  <component name="RunManager" selected="Python.Job Costing Display Panel">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -589,8 +585,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ADP" />
         <item itemvalue="Python.Job Costing Display Panel" />
+        <item itemvalue="Python.ADP" />
         <item itemvalue="Python.random numbers" />
         <item itemvalue="Python.tut20" />
         <item itemvalue="Python.iface analyser" />
@@ -653,20 +649,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49846154" visible="true" weight="0.10906217" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.85827184" visible="true" weight="0.27735645" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.857745" weight="0.27735645" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49841937" weight="0.32936078" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.14172813" side_tool="true" visible="true" weight="0.27735645" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.14225501" side_tool="true" visible="true" weight="0.27735645" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49841937" weight="0.32936078" />
@@ -1010,22 +1005,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Job Costing Display Panel.py">
+    <entry file="file://$PROJECT_DIR$/ADP.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-571">
-          <caret line="125" lean-forward="true" selection-start-line="125" selection-end-line="125" />
+        <state relative-caret-position="2237">
+          <caret line="168" lean-forward="true" selection-start-line="168" selection-end-line="168" />
           <folding>
-            <element signature="e#616#627#0" expanded="true" />
+            <element signature="e#602#623#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ADP.py">
+    <entry file="file://$PROJECT_DIR$/Job Costing Display Panel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="327" lean-forward="true" selection-start-line="327" selection-end-line="327" />
+        <state relative-caret-position="1972">
+          <caret line="236" selection-start-line="236" selection-end-line="236" />
           <folding>
-            <element signature="e#616#627#0" expanded="true" />
+            <element signature="e#602#623#0" expanded="true" />
           </folding>
         </state>
       </provider>
