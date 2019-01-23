@@ -22,13 +22,13 @@ SQL_COL_CODE = 6
 SQL_COL_DESC = 7
 SQL_COL_OP = 8
 
-GRID_COL_LN = 1
-GRID_COL_FN = 2
-GRID_COL_START_DATE = 3
-GRID_COL_START_TIME = 4
-GRID_COL_CODE = 5
-GRID_COL_DESC = 6
-GRID_COL_OP = 7
+GRID_COL_LN = 0
+GRID_COL_FN = 1
+GRID_COL_START_DATE = 2
+GRID_COL_START_TIME = 3
+GRID_COL_CODE = 4
+GRID_COL_DESC = 5
+GRID_COL_OP = 6
 
 
 
@@ -79,11 +79,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
 
         super(Ui_MainWindow,self).__init__()
         self.setupUi(self)
-        #self.timer  = QtCore.QTimer(self)
-
-        #self.timer.start(100)
-
-        #self.timer.timeout.connect(self.refreshTable)
 
         self.timer = QtCore.QTimer.singleShot(1000, self.refreshTable)
 
@@ -91,13 +86,13 @@ class Ui_MainWindow(QtGui.QMainWindow):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         self.setWindowIcon(QtGui.QIcon('python_small.ico'))
-        MainWindow.resize(1300, 800)
+        MainWindow.resize(1500, 900)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.tableWidget = QtGui.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(10, 10, 1300, 800))
+        self.tableWidget.setGeometry(QtCore.QRect(10, 10, 1500, 900))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
-        self.tableWidget.setColumnCount(23)
+        self.tableWidget.setColumnCount(15)
         self.tableItem= QTableWidgetItem()
         #self.refreshTable()
         MainWindow.setCentralWidget(self.centralwidget)
@@ -165,7 +160,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
                 for y in range(6):
                     DATA_LIST[n][y + 3] = ''
 
-                ret = "SELECT top 1 format(twork_job.start_time,'dd/mm/yyyy')as start_date, format(twork_job.start_time,'HH:mm')as start_date, twork_job.stop_time,tjob.code, tjob.description, toperation.description AS Expr1"\
+                ret = "SELECT top 1 format(twork_job.start_time,'dd/MM/yyyy')as start_date, format(twork_job.start_time,'HH:mm')as start_date, twork_job.stop_time,tjob.code, tjob.description, toperation.description AS Expr1"\
                                     " FROM"\
                                     " twork INNER JOIN"\
                                     ' twork_job ON twork.work_id = twork_job.work_id INNER JOIN'\
@@ -199,7 +194,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
                                                     ' ',
                                                     ' LastName               ', ' FirstName              ',
                                                     ' Last Swipe Time      ',' Swipe Date  ',' Job No      ', ' Job Description     ',' Operation Description     '])
-        for n in range(12):#was 22
+        for n in range(15):#was 22
             self.tableWidget.horizontalHeaderItem(n).setTextAlignment(Qt.AlignLeft)
 
         #rowcount = 0
@@ -212,7 +207,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
 
         for n in range(len(DATA_LIST)):
             row_number = int((n)/2)
-            if n %2 ==0:
+            if n %2 == 0:
                 column ='left'
             else:
                 column = 'right'
@@ -223,6 +218,10 @@ class Ui_MainWindow(QtGui.QMainWindow):
                 col_mod = 8
 
 #list all the column mapping here
+            field = DATA_LIST[n][SQL_COL_LN]
+            self.tableWidget.setItem(row_number, GRID_COL_LN + col_mod, QTableWidgetItem(field))
+            field = DATA_LIST[n][SQL_COL_FN]
+            self.tableWidget.setItem(row_number, GRID_COL_FN + col_mod, QTableWidgetItem(field))
             field = DATA_LIST[n][SQL_COL_START_DATE]
             self.tableWidget.setItem(row_number, GRID_COL_START_DATE + col_mod, QTableWidgetItem(field))
             field = DATA_LIST[n][SQL_COL_START_TIME]
@@ -234,11 +233,12 @@ class Ui_MainWindow(QtGui.QMainWindow):
             field = DATA_LIST[n][SQL_COL_OP]
             self.tableWidget.setItem(row_number, GRID_COL_OP + col_mod, QTableWidgetItem(field))
 
-            #green
+            #go green and then if no start time go red
+            #if there is a stop_time go red
             r=OUT_RED
             g=OUT_GREEN
             b=OUT_BLUE
-            if DATA_LIST[n][5] == None:#
+            if DATA_LIST[n][SQL_COL_START_DATE] == None or DATA_LIST[n][SQL_COL_START_DATE] != '':
                 # orange
                 r = IN_RED
                 g = IN_GREEN
@@ -309,7 +309,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
                 #    DATA_LIST[n][2]) + ' AND twork.[type] = 1000 and twork.date_and_time = ' + f.get_sql_date(
                  #   datetime.now(), "yyyy-mm-dd") + ' ORDER BY twork_swipe.date_and_time ASC'
 
-                sql_get_swipes_tx = "SELECT top 1 format(twork_job.start_time,'dd/mm/yyyy')as start_date, format(twork_job.start_time,'HH:mm')as start_date, twork_job.stop_time,tjob.code, tjob.description, toperation.description AS Expr1"\
+                sql_get_swipes_tx = "SELECT top 1 format(twork_job.start_time,'dd/MM/yyyy')as start_date, format(twork_job.start_time,'HH:mm')as start_date, twork_job.stop_time,tjob.code, tjob.description, toperation.description AS Expr1"\
                                     "FROM"\
                                     ' twork INNER JOIN'\
                                     ' twork_job ON twork.work_id = twork_job.work_id INNER JOIN'\
