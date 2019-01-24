@@ -37,6 +37,7 @@ SCRIPT_ROOT = os.path.dirname(os.path.realpath(__file__)) + "\\"
 SCRIPT_ROOT=SCRIPT_ROOT.replace("library.zip","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("iface analyser.exe","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("adp.exe","")
+SCRIPT_ROOT=SCRIPT_ROOT.replace("jcdp.exe","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("inbio config.exe","")
 
 COMM_ERROR_LOG = SCRIPT_ROOT+"communications.log"

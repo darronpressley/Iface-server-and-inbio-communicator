@@ -11,6 +11,19 @@ APPNAME = "JCDP"
 #4 columns required after employee id = 0
 #DATA_LIST = [['None','None','0','None','None','None','None','None', 'None'],['None','None','0','None','None','None','None','None', 'None']]
 
+#screen defaults
+#Orig 1500,900
+SCREEN_SIZE_X=1500
+SCREEN_SIZE_Y=1500
+
+#grid defaults
+#orig 10, 10, 1500, 900
+GRID_POS_X=10
+GRID_POS_Y=10
+GRID_SIZE_X=1500
+GRID_SIZE_Y=900
+
+
 #Columns for Datalist
 SQL_COL_LN = 0
 SQL_COL_FN = 1
@@ -86,11 +99,11 @@ class Ui_MainWindow(QtGui.QMainWindow):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         self.setWindowIcon(QtGui.QIcon('python_small.ico'))
-        MainWindow.resize(1500, 900)
+        MainWindow.resize(SCREEN_SIZE_X, SCREEN_SIZE_Y)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.tableWidget = QtGui.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(10, 10, 1500, 900))
+        self.tableWidget.setGeometry(QtCore.QRect(GRID_POS_X, GRID_POS_Y, GRID_SIZE_X, GRID_SIZE_Y))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(15)
         self.tableItem= QTableWidgetItem()
@@ -422,7 +435,15 @@ def set_env():
     global OUT_RED
     global OUT_GREEN
     global OUT_BLUE
-    path = str.replace(gl.SCRIPT_ROOT,'jcdp.exe','')
+    global SCREEN_SIZE_X
+    global SCREEN_SIZE_Y
+    global GRID_POS_X
+    global GRID_POS_Y
+    global GRID_SIZE_X
+    global GRID_SIZE_Y
+
+    path = str.replace(gl.SCRIPT_ROOT,'Job Costing Display Panel.exe','')
+    path = str.replace(gl.SCRIPT_ROOT, 'JCDP.exe', '')
     if os.path.isfile(path + 'database.ini'):
         if sqlconns.readsql_connection_timeware_main_6() == 0:
             showdialog('Error connecting to database!!!! ' + path)
@@ -458,7 +479,18 @@ def set_env():
                             OUT_GREEN = int(str.split(listme[index], '=')[1])
                         if 'OUT_BLUE' in listme[index]:
                             OUT_BLUE = int(str.split(listme[index], '=')[1])
-
+                        if 'SCREEN_SIZE_X' in listme[index]:
+                            SCREEN_SIZE_X = int(str.split(listme[index], '=')[1])
+                        if 'SCREEN_SIZE_Y' in listme[index]:
+                            SCREEN_SIZE_Y = int(str.split(listme[index], '=')[1])
+                        if 'GRID_POS_X' in listme[index]:
+                            GRID_POS_X = int(str.split(listme[index], '=')[1])
+                        if 'GRID_POS_Y' in listme[index]:
+                            GRID_POS_Y = int(str.split(listme[index], '=')[1])
+                        if 'GRID_SIZE_X' in listme[index]:
+                            GRID_SIZE_X = int(str.split(listme[index], '=')[1])
+                        if 'GRID_SIZE_Y' in listme[index]:
+                            GRID_SIZE_Y = int(str.split(listme[index], '=')[1])
 
                 except Exception as e:
                     return False
