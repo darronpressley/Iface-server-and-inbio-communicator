@@ -106,6 +106,15 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.tableWidget.setGeometry(QtCore.QRect(GRID_POS_X, GRID_POS_Y, GRID_SIZE_X, GRID_SIZE_Y))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(15)
+        # TODO can this move so it shows as the table is built?
+        self.tableWidget.setHorizontalHeaderLabels(
+            [' LastName               ', ' FirstName              ', ' Last Swipe Time      ', ' Swipe Date  ',
+             ' Job No      ', ' Job Description     ', ' Operation Description     ',
+             ' ',
+             ' LastName               ', ' FirstName              ',
+             ' Last Swipe Time      ', ' Swipe Date  ', ' Job No      ', ' Job Description     ',
+             ' Operation Description     '])
+        self.tableWidget.verticalHeader().setVisible(False)
         self.tableItem= QTableWidgetItem()
         #self.refreshTable()
         MainWindow.setCentralWidget(self.centralwidget)
@@ -147,7 +156,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
         sip.setdestroyonexit(False)
         sys.exit()
 
-    #@QtCore.pyqtSlot()
     def refreshTable(self):
         #global DATA_LIST
         # lastname, firstname , employee_id, LAst Swipe Time, Last Swipe Date,stop_time Job No, Job Description x 2
@@ -181,11 +189,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
                                     ' toperation ON twork_job.operation_id = toperation.operation_id'\
                                     ' WHERE twork.employee_id = ' + str(DATA_LIST[n][2]) + \
                                     ' order by date_and_time desc'
-                print(ret)
 
                 ret = sqlconns.sql_select_into_list(ret)
                 if ret != -1 and len(ret) > 0:
-                    print('heres ret', ret[0])
                     DATA_LIST[n][SQL_COL_START_DATE] = ret[0][0]
                     DATA_LIST[n][SQL_COL_START_TIME] = str(ret[0][1])
                     if ret[0][2] != None:
@@ -195,18 +201,10 @@ class Ui_MainWindow(QtGui.QMainWindow):
                     DATA_LIST[n][SQL_COL_CODE] = ret[0][3]
                     DATA_LIST[n][SQL_COL_DESC] = ret[0][4]
                     DATA_LIST[n][SQL_COL_OP] = ret[0][5]
-                print("----------", DATA_LIST[n])
 
 
-#************************************************************
-        #Colum NAMES
-        self.tableWidget.verticalHeader().setVisible(False)
 
-#TODO can this move so it shows as the table is built?
-        self.tableWidget.setHorizontalHeaderLabels([' LastName               ',' FirstName              ',' Last Swipe Time      ',' Swipe Date  ',' Job No      ', ' Job Description     ',' Operation Description     ',
-                                                    ' ',
-                                                    ' LastName               ', ' FirstName              ',
-                                                    ' Last Swipe Time      ',' Swipe Date  ',' Job No      ', ' Job Description     ',' Operation Description     '])
+
         for n in range(15):#was 22
             self.tableWidget.horizontalHeaderItem(n).setTextAlignment(Qt.AlignLeft)
 
@@ -257,21 +255,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
                 g = IN_GREEN
                 b = IN_BLUE
 
-            #TODO remove this section not needed as we have no total
-            #get total hours for display if there are clockings
-            '''if swipes_count > 0:
-                display_emp_total = self.get_total_time(n,DATA_LIST)
-                if column == 'left':
-                    self.tableWidget.setItem(row_number, 10, QTableWidgetItem(display_emp_total))
-                else:
-                   self.tableWidget.setItem(row_number, 22, QTableWidgetItem(display_emp_total))
-            else:
-                null_time = '0:00'
-                if column == 'left':
-                    self.tableWidget.setItem(row_number, 10, QTableWidgetItem(null_time))
-                else:
-                   self.tableWidget.setItem(row_number, 22, QTableWidgetItem(null_time))'''
-
             for col in range(7):#was 11
                 actual_col = col
                 if column=='right': actual_col+=8 #was 12
@@ -316,11 +299,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
             for n in range(len(DATA_LIST)):
                 for y in range(8):
                     DATA_LIST[n][y + 3] = ''
-#TODO delete later
-              #  sql_get_swipes_tx = 'SELECT TOP (8) twork_swipe.date_and_time from twork INNER JOIN twork_swipe ON twork.work_id = twork_swipe.work_id ' \
-               #                     ' WHERE twork.employee_id = ' + str(
-                #    DATA_LIST[n][2]) + ' AND twork.[type] = 1000 and twork.date_and_time = ' + f.get_sql_date(
-                 #   datetime.now(), "yyyy-mm-dd") + ' ORDER BY twork_swipe.date_and_time ASC'
 
                 sql_get_swipes_tx = "SELECT top 1 format(twork_job.start_time,'dd/MM/yyyy')as start_date, format(twork_job.start_time,'HH:mm')as start_date, twork_job.stop_time,tjob.code, tjob.description, toperation.description AS Expr1"\
                                     "FROM"\
@@ -332,7 +310,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
                                     ' order by date_and_time desc'
 
                 ret = sqlconns.sql_select_into_list(sql_get_swipes_tx)
-                print('heres ret',ret)
                 if ret != -1 and len(ret) > 0:
                     DATA_LIST[n][SQL_COL_START_DATE] = ret[0]
                     DATA_LIST[n][SQL_COL_START_TIME] = ret[1]
@@ -340,64 +317,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
                     DATA_LIST[n][SQL_COL_CODE] = ret[3]
                     DATA_LIST[n][SQL_COL_DESC] = ret[4]
                     DATA_LIST[n][SQL_COL_OP] = ret[5]
-                print("----------",DATA_LIST[n])
-        #return [['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None']] #TODO cane we remove this?
 
         return DATA_LIST
-
- #class TerminalX(QtCore.QThread):
-#    def __init__(self,parent=None):
-#        QtCore.QThread.__init__(self,parent)
-#        self.test=''
-
- #   def run(self):
-  #      x = ''
-   #     print("in run")
-    #    while self.COUNT_COMMANDS == 1:
-     #       self.get_employee_details()
-      #      #time.sleep(10)
-#
-
-#def get_total_time(row_number):
-#    mins = 0
-#    y = 3
-#    for n in range(4):
-#        mins += work_out_pairs(DATA_LIST[row_number][y], DATA_LIST[row_number][y+1])
-#        y+=2#
-
- #   hours = str(int(mins / 60)) + "h "
-  #  mins = mins % 60
- #   if len(str(mins)) == 1: mins = "0" + str(mins)
- #   hours += str(mins) + 'm'
- #   return hours
-
-#TODO delete this when working
-#def get_employee_details():
-#    #global DATA_LIST
-#    tx = "SELECT "
-#    if SQL_TOP != '': tx += SQL_TOP + ' '
-#    tx += "last_name, first_name, employee_id from temployee "
-#    tx += EMPLOYEE_SQL
-   # ret = sqlconns.sql_select_into_list(tx)
-#    if ret == -1:
-#        self.DATA_LIST = [['None', 'None','0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None']]
-#    else:
-#        self.DATA_LIST = [x for x in ret]
-#        for n in range(len(DATA_LIST)):
-#            DATA_LIST[n] = DATA_LIST[n] = [x for x in DATA_LIST[n]]
-#            for y in range(8):
-#                DATA_LIST[n].append('')#
-#
-#        for n in range(len(DATA_LIST)):#
- #           for y in range(8):
- #               DATA_LIST[n][y+3] = ''##
-#
-#            sql_get_swipes_tx = 'SELECT TOP (8) twork_swipe.date_and_time from twork INNER JOIN twork_swipe ON twork.work_id = twork_swipe.work_id ' \
- #                                   ' WHERE twork.employee_id = ' + str(DATA_LIST[n][2]) + ' AND twork.[type] = 1000 and twork.date_and_time = ' + f.get_sql_date(datetime.now(),"yyyy-mm-dd") + ' ORDER BY twork_swipe.date_and_time ASC'
-  #          swipes = sqlconns.sql_select_into_list(sql_get_swipes_tx)
-   #         if swipes != -1 and len(swipes) > 0:
-    #            for y in range(len(swipes)):
-     #               DATA_LIST[n][y+3] = swipes[y][0]
 
 def database_connections():
     if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
@@ -504,6 +425,5 @@ if __name__ == '__main__':
         app=QtGui.QApplication(sys.argv)
         ex = Ui_MainWindow()
         ex.show()
-        #ex.start()
         sip.setdestroyonexit(False)
         sys.exit(app.exec())
