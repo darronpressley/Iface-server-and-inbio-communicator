@@ -11,6 +11,9 @@ APPNAME = "JCDP"
 #4 columns required after employee id = 0
 #DATA_LIST = [['None','None','0','None','None','None','None','None', 'None'],['None','None','0','None','None','None','None','None', 'None']]
 
+'this is 10 seconds'
+ADP_REFRESH = 10000
+
 #screen defaults
 #Orig 1500,900
 SCREEN_SIZE_X=1500
@@ -93,7 +96,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         super(Ui_MainWindow,self).__init__()
         self.setupUi(self)
 
-        self.timer = QtCore.QTimer.singleShot(1000, self.refreshTable)
+        self.timer = QtCore.QTimer.singleShot(ADP_REFRESH, self.refreshTable)
 
 
     def setupUi(self, MainWindow):
@@ -362,6 +365,7 @@ def set_env():
     global GRID_POS_Y
     global GRID_SIZE_X
     global GRID_SIZE_Y
+    global ADP_REFRESH
 
     path = str.replace(gl.SCRIPT_ROOT,'Job Costing Display Panel.exe','')
     path = str.replace(gl.SCRIPT_ROOT, 'JCDP.exe', '')
@@ -412,6 +416,8 @@ def set_env():
                             GRID_SIZE_X = int(str.split(listme[index], '=')[1])
                         if 'GRID_SIZE_Y' in listme[index]:
                             GRID_SIZE_Y = int(str.split(listme[index], '=')[1])
+                        if 'ADP_REFRESH' in listme[index]:
+                            ADP_REFRESH = int(str.split(listme[index], '=')[1])
 
                 except Exception as e:
                     return False
