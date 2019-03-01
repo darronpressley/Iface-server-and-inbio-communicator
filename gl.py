@@ -8,6 +8,7 @@ python_sql = ""
 
 #iface server globals
 server_port = 82
+https_port = 83
 face_to_personnel = False
 
 access_terminal_configuration = "4"
@@ -46,4 +47,7 @@ SPOOL_LOG = SCRIPT_ROOT + "spool.log"
 GENERAL_INI = SCRIPT_ROOT + "general.ini"
 ADP_INI = SCRIPT_ROOT + "adp.ini"
 LICENSE_TXT = SCRIPT_ROOT + "license.txt"
+
+KEY_FILE = SCRIPT_ROOT + "privatekey.pem"
+CERT_FILE = SCRIPT_ROOT + "certificate.pem"
 

@@ -248,8 +248,10 @@ class TestPage(tornado.web.RequestHandler):
         data = ("<HTML><h1>Ifaceserver from " + DISTRIBUTOR + " is broadcasting.</h1>" \
                                                 + "<br>Iface Server Version = " \
                                                + APP_VERSION + "<br><br>" \
-                                                + "SQL Instance: " + str(sqlconns.sql_select_single_field('SELECT @@ServerName')) + "<br><br>" \
-                                                + "normaltime = " + str(date_time_string_test('normaltime'))
+                                                + "SQL Instance: " + str(sqlconns.sql_select_single_field('SELECT @@ServerName')) + "<br>" \
+                                                + "HTTP Port: " + str(gl.server_port) + "<br>" \
+                                                + "HTTPS Port: " + str(gl.https_port) + "<br><br>" \
+                                                + "normaltime = " + str(date_time_string_test('normaltime')) \
                                                 + ".<br>****oldtime = " + str(date_time_string_test('oldtime')) + '.<br>' \
                                                 + old_time_status + terminal_configuration_status + photo_save_status \
                                                 + 'Fingerprint delete old scan set to ' + str(FINGER_DELETION_MINS) +' mins.' + '<br>' \
@@ -925,6 +927,8 @@ def set_env():
                             DISTRIBUTOR = str.split(listme[index],'=')[1]
                         if 'server_port' in listme[index]:
                             gl.server_port = int(str.split(listme[index],'=')[1])
+                        if 'https_port' in listme[index]:
+                            gl.https_port = int(str.split(listme[index],'=')[1])
                         if 'face_to_personnel' in listme[index]:
                             if 'true' in str.split(listme[index],'=')[1]:
                                 gl.face_to_personnel = True
@@ -1006,7 +1010,7 @@ if __name__ == "__main__":
     win32serviceutil.HandleCommandLine(AppServerSvc)
     set_env()
 
-    """if set_env()==True:
+"""    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
@@ -1014,5 +1018,5 @@ if __name__ == "__main__":
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disabled = True
             tornado.ioloop.IOLoop.current().start()
-"""
 
+"""

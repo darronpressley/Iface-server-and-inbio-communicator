@@ -2,17 +2,19 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="783" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="256" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="661" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="785" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="258" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="663" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/ifaceserver https.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iface_https_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup_py2exe_iface_https_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adp.ini" beforeDir="false" afterPath="$PROJECT_DIR$/adp.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/https_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/https_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jcdp.py" beforeDir="false" afterPath="$PROJECT_DIR$/jcdp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gl.py" beforeDir="false" afterPath="$PROJECT_DIR$/gl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup_py2exe_iface_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup_py2exe_iface_server.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,35 +31,35 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
+          <entry key="project.closed" value="27" />
           <entry key="project.open.time.10" value="4" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.5" value="8" />
+          <entry key="project.open.time.5" value="10" />
           <entry key="project.open.time.6" value="11" />
-          <entry key="project.open.time.7" value="6" />
+          <entry key="project.open.time.7" value="7" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="32" />
+          <entry key="project.opened" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="43" />
+          <entry key="py" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="43" />
+          <entry key="Python" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="13355" />
+          <entry key="Python" value="13918" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="13355" />
+          <entry key="py" value="13918" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -73,77 +75,69 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="490" column="44" selection-start-line="490" selection-start-column="41" selection-end-line="490" selection-end-column="44" />
+            <state relative-caret-position="194">
+              <caret line="256" column="62" selection-start-line="256" selection-start-column="57" selection-end-line="256" selection-end-column="62" />
               <folding>
                 <element signature="e#226#240#0" expanded="true" />
-                <marker date="1547814048757" expanded="true" signature="2266:2270" ph="..." />
-                <marker date="1547814048757" expanded="true" signature="2285:2294" ph="..." />
-                <marker date="1547814048757" expanded="true" signature="12658:12775" ph="..." />
-                <marker date="1547814048757" expanded="true" signature="36481:38216" ph="..." />
+                <marker date="1551436795026" expanded="true" signature="2266:2270" ph="..." />
+                <marker date="1551436795026" expanded="true" signature="2285:2294" ph="..." />
+                <marker date="1551436795026" expanded="true" signature="12854:12971" ph="..." />
+                <marker date="1551436795026" expanded="true" signature="36677:38412" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ifacehttpserver version.py">
+        <entry file="file://$PROJECT_DIR$/gl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="610" column="38" selection-start-line="610" selection-start-column="38" selection-end-line="610" selection-end-column="38" />
+            <state relative-caret-position="850">
+              <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/https_test.py">
+        <entry file="file://$PROJECT_DIR$/iface_https_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="46" />
+            <state relative-caret-position="379">
+              <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
               <folding>
-                <element signature="e#22#43#0" expanded="true" />
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ifaceserver https.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup_adp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup_jcadp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jcdp.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+            <state relative-caret-position="136">
+              <caret line="10" column="97" selection-start-line="10" selection-start-column="97" selection-end-line="10" selection-end-column="97" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_https_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="10" column="79" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/https_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="4" selection-start-line="4" selection-end-line="11" selection-end-column="17" />
+              <folding>
+                <element signature="e#22#43#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,13 +153,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>python_sql</find>
-      <find>if (</find>
-      <find>att</find>
-      <find>batt</find>
-      <find>build_power</find>
-      <find>save</find>
-      <find>save_user_finger</find>
       <find>booking</find>
       <find>stamp</find>
       <find>uri</find>
@@ -186,9 +173,16 @@
       <find>sql_col</find>
       <find>ret</find>
       <find>replace</find>
-      <find>print</find>
       <find>todo</find>
       <find>bad</find>
+      <find>set_env</find>
+      <find>tes</find>
+      <find>test</find>
+      <find>log_init</find>
+      <find>port</find>
+      <find>log_exit</find>
+      <find>version</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -202,8 +196,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/setup_inbio_config.py" />
-        <option value="$PROJECT_DIR$/Inbio Communicator.py" />
         <option value="$PROJECT_DIR$/../thrift/zk1.py" />
         <option value="$PROJECT_DIR$/test iface.py" />
         <option value="$PROJECT_DIR$/zk1.py" />
@@ -237,7 +229,6 @@
         <option value="$PROJECT_DIR$/../iface tester/iface tester.py" />
         <option value="$PROJECT_DIR$/set_sql_connector.py" />
         <option value="$PROJECT_DIR$/ifaceeserver diagnostic previous version.py" />
-        <option value="$PROJECT_DIR$/setup_py2exe_iface_server.py" />
         <option value="$PROJECT_DIR$/servertest.py" />
         <option value="$PROJECT_DIR$/iface analyser.py" />
         <option value="$PROJECT_DIR$/sqlconns.py" />
@@ -245,20 +236,23 @@
         <option value="$PROJECT_DIR$/pword.py" />
         <option value="$PROJECT_DIR$/tut20.py" />
         <option value="$PROJECT_DIR$/../doodle/Doodle/random numbers.py" />
-        <option value="$PROJECT_DIR$/ifaceserver.py" />
         <option value="$PROJECT_DIR$/ADP.py" />
         <option value="$PROJECT_DIR$/Job Costing Display Panel.py" />
         <option value="$PROJECT_DIR$/setup_jcadp.py" />
-        <option value="$PROJECT_DIR$/gl.py" />
         <option value="$PROJECT_DIR$/jcdp.py" />
         <option value="$PROJECT_DIR$/ifaceserver https.py" />
         <option value="$PROJECT_DIR$/https_test.py" />
+        <option value="$PROJECT_DIR$/gl.py" />
+        <option value="$PROJECT_DIR$/setup_py2exe_iface_https_handler.py" />
+        <option value="$PROJECT_DIR$/setup_py2exe_iface_server.py" />
+        <option value="$PROJECT_DIR$/ifaceserver.py" />
+        <option value="$PROJECT_DIR$/iface_https_handler.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1912" />
-    <option name="y" value="112" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="342" />
+    <option name="y" value="224" />
     <option name="width" value="1300" />
     <option name="height" value="1044" />
   </component>
@@ -344,7 +338,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.https_test">
+  <component name="RunManager" selected="Python.iface_https_handler">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -448,6 +442,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="iface_https_handler" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Iface server and inbio communicator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Python34\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/iface_https_handler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="ifaceserver" type="PythonConfigurationType" factoryName="Python">
       <module name="Iface server and inbio communicator" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -507,27 +522,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jcdp.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="random numbers" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Iface server and inbio communicator" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Python34\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../doodle/Doodle" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../doodle/Doodle/random numbers.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -612,19 +606,19 @@
     <list>
       <item itemvalue="Python.ifacetornado" />
       <item itemvalue="Python.ifaceserver" />
-      <item itemvalue="Python.random numbers" />
       <item itemvalue="Python.Job Costing Display Panel" />
       <item itemvalue="Python.ADP" />
       <item itemvalue="Python.jcdp" />
       <item itemvalue="Python.https_test" />
+      <item itemvalue="Python.iface_https_handler" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.iface_https_handler" />
         <item itemvalue="Python.https_test" />
         <item itemvalue="Python.jcdp" />
         <item itemvalue="Python.Job Costing Display Panel" />
         <item itemvalue="Python.ADP" />
-        <item itemvalue="Python.random numbers" />
       </list>
     </recent_temporary>
   </component>
@@ -683,21 +677,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="112" width="1696" height="1026" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49846154" visible="true" weight="0.17249699" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49846154" weight="0.13487881" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.85524726" visible="true" weight="0.28667414" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.28602383" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49841937" weight="0.32936078" />
       <window_info anchor="bottom" id="Changes" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.14475271" side_tool="true" visible="true" weight="0.28667414" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.1459431" side_tool="true" weight="0.28602383" />
       <window_info anchor="bottom" id="Application Servers" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49841937" weight="0.32936078" />
@@ -707,6 +701,28 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Data View" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49846154" visible="true" weight="0.13487881" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.28602383" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49841937" weight="0.32936078" />
+      <window_info anchor="bottom" id="Changes" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.1459431" side_tool="true" visible="true" weight="0.28602383" />
+      <window_info anchor="bottom" id="Application Servers" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49841937" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49683878" weight="0.32936078" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Data View" order="3" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -759,14 +775,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/essconfig.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1442825926/PyQt4/QtCore/QCoreApplication.py" />
     <entry file="file://$PROJECT_DIR$/Inbio Communicator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -984,38 +992,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Job Costing Display Panel.py" />
-    <entry file="file://$PROJECT_DIR$/gl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ADP.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="406" column="22" selection-start-line="406" selection-start-column="15" selection-end-line="406" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="490" column="44" selection-start-line="490" selection-start-column="41" selection-end-line="490" selection-end-column="44" />
-          <folding>
-            <element signature="e#226#240#0" expanded="true" />
-            <marker date="1547814048757" expanded="true" signature="2266:2270" ph="..." />
-            <marker date="1547814048757" expanded="true" signature="2285:2294" ph="..." />
-            <marker date="1547814048757" expanded="true" signature="12658:12775" ph="..." />
-            <marker date="1547814048757" expanded="true" signature="36481:38216" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup_adp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -1029,10 +1009,10 @@
     <entry file="file://$PROJECT_DIR$/jcdp.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_server.py">
+    <entry file="file://$PROJECT_DIR$/ifacehttpserver version.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+        <state relative-caret-position="514">
+          <caret line="614" column="12" lean-forward="true" selection-start-line="614" selection-start-column="12" selection-end-line="614" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1043,19 +1023,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifacehttpserver version.py">
+    <entry file="file://$PROJECT_DIR$/setup_adp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="610" column="38" selection-start-line="610" selection-start-column="38" selection-end-line="610" selection-end-column="38" />
+        <state relative-caret-position="68">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="256" column="62" selection-start-line="256" selection-start-column="57" selection-end-line="256" selection-end-column="62" />
+          <folding>
+            <element signature="e#226#240#0" expanded="true" />
+            <marker date="1551436795026" expanded="true" signature="2266:2270" ph="..." />
+            <marker date="1551436795026" expanded="true" signature="2285:2294" ph="..." />
+            <marker date="1551436795026" expanded="true" signature="12854:12971" ph="..." />
+            <marker date="1551436795026" expanded="true" signature="36677:38412" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="97" selection-start-line="10" selection-start-column="97" selection-end-line="10" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_https_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="79" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/https_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="46" />
+        <state relative-caret-position="51">
+          <caret line="4" selection-start-line="4" selection-end-line="11" selection-end-column="17" />
           <folding>
             <element signature="e#22#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iface_https_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -8,7 +8,7 @@ packages = ["Crypto", "encodings"]
   
 includes = ["pyodbc","os","datetime","threading","sys","time","ctypes","base64",
             "inspect","decimal","servicemanager","win32serviceutil","win32service","win32event",
-            "asyncore","functions","gl","sqlconns","http.server"
+            "asyncore","functions","gl","sqlconns","http.server","maproxy", "iface_https_handler"
             ]
 
 #includes = ["pyodbc","os","datetime","threading","sys","time","ctypes","base64",
