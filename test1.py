@@ -113,9 +113,6 @@ class MyForm(wx.Frame):
 #    frame = MyForm().Show()
 #    app.MainLoop()
 
-
-def helo(*args):
-    if len(args) >0:
-        print(args[0])
-
-helo "batman","robin"
+import sqlconns
+xx = 'r2mGAaJ6fUtHbG5PJYvwTg=='
+print(sqlconns.decrypt_with_key(xx))
