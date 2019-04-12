@@ -95,6 +95,8 @@ def set_env():
                         if "'" in listme[index]: continue
                         if 'https_port' in listme[index]:
                             gl.https_port = int(str.split(listme[index],'=')[1])
+                        if 'server_port' in listme[index]:
+                            gl.server_port = int(str.split(listme[index],'=')[1])
 
                     f.error_logging(APPNAME, "Port is now: "+str(gl.https_port), "error_log", "")
                 except Exception as e:
@@ -134,14 +136,15 @@ def version_check():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
 
-""" if set_env()==True:
+ if set_env()==True:
         # HTTPS->HTTP
         ssl_certs = {"certfile": "certificate.pem",
                      "keyfile": "privatekey.pem"}
         # "client_ssl_options=ssl_certs" simply means "listen using SSL"
+        print(gl.server_port)
         server = maproxy.proxyserver.ProxyServer("localhost", gl.server_port,
                                                  client_ssl_options=ssl_certs)
         log_initialise()
@@ -149,5 +152,5 @@ if __name__ == "__main__":
         server.listen(gl.https_port)
         logging.getLogger('tornado.access').disabled = True
         tornado.ioloop.IOLoop.instance().start()
-    """
+
 

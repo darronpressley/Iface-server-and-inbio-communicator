@@ -245,8 +245,8 @@ class TestPage(tornado.web.RequestHandler):
             photo_save_status = 'Save face photo to personnel = OFF.<br>'
         terminal_configuration_status = "Attendance terminals = configuration " + str(ATTENDANCE_TERMINAL) + '.<br>'\
                                         "Access terminals = configuration " + str(ACCESS_TERMINAL) + '.<br>'
-        data = ("<HTML><h1>Ifaceserver from " + DISTRIBUTOR + " is broadcasting.</h1>" \
-                                                + "<br>Iface Server Version = " \
+        data = ("<p>Ifaceserver from " + DISTRIBUTOR + " is broadcasting.</p>" \
+                                                + "Iface Server Version = " \
                                                + APP_VERSION + "<br><br>" \
                                                 + "SQL Instance: " + str(sqlconns.sql_select_single_field('SELECT @@ServerName')) + "<br>" \
                                                 + "HTTP Port: " + str(gl.server_port) + "<br>" \
@@ -264,8 +264,9 @@ class TestPage(tornado.web.RequestHandler):
                                                 + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
                                                 + 'Max Stamp = ' + str(MAX_STAMP) + '.<br><br>'\
                                                + get_terminal_status_list() +'</HTML>')
-        self.write(data)
-        self.device_headers(None,False)
+        #self.write(data)
+        #self.device_headers(None,False)
+        self.render('templates/test.html', data=data)
 
     def device_headers(self, dte, bDateHeader):
         self.set_status(200)# do not know if we need this and seems to conflict with status OK?
@@ -297,14 +298,37 @@ class DeviceOptions(tornado.web.RequestHandler):
         self.render(self.tmp)
 
 def make_app():
-    return tornado.web.Application([
+#TODO do we need this when its built?
+#SCRIPT_ROOT=SCRIPT_ROOT.replace("library.zip","")
+    settings = {
+        "static_path": os.path.join(os.path.dirname(__file__), "static").replace(("\\"), ("/"))
+    }
+    print(settings)
+    handlers = [
         (r"/", MainHandler),
-        (r"/test",TestPage),
-        (r"/iclock/cdata",IclockHandler),
-        (r"/iclock/getrequest",IclockGetrequestHandler),
-        (r"/iclock/devicecmd",IclockDevicecmdHandler),
-        (r"/options",DeviceOptions)
-    ])
+        (r"/test", TestPage),
+        (r"/iclock/cdata", IclockHandler),
+        (r"/iclock/getrequest", IclockGetrequestHandler),
+        (r"/iclock/devicecmd", IclockDevicecmdHandler),
+        (r"/options", DeviceOptions)
+    ]
+
+    return tornado.web.Application(
+        handlers, **settings
+        )
+
+#settings = {
+#    "static_path": os.path.join(os.path.dirname(__file__), "static"),
+#    "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+#    "login_url": "/login",
+#    "xsrf_cookies": True,
+#}
+#application = tornado.web.Application([
+#    (r"/", MainHandler),
+ #   (r"/login", LoginHandler),
+#    (r"/(apple-touch-icon\.png)", tornado.web.StaticFileHandler,
+ #    dict(path=settings['static_path'])),
+#], **settings)
 
 
 def log_ip_address(sn, ip):
@@ -1007,10 +1031,12 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
+    """    win32serviceutil.HandleCommandLine(AppServerSvc)
     set_env()
 
-"""    if set_env()==True:
+"""
+
+    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
@@ -1019,4 +1045,4 @@ if __name__ == "__main__":
             logging.getLogger('tornado.access').disabled = True
             tornado.ioloop.IOLoop.current().start()
 
-"""
+

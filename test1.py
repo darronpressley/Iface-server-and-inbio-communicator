@@ -113,6 +113,13 @@ class MyForm(wx.Frame):
 #    frame = MyForm().Show()
 #    app.MainLoop()
 
-import sqlconns
+import sqlconns, os
 xx = 'r2mGAaJ6fUtHbG5PJYvwTg=='
 print(sqlconns.decrypt_with_key(xx))
+
+#"static_path": os.path.join(os.path.dirname(__file__), "static")
+
+#path = (os.path.join(os.path.realpath(__file__)), "static").replace(("\\"),("/"))
+
+import tornado
+print(tornado.version)
