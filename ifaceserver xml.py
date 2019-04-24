@@ -57,6 +57,18 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('templates/index.html')
 
+    def post(self):
+        data = self.request.body
+        data = data.decode("utf-8")
+        print(data)
+        tx = """Insert into d_xml_receiver (xml_data, date_added) values (?, ?)"""
+        print(tx)
+        ret = sqlconns.sql_command(tx, data,datetime.now())
+        print(ret)
+        self.write("OK")
+
+
+
 class IclockHandler(tornado.web.RequestHandler):
     def compute_etag(self):
         return None

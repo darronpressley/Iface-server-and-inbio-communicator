@@ -1,125 +1,142 @@
-import wx
- 
-class MyForm(wx.Frame):
- 
-    def __init__(self):
-        wx.Frame.__init__(self, None, wx.ID_ANY, title='My Form')
- 
-        # Add a panel so it looks correct on all platforms
-        self.panel = wx.Panel(self, wx.ID_ANY)
- 
-        bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, (16, 16))
-        titleIco = wx.StaticBitmap(self.panel, wx.ID_ANY, bmp)
-        title = wx.StaticText(self.panel, wx.ID_ANY, 'My Title')
- 
-        lblSize = (50, -1)
- 
-        bmp = wx.ArtProvider.GetBitmap(wx.ART_TIP, wx.ART_OTHER, (16, 16))
-        inputOneIco = wx.StaticBitmap(self.panel, wx.ID_ANY, bmp)
-        labelOne = wx.StaticText(self.panel, wx.ID_ANY, 'Name')
-        inputTxtOne = wx.TextCtrl(self.panel, wx.ID_ANY,'')
- 
-        inputTwoIco = wx.StaticBitmap(self.panel, wx.ID_ANY, bmp)
-        labelTwo = wx.StaticText(self.panel, wx.ID_ANY, 'Address')
-        inputTxtTwo = wx.TextCtrl(self.panel, wx.ID_ANY,'')
- 
-        inputThreeIco = wx.StaticBitmap(self.panel, wx.ID_ANY, bmp)
-        labelThree = wx.StaticText(self.panel, wx.ID_ANY, 'Email')
-        inputTxtThree = wx.TextCtrl(self.panel, wx.ID_ANY, '')
- 
-        inputFourIco = wx.StaticBitmap(self.panel, wx.ID_ANY, bmp)
-        labelFour = wx.StaticText(self.panel, wx.ID_ANY, 'Phone')
-        inputTxtFour = wx.TextCtrl(self.panel, wx.ID_ANY, '')
- 
-        okBtn = wx.Button(self.panel, wx.ID_ANY, 'OK')
-        cancelBtn = wx.Button(self.panel, wx.ID_ANY, 'Cancel')
-        self.Bind(wx.EVT_BUTTON, self.onOK, okBtn)
-        self.Bind(wx.EVT_BUTTON, self.onCancel, cancelBtn)
- 
-        topSizer        = wx.BoxSizer(wx.VERTICAL)
-        titleSizer      = wx.BoxSizer(wx.HORIZONTAL)
-        gridSizer       = wx.GridSizer(rows=4, cols=2, hgap=5, vgap=5)
-        inputOneSizer   = wx.BoxSizer(wx.HORIZONTAL)
-        inputTwoSizer   = wx.BoxSizer(wx.HORIZONTAL)
-        inputThreeSizer = wx.BoxSizer(wx.HORIZONTAL)
-        inputFourSizer  = wx.BoxSizer(wx.HORIZONTAL)
-        btnSizer        = wx.BoxSizer(wx.HORIZONTAL)
- 
-        titleSizer.Add(titleIco, 0, wx.ALL, 5)
-        titleSizer.Add(title, 0, wx.ALL, 5)
- 
-        # each input sizer will contain 3 items
-        # A spacer (proportion=1),
-        # A bitmap (proportion=0),
-        # and a label (proportion=0)
-        inputOneSizer.Add((20,-1), proportion=1)  # this is a spacer
-        inputOneSizer.Add(inputOneIco, 0, wx.ALL, 5)
-        inputOneSizer.Add(labelOne, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5) 
- 
-        inputTwoSizer.Add((20,20), 1, wx.EXPAND) # this is a spacer
-        inputTwoSizer.Add(inputTwoIco, 0, wx.ALL, 5)
-        inputTwoSizer.Add(labelTwo, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
- 
-        inputThreeSizer.Add((20,20), 1, wx.EXPAND) # this is a spacer
-        inputThreeSizer.Add(inputThreeIco, 0, wx.ALL, 5)
-        inputThreeSizer.Add(labelThree, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
- 
-        inputFourSizer.Add((20,20), 1, wx.EXPAND) # this is a spacer
-        inputFourSizer.Add(inputFourIco, 0, wx.ALL, 5)
-        inputFourSizer.Add(labelFour, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
- 
-        # Add the 3-item sizer to the gridsizer and
-        # Right align the labels and icons
-        gridSizer.Add(inputOneSizer, 0, wx.ALIGN_RIGHT)
-        # Set the TextCtrl to expand on resize
-        gridSizer.Add(inputTxtOne, 0, wx.EXPAND)
-        gridSizer.Add(inputTwoSizer, 0, wx.ALIGN_RIGHT)
-        gridSizer.Add(inputTxtTwo, 0, wx.EXPAND)
-        gridSizer.Add(inputThreeSizer, 0, wx.ALIGN_RIGHT)
-        gridSizer.Add(inputTxtThree, 0, wx.EXPAND)
-        gridSizer.Add(inputFourSizer, 0, wx.ALIGN_RIGHT)
-        gridSizer.Add(inputTxtFour, 0, wx.EXPAND)
- 
-        btnSizer.Add(okBtn, 0, wx.ALL, 5)
-        btnSizer.Add(cancelBtn, 0, wx.ALL, 5)
- 
-        topSizer.Add(titleSizer, 0, wx.CENTER)
-        topSizer.Add(wx.StaticLine(self.panel), 0, wx.ALL|wx.EXPAND, 5)
-        topSizer.Add(gridSizer, 0, wx.ALL|wx.EXPAND, 5)        
-        topSizer.Add(wx.StaticLine(self.panel), 0, wx.ALL|wx.EXPAND, 5)
-        topSizer.Add(btnSizer, 0, wx.ALL|wx.CENTER, 5)
- 
-        # SetSizeHints(minW, minH, maxW, maxH)
-        self.SetSizeHints(250,300,500,400)
- 
-        self.panel.SetSizer(topSizer)
-        topSizer.Fit(self)        
- 
- 
-    def onOK(self, event):
-        # Do something
-        print('onOK handler')
- 
-    def onCancel(self, event):
-        self.closeProgram()
- 
-    def closeProgram(self):
-        self.Close()
- 
- 
-# Run the program
-#if __name__ == '__main__':
-#    app = wx.PySimpleApp()
-#    frame = MyForm().Show()
-#    app.MainLoop()
+import sys
 
-import sqlconns, os
-xx = 'r2mGAaJ6fUtHbG5PJYvwTg=='
-print(sqlconns.decrypt_with_key(xx))
+HOST = 'localhost:82'
+API_URL = "localhost:82"
 
-#"static_path": os.path.join(os.path.dirname(__file__), "static")
 
-#path = (os.path.join(os.path.realpath(__file__)), "static").replace(("\\"),("/"))
+sample = """<?xml version="1.0"?>
+<catalog>
+   <book id="bk101">
+      <author>Gambardella, Matthew</author>
+      <title>XML Developer's Guide</title>
+      <genre>Computer</genre>
+      <price>44.95</price>
+      <publish_date>2000-10-01</publish_date>
+      <description>An in-depth look at creating applications 
+      with XML.</description>
+   </book>
+   <book id="bk102">
+      <author>Ralls, Kim</author>
+      <title>Midnight Rain</title>
+      <genre>Fantasy</genre>
+      <price>5.95</price>
+      <publish_date>2000-12-16</publish_date>
+      <description>A former architect battles corporate zombies, 
+      an evil sorceress, and her own childhood to become queen 
+      of the world.</description>
+   </book>
+   <book id="bk103">
+      <author>Corets, Eva</author>
+      <title>Maeve Ascendant</title>
+      <genre>Fantasy</genre>
+      <price>5.95</price>
+      <publish_date>2000-11-17</publish_date>
+      <description>After the collapse of a nanotechnology 
+      society in England, the young survivors lay the 
+      foundation for a new society.</description>
+   </book>
+   <book id="bk104">
+      <author>Corets, Eva</author>
+      <title>Oberon's Legacy</title>
+      <genre>Fantasy</genre>
+      <price>5.95</price>
+      <publish_date>2001-03-10</publish_date>
+      <description>In post-apocalypse England, the mysterious 
+      agent known only as Oberon helps to create a new life 
+      for the inhabitants of London. Sequel to Maeve 
+      Ascendant.</description>
+   </book>
+   <book id="bk105">
+      <author>Corets, Eva</author>
+      <title>The Sundered Grail</title>
+      <genre>Fantasy</genre>
+      <price>5.95</price>
+      <publish_date>2001-09-10</publish_date>
+      <description>The two daughters of Maeve, half-sisters, 
+      battle one another for control of England. Sequel to 
+      Oberon's Legacy.</description>
+   </book>
+   <book id="bk106">
+      <author>Randall, Cynthia</author>
+      <title>Lover Birds</title>
+      <genre>Romance</genre>
+      <price>4.95</price>
+      <publish_date>2000-09-02</publish_date>
+      <description>When Carla meets Paul at an ornithology 
+      conference, tempers fly as feathers get ruffled.</description>
+   </book>
+   <book id="bk107">
+      <author>Thurman, Paula</author>
+      <title>Splish Splash</title>
+      <genre>Romance</genre>
+      <price>4.95</price>
+      <publish_date>2000-11-02</publish_date>
+      <description>A deep sea diver finds true love twenty 
+      thousand leagues beneath the sea.</description>
+   </book>
+   <book id="bk108">
+      <author>Knorr, Stefan</author>
+      <title>Creepy Crawlies</title>
+      <genre>Horror</genre>
+      <price>4.95</price>
+      <publish_date>2000-12-06</publish_date>
+      <description>An anthology of horror stories about roaches,
+      centipedes, scorpions  and other insects.</description>
+   </book>
+   <book id="bk109">
+      <author>Kress, Peter</author>
+      <title>Paradox Lost</title>
+      <genre>Science Fiction</genre>
+      <price>6.95</price>
+      <publish_date>2000-11-02</publish_date>
+      <description>After an inadvertant trip through a Heisenberg
+      Uncertainty Device, James Salway discovers the problems 
+      of being quantum.</description>
+   </book>
+   <book id="bk110">
+      <author>O'Brien, Tim</author>
+      <title>Microsoft .NET: The Programming Bible</title>
+      <genre>Computer</genre>
+      <price>36.95</price>
+      <publish_date>2000-12-09</publish_date>
+      <description>Microsoft's .NET initiative is explored in 
+      detail in this deep programmer's reference.</description>
+   </book>
+   <book id="bk111">
+      <author>O'Brien, Tim</author>
+      <title>MSXML3: A Comprehensive Guide</title>
+      <genre>Computer</genre>
+      <price>36.95</price>
+      <publish_date>2000-12-01</publish_date>
+      <description>The Microsoft MSXML3 parser is covered in 
+      detail, with attention to XML DOM interfaces, XSLT processing, 
+      SAX and more.</description>
+   </book>
+   <book id="bk112">
+      <author>Galos, Mike</author>
+      <title>Visual Studio 7: A Comprehensive Guide</title>
+      <genre>Computer</genre>
+      <price>49.95</price>
+      <publish_date>2001-04-16</publish_date>
+      <description>Microsoft Visual Studio 7 is explored in depth,
+      looking at how Visual Basic, Visual C++, C#, and ASP+ are 
+      integrated into a comprehensive development 
+      environment.</description>
+   </book>
+</catalog>"""
 
-import tornado
-print(tornado.version)
+import requests
+
+# Set the name of the XML file.
+xml_file = ""
+
+sample = sample.replace('"', '\"')
+
+sample = sample.replace("'", "\'")
+
+headers = {'Content-Type':'text/xml'}
+
+
+r = requests.post('http://localhost:82', data=sample)
+
+print (r.content);
