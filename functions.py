@@ -57,12 +57,10 @@ def convert_sec_to_sql_date(y):
 
 
 def error_logging(app,error,type,function):
-    print(type)
     if type == "error_log": filename = gl.ERROR_LOG
     elif type == "communications_log": filename = gl.COMM_ERROR_LOG
     elif type =="sql": filename = gl.ERROR_LOG
     else: return
-    print(filename)
     dte = convert_sql_date(datetime.datetime.now(),"dd/mm/yyyy hh:mm")
     try:
         e = open(filename, 'a')

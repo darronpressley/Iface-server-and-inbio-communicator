@@ -51,6 +51,7 @@ ORIGINAL_BOOKINGS = True
 MIN_STAMP = 9998
 MAX_STAMP = 1999999999
 
+#TODO clear all prints from all files before building as server
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -230,7 +231,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         else:
             self.clear_header("Date")
 
-class TestPage(tornado.web.RequestHandler):
+class IfaceInformation(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
 
@@ -262,11 +263,33 @@ class TestPage(tornado.web.RequestHandler):
                                                 + 'Iface Function keys = ' + str(IFACE_FUNCTION_KEYS) + '.<br><br>' \
                                                 + 'License Year = ' + str(return_version()) + '.<br><br>'\
                                                 + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
-                                                + 'Max Stamp = ' + str(MAX_STAMP) + '.<br><br>'\
-                                               + get_terminal_status_list() +'</HTML>')
-        #self.write(data)
-        #self.device_headers(None,False)
-        self.render('templates/test.html', data=data)
+                                                + 'Max Stamp = ' + str(MAX_STAMP) + '<br><br>')
+
+        self.render('templates/ifaceinformation.html', data=data)
+
+    def device_headers(self, dte, bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("Etag", "")
+        self.clear_header("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status", "OK")
+        #line removed for the test page
+        #self.set_header("content-type", "text/plain")
+        # send time header or not
+        if bDateHeader:
+            self.set_header("Date", dte)
+        else:
+            self.clear_header("Date")
+
+class TestPage(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
+
+    def get(self):
+        terminalList = get_terminal_status_list()
+
+        self.render('templates/test.html', terminallist=terminalList)
 
     def device_headers(self, dte, bDateHeader):
         self.set_status(200)# do not know if we need this and seems to conflict with status OK?
@@ -307,6 +330,7 @@ def make_app():
     handlers = [
         (r"/", MainHandler),
         (r"/test", TestPage),
+        (r"/ifaceinformation", IfaceInformation),
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
         (r"/iclock/devicecmd", IclockDevicecmdHandler),
@@ -317,42 +341,40 @@ def make_app():
         handlers, **settings
         )
 
-#settings = {
-#    "static_path": os.path.join(os.path.dirname(__file__), "static"),
-#    "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
-#    "login_url": "/login",
-#    "xsrf_cookies": True,
-#}
-#application = tornado.web.Application([
-#    (r"/", MainHandler),
- #   (r"/login", LoginHandler),
-#    (r"/(apple-touch-icon\.png)", tornado.web.StaticFileHandler,
- #    dict(path=settings['static_path'])),
-#], **settings)
-
-
 def log_ip_address(sn, ip):
     tx = "UPDATE d_iface_stamps SET last_ip = '"+ ip+ "' WHERE sn = '"+ sn+ "'"
     ret = sqlconns.sql_command(tx)
 
 def get_terminal_status_list():
-    terminal_list = sqlconns.sql_select_into_list('SELECT description, ip_address, configuration,poll_success FROM tterminal WHERE \
-                                        configuration in (' + str(ACCESS_TERMINAL) + ',' + str(ATTENDANCE_TERMINAL) + ')'\
-                                        'ORDER BY configuration, description')
+    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration,poll_success," \
+                                                " (SELECT TOP 1 last_ip as lastIp from d_iface_stamps WHERE terminal_id = tterminal.terminal_id)" \
+                                                " FROM tterminal LEFT OUTER JOIN" \
+                                                " d_iface_stamps ON tterminal.terminal_id = d_iface_stamps.terminal_id" \
+                                                " WHERE" \
+                                                " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
+                                                " ORDER BY configuration, description")
+    print(terminal_list)
     if terminal_list==-1: return ""
     tx = ""
     for index in range(len(terminal_list)):
+        tx += '<tr>'
         terminal_type = ""
-        if terminal_list[index][2] == 4: terminal_type = 'Access Terminal'
+        #have included other terminal types but they will not show unless they are in the general.ini as access or attendance terminal config type
+        if terminal_list[index][2] == 4: terminal_type = 'Access Control'
         if terminal_list[index][2] == 10: terminal_type = 'ZK Terminal'
-        if terminal_list[index][2] == 8: terminal_type = 'Attendance Terminal'
+        if terminal_list[index][2] == 8: terminal_type = 'Attendance NMD'
         if terminal_list[index][2] == 5: terminal_type = 'Hand Punch'
         if terminal_list[index][2] == 14: terminal_type = 'Fire Panel'
         if str(terminal_list[index][3]) == "None":
-            tx += terminal_list[index][1] + ' --- ' + 'No polling received.' + ' --- ' + str(terminal_list[index][0]) + ' --- ' + terminal_type
+            tx += '<td>' + terminal_list[index][1] + '</td><td>' + 'No polling received.' + '</td><td>' + str(terminal_list[index][0]) + '</td><td>' + terminal_type + '</td>'
         else:
-            tx += terminal_list[index][1] + ' --- ' + str(f.convert_sql_date(terminal_list[index][3],'dd/mm/yyyy hh:mm')) + ' --- ' + str(terminal_list[index][0]) + ' --- ' + terminal_type
-        tx += '<br>'
+            tx += '<td>' + terminal_list[index][1] + '</td><td>' + str(f.convert_sql_date(terminal_list[index][3],'dd/mm/yyyy hh:mm')) + '</td><td>' + str(terminal_list[index][0]) + '</td><td>' + terminal_type + '</td>'
+        #dummy space for last column
+        if terminal_list[index][4] != None:
+            tx += '<td>' + terminal_list[index][4] + '</td>'
+        else:
+            tx += '<td>' + '0.0.0.0' + '</td>'
+        tx += '</tr>'
     return tx
 
 class AppServerSvc(win32serviceutil.ServiceFramework):
