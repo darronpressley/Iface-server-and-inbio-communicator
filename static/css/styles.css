@@ -72,8 +72,8 @@ body {
     background-position: center;
     font-family: Times;
     font-weight: bold;
-    /*
-    position: relative;*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100vh;
     color: #555;
 }
@@ -107,13 +107,14 @@ table{
   th{
     padding: 20px 15px;
     text-align: left;
+    vertical-align:middle;
     font-weight: 500;
     font-size: 12px;
     color: #fff;
     text-transform: uppercase;
   }
   td{
-    padding: 15px;
+    padding: 20px 15px;
     text-align: left;
     vertical-align:middle;
     font-weight: 300;
@@ -125,3 +126,37 @@ table{
   section{
     margin: 50px;
   }
+
+#option-notes{
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+}
+
+#submit-button {
+  padding-top: 10px;
+  display: table;
+  margin: 0 auto;
+}
+
+#submit-button input {
+  font-size: 16px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+#submit-button input:hover {
+  background-color: #1B191B;
+  color: #FFF;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+

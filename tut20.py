@@ -24,7 +24,7 @@ print(mode(str(z)))
 print(datetime.datetime.now())
 
 xx = 'ZgCiQIUbDfZpu9G2ko1QVw=='
-xx = 'CFIH8V/9VDxoqWKul7VOTA=='
+xx = 'aByVouKtwcq/8f0qtFRLmA=='
 import sqlconns
 
 print(sqlconns.decrypt_with_key(xx))

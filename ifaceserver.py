@@ -306,19 +306,83 @@ class TestPage(tornado.web.RequestHandler):
         else:
             self.clear_header("Date")
 
+class ClockInfo(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
+
+    def get(self):
+        self.render('templates/clockinfo.html')
+
+    def device_headers(self, dte, bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("Etag", "")
+        self.clear_header("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status", "OK")
+        #line removed for the test page
+        #self.set_header("content-type", "text/plain")
+        # send time header or not
+        if bDateHeader:
+            self.set_header("Date", dte)
+        else:
+            self.clear_header("Date")
 
 class DeviceOptions(tornado.web.RequestHandler):
     def get(self):
 
-        squirrel = "Squirrel"
-        terminal_grid_options = "t grid options"
-        self.render('templates/options.html', squirrel=squirrel, terminal_grid_options=terminal_grid_options)
+        terminal_grid_options = self.terminal_grid()
+
+        self.render('templates/options.html', terminal_grid_options=terminal_grid_options)
 
     def post(self):
         self.name = self.get_argument("Submit", None)
 
-        self.tmp = 'templates/options.html'
-        self.render(self.tmp)
+        terminal_grid_options = self.terminal_grid()
+
+        self.render('templates/options.html', terminal_grid_options=terminal_grid_options)
+
+
+    def terminal_grid(self):
+        self.terminal_list = sqlconns.sql_select_into_list("SELECT description, configuration, tterminal.terminal_id," \
+                                                        " uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone"
+                                                        " FROM tterminal LEFT OUTER JOIN" \
+                                                        " d_iface_options ON tterminal.terminal_id = d_iface_options.terminal_id" \
+                                                        " WHERE" \
+                                                        " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
+                                                        " AND description not like '%.%' and number < 1000" \
+                                                        " ORDER BY configuration, description")
+        #0=description,1=configurattion,2=id,3=uface,4=oldtime,5=prox,6=nophoto,7=noface,8=nofinger,9=notime,10=timezone
+        if self.terminal_list == -1: return ""
+        tx = ""
+        for index in range(len(self.terminal_list)):
+            # have included other terminal types but they will not show unless they are in the general.ini as access or attendance terminal config type
+            id = str(self.terminal_list[index][2])
+            self.terminal_type = strTerminalConfiguration(self.terminal_list[index][1])
+            if self.terminal_list[index][10] == None:
+                print("yo")
+                self.timezone = '0'
+            else:
+                self.timezone = str(self.terminal_list[index][10])
+            print(type(self.timezone))
+            tx += '<tr>' #start row
+            tx += '<td>' + self.terminal_list[index][0] + '</td>' #description
+            tx += '<td>' + self.terminal_type + '</td>'  #configuration
+            tx += '<td><input type="checkbox" name=uface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#uface
+            tx += '<td><input type="checkbox" name=oldtime' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#oldtime
+            tx += '<td><input type="checkbox" name=prox' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#prox
+            tx += '<td><input type="checkbox" name=nophoto' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#nophoto
+            tx += '<td><input type="checkbox" name=noface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#noface
+            tx += '<td><input type="checkbox" name=nofinger' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#nofinger
+            tx += '<td><input type="checkbox" name=notime' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#notime#
+            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxLengthCheck(this)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'# #timezone #TODO JS to restrict to numeric plus minus 23 hours
+            tx += '</tr>' #end row
+        return tx
+
+    def bitBoolean(self,bit):
+        bool = ''
+        if str(bit) == '1': bool = ' checked="true"'
+        return bool
 
 def make_app():
 #TODO do we need this when its built?
@@ -328,12 +392,14 @@ def make_app():
     }
     handlers = [
         (r"/", MainHandler),
+        (r"/index", MainHandler),
         (r"/test", TestPage),
         (r"/ifaceinformation", IfaceInformation),
+        (r"/options", DeviceOptions),
+        (r"/clockinfo", ClockInfo),
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
-        (r"/iclock/devicecmd", IclockDevicecmdHandler),
-        (r"/options", DeviceOptions)
+        (r"/iclock/devicecmd", IclockDevicecmdHandler)
     ]
 
     return tornado.web.Application(
@@ -358,11 +424,7 @@ def get_terminal_status_list():
         tx += '<tr>'
         terminal_type = ""
         #have included other terminal types but they will not show unless they are in the general.ini as access or attendance terminal config type
-        if terminal_list[index][2] == 4: terminal_type = 'Access Control'
-        if terminal_list[index][2] == 10: terminal_type = 'ZK Terminal'
-        if terminal_list[index][2] == 8: terminal_type = 'Attendance NMD'
-        if terminal_list[index][2] == 5: terminal_type = 'Hand Punch'
-        if terminal_list[index][2] == 14: terminal_type = 'Fire Panel'
+        terminal_type = strTerminalConfiguration (terminal_list[index][2])
         if str(terminal_list[index][3]) == "None":
             tx += '<td>' + terminal_list[index][1] + '</td><td>' + 'No polling received.' + '</td><td>' + str(terminal_list[index][0]) + '</td><td>' + terminal_type + '</td>'
         else:
@@ -420,6 +482,15 @@ class AppServerSvc(win32serviceutil.ServiceFramework):
         time.sleep(3)
         self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
         win32event.SetEvent(self.hWaitStop)
+
+def strTerminalConfiguration(config):
+    terminal_type = 'Unknown'
+    if config == 4: terminal_type = 'Access Control'
+    if config == 10: terminal_type = 'ZK Terminal'
+    if config == 8: terminal_type = 'Attendance NMD'
+    if config == 5: terminal_type = 'Hand Punch'
+    if config == 14: terminal_type = 'Fire Panel'
+    return terminal_type
 
 def date_time_string_old(serial_number):
     dte = datetime.now()
