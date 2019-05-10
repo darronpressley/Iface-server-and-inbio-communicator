@@ -33,7 +33,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "uface 2018.0.5000"
+APP_VERSION = "uface 2019.0.1000"
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -173,10 +173,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        uface = False#TODO this line is legacy. can it be removed
-        tx = "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
-        notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
-        if "uface" in str.lower(notepad_options):uface = True #TODO this line is legacy, can it be removed
         data_list = get_commands_list(sn)
         if data_list==-1:
             return
@@ -336,7 +332,22 @@ class DeviceOptions(tornado.web.RequestHandler):
         self.render('templates/options.html', terminal_grid_options=terminal_grid_options)
 
     def post(self):
-        self.name = self.get_argument("Submit", None)
+        # TODO echo successful save
+        self.terminal_options_dict = self.request.arguments
+        print(type(self.terminal_options_dict), self.terminal_options_dict)
+        for key, value in self.terminal_options_dict.items():
+            if 'timezone' in key:
+                self.terminal_id = str.replace(key, 'timezone', '')
+                print(key, value, self.terminal_id)
+                uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone = self.get_terminal_options_flags()
+                print(uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)
+                tx = "UPDATE d_iface_options SET uface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, notime=?, timezone=?"\
+                    " WHERE terminal_id = ?"\
+                    " IF @@ROWCOUNT=0"\
+                    " INSERT INTO d_iface_options(terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)"\
+                    " VALUES (?,?,?,?,?,?,?,?,?)"
+                ret = sqlconns.sql_command(tx, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
+                print('ret', ret)
 
         terminal_grid_options = self.terminal_grid()
 
@@ -360,29 +371,55 @@ class DeviceOptions(tornado.web.RequestHandler):
             id = str(self.terminal_list[index][2])
             self.terminal_type = strTerminalConfiguration(self.terminal_list[index][1])
             if self.terminal_list[index][10] == None:
-                print("yo")
                 self.timezone = '0'
             else:
                 self.timezone = str(self.terminal_list[index][10])
-            print(type(self.timezone))
             tx += '<tr>' #start row
             tx += '<td>' + self.terminal_list[index][0] + '</td>' #description
             tx += '<td>' + self.terminal_type + '</td>'  #configuration
-            tx += '<td><input type="checkbox" name=uface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#uface
-            tx += '<td><input type="checkbox" name=oldtime' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#oldtime
-            tx += '<td><input type="checkbox" name=prox' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#prox
-            tx += '<td><input type="checkbox" name=nophoto' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#nophoto
-            tx += '<td><input type="checkbox" name=noface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#noface
-            tx += '<td><input type="checkbox" name=nofinger' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#nofinger
-            tx += '<td><input type="checkbox" name=notime' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#notime#
-            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxLengthCheck(this)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'# #timezone #TODO JS to restrict to numeric plus minus 23 hours
+            tx += '<td><input type="checkbox" name=uface' + id + ' id=uface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#uface
+            tx += '<td><input type="checkbox" name=oldtime' + id + ' id=oldime' + id + self.bitBoolean(self.terminal_list[index][4]) + '</td>'#oldtime
+            tx += '<td><input type="checkbox" name=prox' + id + ' id=prox' + id  + self.bitBoolean(self.terminal_list[index][5]) + '</td>'#prox
+            tx += '<td><input type="checkbox" name=nophoto' + id + ' id=nophoto' + id  + self.bitBoolean(self.terminal_list[index][6]) + '</td>'#nophoto
+            tx += '<td><input type="checkbox" name=noface' + id + ' id=noface' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#noface
+            tx += '<td><input type="checkbox" name=nofinger' + id + ' id=nofinger' + id  + self.bitBoolean(self.terminal_list[index][8]) + '</td>'#nofinger
+            tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][9]) + '</td>'#notime#
+            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'# #timezone #TODO JS to restrict to numeric plus minus 23 hours
             tx += '</tr>' #end row
         return tx
 
     def bitBoolean(self,bit):
+        #if anything at all is returned in checked then checked is true
         bool = ''
-        if str(bit) == '1': bool = ' checked="true"'
+        if bit == True: bool = ' checked="true"'
         return bool
+
+    def get_terminal_options_flags(self):
+        uface = "0"
+        oldtime = "0"
+        prox = "0"
+        nophoto = "0"
+        noface = "0"
+        nofinger = "0"
+        notime = "0"
+        timezone = "0"
+        value = self.terminal_options_dict.get('uface' + self.terminal_id, "0")
+        if value != "0": uface = "1"
+        value = self.terminal_options_dict.get('oldtime' + self.terminal_id, "0")
+        if value != "0": oldtime = "1"
+        value = self.terminal_options_dict.get('prox' + self.terminal_id, "0")
+        if value != "0": prox = "1"
+        value = self.terminal_options_dict.get('nophoto' + self.terminal_id, "0")
+        if value != "0": nophoto = "1"
+        value = self.terminal_options_dict.get('noface' + self.terminal_id, "0")
+        if value != "0": noface = "1"
+        value = self.terminal_options_dict.get('nofinger' + self.terminal_id, "0")
+        if value != "0": nofinger = "1"
+        value = self.terminal_options_dict.get('notime' + self.terminal_id, "0")
+        if value != "0": notime = "1"
+        value = self.terminal_options_dict.get('timezone' + self.terminal_id, "0")
+        if value != "0": timezone = value[0].decode()
+        return uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone
 
 def make_app():
 #TODO do we need this when its built?
@@ -506,15 +543,24 @@ def date_time_string_old(serial_number):
     return s
 
 def date_time_string(serial_number):
-    notepad_options = sqlconns.sql_select_single_field(
-            "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + serial_number + "'")
-    if 'notime' in str.lower(notepad_options): return None
+    terminal_options = sqlconns.sql_select_single_field(
+            "SELECT TOP 1 notime, timezone, oldtime from tterminal WHERE ip_address = '" + serial_number + "'")
+    notime = False
+    timezone = 0
+    oldtime = False
+    if terminal_options[0] == 1:
+        notime = True
+    if terminal_options[1] != None:
+        timezone = int(terminal_options[1])
+    if notime: return None
+    if terminal_options[2] == 1:
+        oldtime = True
     dte = datetime.now()
     if OLD_TIME == True:
-        if 'oldtime' in str.lower(notepad_options):
+        if oldtime:
             dte = dte - timedelta(hours = 1)
     #'timezone mod, use timezone=1 in the notepad option for Denmark'
-    dte = timezone_difference(dte,str(notepad_options))
+    dte = timezone_difference(dte,timezone)
     now = time.mktime(dte.timetuple())
     year, month, day, hh, mm, ss, wd, y, z = time.localtime(now)
     s = "%s,%02d %3s %4d %02d:%02d:%02d GMT" % (
@@ -541,18 +587,9 @@ def date_time_string_power(serial_number):
         day, dte.strftime('%b'), year,hh, mm, ss)
     return s
 
-def timezone_difference(dte,tx):
-    list = tx.splitlines()
-    time_adj = 0
-    for n in range(len(list)):
-        if 'timezone' in list[n]:
-            try:
-                time_adj = int(list[n].split("=")[1])
-            except Exception as e:
-                time_adj=0
-            if time_adj != 0:
-                dte = dte - timedelta(hours = (-time_adj))
-                return dte
+def timezone_difference(dte,timezone):
+    if timezone != 0:
+        dte = dte - timedelta(hours = (-timezone))
     return dte
 
 def date_time_string_test(tx):
@@ -1005,6 +1042,7 @@ def update_roll_call_table(empid,reader,reader_direction,reader_description,term
                                empid,
                                empid,reader,reader_direction,reader_description,terminal_id,zone_id,dte)
     return ret
+
 
 def set_env():
     global ACCESS_TERMINAL

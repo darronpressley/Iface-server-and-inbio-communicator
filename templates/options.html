@@ -27,8 +27,8 @@
           <table cellpadding="0" cellspacing="0" border="0" id="iface options">
             <thead>
               <tr>
-              <th >Device</th>
-              <th>Configuration</th>
+              <th>Device</th>
+              <th>Config</th>
               <th>Uface</th>
               <th>Oldtime</th>
               <th>Prox</th>
@@ -44,16 +44,16 @@
         <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
                 <tbody>
+                    <form method="POST">
                 {{ terminal_grid_options }}
                 </tbody>
 
               </table>
           </div>
           <div id=submit-button>
-          <form method="POST">
               <input type="submit" value="Commit to Database" name="submit">
-          </form> 
           </div>
+        </form> 
       <script src="{{ static_url('js/app.js') }}" type="application/javascript"></script> 
     </body>
 </html>

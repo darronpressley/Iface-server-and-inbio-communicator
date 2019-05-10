@@ -11,8 +11,7 @@ function isNumberKey(evt)
    return true;
 }
 
-function maxLengthCheck(object) {
-    console.log(object.value);
+function maxNumCheck(object) {
     var intValue = parseInt(object.value);
     if (object.value > 23) {
         object.value = '23';
