@@ -13,9 +13,9 @@
     <div id="menu">
             <ul>
                  <li><a href="index">Home</a></li>
-                 <li><a href="test" class="active">Polling</a></li>
+                 <li><a href="test">Polling</a></li>
                  <li><a href="ifaceinformation">General.ini</a></li>
-                 <li><a href="analyse">Analyse</a></li>
+                 <li><a href="analyse" class="active">Analyse</a></li>
                  <li><a href="options">Options</a></li>
                  <li><a href="clockinfo">Clock Info</a></li>
             </ul>
@@ -23,15 +23,27 @@
 
     <body>
         <section>
+            <div id=device-selector>
+                    <form method="POST">
+                        <select name="devices">
+                            {% for device in devices %}
+                                {{ device }}</option>
+                            {% end %}
+                        </select>
+                        <input type="number" id="number-of-commands" name="number-of-commands" placeholder="# of commands 1-1000" min="0" max="1000" size=13 {{ commandvalue }}
+                            oninput="maxNumCheck(this,1000)" onkeypress="return isNumberKeyNoMinus(event)">
+                        <input type="submit" value="  Analyse   " name="submit" 
+                            onclick="return isNumCommandsNull(document.getElementById('number-of-commands').value)">
+                    </form>
+            </div>
             <div class="tbl-header">
                 <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                     <tr>
-                    <th>Serial or IP</th>
-                    <th>Poll Success</th>
                     <th>Description</th>
-                    <th>Configuration</th>
-                    <th>Last IP</th>
+                    <th>Sent</th>
+                    <th>Complete</th>
+                    <th>Commannd</th>
                     </tr>
                 </thead>
                 </table>
@@ -39,7 +51,7 @@
             <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tbody>
-                        {{ terminallist }}
+                        {{ commandlist }}
                     </tbody>
                 </table>
             </div>

@@ -95,11 +95,11 @@ table{
     table-layout: fixed;
   }
   .tbl-header{
-    margin-top:100px;
+    margin-top:50px;
     background-color: rgba(0,0,0,0.5);
    }
   .tbl-content{
-    height:600px;
+    height:700px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
@@ -166,3 +166,16 @@ table{
   -o-border-radius: 20px;
 }
 
+#device-selector {
+  margin-top:100px;
+  background-color: rgba(0,0,0,0.5);
+  font-size: 16px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+}

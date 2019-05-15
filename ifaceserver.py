@@ -302,6 +302,93 @@ class TestPage(tornado.web.RequestHandler):
         else:
             self.clear_header("Date")
 
+class Analyse(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
+
+    def get(self):
+        self.device_list()
+        self.render('templates/analyse.html', commandlist="", devices=self.devices, commandvalue='')
+
+    def post(self):
+        self.device_list()
+        self.dictvars = self.request.arguments
+        print(self.dictvars)
+        device = self.dictvars.get('devices', "")
+        num_of_commands = self.dictvars.get('number-of-commands', "")
+        print(num_of_commands)
+        if len(device) > 0 :
+            device = device[0]
+        else:
+            device = ''
+        if len(num_of_commands) > 0 :
+            num_of_commands = num_of_commands[0]
+        else:
+            number_of_commands = ''
+        if device != '': device = device.decode("utf-8")
+        if num_of_commands != '': num_of_commands = num_of_commands.decode("utf-8")
+        for n in range(len(self.devices)):
+            if str.replace(self.devices[n], '<option>', '') == device:
+                self.devices[n] = str.replace(self.devices[n], '<option>', '<option selected>')
+        self.get_command_list(device, num_of_commands)
+        self.render('templates/analyse.html', commandlist=self.commanddata, devices=self.devices, commandvalue='value='+str(num_of_commands))
+
+    def device_headers(self, dte, bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("Etag", "")
+        self.clear_header("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status", "OK")
+        #line removed for the test page
+        #self.set_header("content-type", "text/plain")
+        # send time header or not
+        if bDateHeader:
+            self.set_header("Date", dte)
+        else:
+            self.clear_header("Date")
+
+    def device_list(self):
+        self.devices = ['<option>' + 'ALL']
+        tx = "SELECT description from tterminal" \
+                " WHERE" \
+                " configuration in (" + str(ACCESS_TERMINAL) + ", " + str(ATTENDANCE_TERMINAL) + ")"\
+                " AND ip_address not like '%.%' and number < 1000"\
+                " ORDER BY description"
+        ret = sqlconns.sql_select(tx)
+        if ret != -1:
+            for n in range(len(ret)):
+                next_option = '<option>' + ret[n][0]
+                self.devices.append(next_option)
+
+    def get_command_list(self, terminal_desc, num_commands):
+        self.commanddata = ''
+        tx = "SELECT TOP " + str(num_commands) + " description, sent, completed_date, left(command,120) AS CommandPart"\
+            " FROM tterminal INNER JOIN d_iface_commands"\
+            " ON tterminal.terminal_id = d_iface_commands.terminal_id"
+        if str.upper(terminal_desc) != 'ALL': tx += " WHERE description = '" + terminal_desc + "'"
+        tx += " ORDER BY iface_command_id DESC"
+        print(tx)
+        command_list = sqlconns.sql_select(tx)
+        if command_list == -1: return
+        tx = ''
+        for n in range(len(command_list)):
+            if command_list[n][1] == None  or command_list[n][1] == '0':
+                sent_flag = "False"
+            else:
+                sent_flag = "True"
+            completed_date = "Null"
+            if command_list[n][2] != None: completed_date = f.convert_sql_date(command_list[n][2],'dd/mm/yyyy hh:mm:ss')
+
+            tx += '<tr>' #start row
+            tx += '<td>' + command_list[n][0] + '</td>' #description
+            tx += '<td>' + sent_flag + '</td>'  #sent_flag
+            tx += '<td>' + completed_date + '</td>'  #completed date
+            tx += '<td>' + command_list[n][3] + '</td>'  # command
+            tx += '</tr>' #last row
+        self.commanddata = tx
+
+
 class ClockInfo(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
@@ -332,7 +419,6 @@ class DeviceOptions(tornado.web.RequestHandler):
         self.render('templates/options.html', terminal_grid_options=terminal_grid_options)
 
     def post(self):
-        # TODO echo successful save
         self.terminal_options_dict = self.request.arguments
         print(type(self.terminal_options_dict), self.terminal_options_dict)
         for key, value in self.terminal_options_dict.items():
@@ -384,7 +470,7 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<td><input type="checkbox" name=noface' + id + ' id=noface' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#noface
             tx += '<td><input type="checkbox" name=nofinger' + id + ' id=nofinger' + id  + self.bitBoolean(self.terminal_list[index][8]) + '</td>'#nofinger
             tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][9]) + '</td>'#notime#
-            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'# #timezone #TODO JS to restrict to numeric plus minus 23 hours
+            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'# #timezone #TODO JS to restrict to numeric plus minus 23 hours
             tx += '</tr>' #end row
         return tx
 
@@ -434,6 +520,7 @@ def make_app():
         (r"/ifaceinformation", IfaceInformation),
         (r"/options", DeviceOptions),
         (r"/clockinfo", ClockInfo),
+        (r"/analyse", Analyse),
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
         (r"/iclock/devicecmd", IclockDevicecmdHandler)

@@ -14,7 +14,7 @@
              <li><a href="index">Home</a></li>
              <li><a href="test">Polling</a></li>
              <li><a href="ifaceinformation">General.ini</a></li>
-             <li><a href="#">Analyse</a></li>
+             <li><a href="analyse">Analyse</a></li>
              <li><a href="options" class="active">Options</a></li>
              <li><a href="clockinfo" >Clock Info</a></li>
         </ul>
@@ -51,7 +51,7 @@
               </table>
           </div>
           <div id=submit-button>
-              <input type="submit" value="Commit to Database" name="submit">
+              <input type="submit" value="Commit to Database" name="submit" onclick="alertSavedOptions()">
           </div>
         </form> 
       <script src="{{ static_url('js/app.js') }}" type="application/javascript"></script> 
