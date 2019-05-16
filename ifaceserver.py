@@ -65,6 +65,11 @@ class IclockHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        print('poweron', sn)
+        terminal_id = sqlconns.sql_select_single_field(
+            "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
+        if terminal_id == "":
+            return
         ret = sqlconns.sql_command("UPDATE tterminal SET poll_success = ? WHERE ip_address = ?",datetime.now(),sn)
         if ret==-1: return
         #record ip address, you may have bother with this if https is ever used
@@ -84,6 +89,7 @@ class IclockHandler(tornado.web.RequestHandler):
         if terminal_id == -1: return
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
+        print("WE ARE IN POST",postvars)
         list = postvars.split("\n")
         if table_type =="": return
         if table_type == "OPERLOG":
@@ -173,6 +179,10 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        print('GET REQUEST',sn)
+        terminal_id = sqlconns.sql_select_single_field(
+            "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
+        if terminal_id == "": return -1
         data_list = get_commands_list(sn)
         if data_list==-1:
             return
@@ -373,7 +383,7 @@ class Analyse(tornado.web.RequestHandler):
         if command_list == -1: return
         tx = ''
         for n in range(len(command_list)):
-            if command_list[n][1] == None  or command_list[n][1] == '0':
+            if command_list[n][1] == None  or command_list[n][1] == False:
                 sent_flag = "False"
             else:
                 sent_flag = "True"
@@ -630,24 +640,26 @@ def date_time_string_old(serial_number):
     return s
 
 def date_time_string(serial_number):
-    terminal_options = sqlconns.sql_select_single_field(
-            "SELECT TOP 1 notime, timezone, oldtime from tterminal WHERE ip_address = '" + serial_number + "'")
+    tx = "SELECT TOP 1 notime, timezone, oldtime from tterminal"\
+            " INNER JOIN d_iface_options on tterminal.terminal_id = d_iface_options.terminal_id"\
+            " WHERE ip_address = '" + serial_number + "'"
+    terminal_options = sqlconns.sql_select(tx)
     notime = False
     timezone = 0
     oldtime = False
-    if terminal_options[0] == 1:
+    if terminal_options[0][0] == True:
         notime = True
-    if terminal_options[1] != None:
-        timezone = int(terminal_options[1])
+    if terminal_options[0][1] != None:
+        timezone = int(terminal_options[0][1])
     if notime: return None
-    if terminal_options[2] == 1:
+    if terminal_options[0][2] == True:
         oldtime = True
     dte = datetime.now()
     if OLD_TIME == True:
         if oldtime:
             dte = dte - timedelta(hours = 1)
     #'timezone mod, use timezone=1 in the notepad option for Denmark'
-    dte = timezone_difference(dte,timezone)
+    if timezone !=0: dte = timezone_difference(dte,timezone)
     now = time.mktime(dte.timetuple())
     year, month, day, hh, mm, ss, wd, y, z = time.localtime(now)
     s = "%s,%02d %3s %4d %02d:%02d:%02d GMT" % (
@@ -888,11 +900,12 @@ def build_power_on_get_request(sn):
             if ret[index][0]== "op_stamp": op_stamp = ret[index][1]
     else:
         return ret
-    tx =   "SELECT TOP 1 notepad from tterminal WHERE ip_address = '" + sn + "'"
-    notepad_options = str.lower(sqlconns.sql_select_single_field(tx))
+    tx = "SELECT TOP 1 uface from d_iface_options WHERE terminal_id = " + str(terminal_id)
+    uface = str.lower(sqlconns.sql_select_single_field(tx))
+    print('UFACE',uface)
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
     trans_flag_string = "1"
-    if 'uface' in notepad_options:
+    if uface:
         trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tEnrollFP\tChgFP\tFACE\tUserPic'
     xx = "GET OPTION FROM:" + sn + \
             "\r\nStamp=" + str(att_stamp) +\
