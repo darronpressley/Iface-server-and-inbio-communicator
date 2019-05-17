@@ -109,6 +109,7 @@ class IclockHandler(tornado.web.RequestHandler):
             ret = save_op_stamp(stamp,terminal_id,sn)
             if ret==-1: return -1
         if table_type == "ATTLOG":
+            print(list)
             for index in range(len(list)):
                 ret = insert_booking(str(list[index]),terminal_id,sn,configuration,stamp)
                 if ret == -1: return
@@ -179,7 +180,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        print('GET REQUEST',sn)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "": return -1
@@ -323,10 +323,8 @@ class Analyse(tornado.web.RequestHandler):
     def post(self):
         self.device_list()
         self.dictvars = self.request.arguments
-        print(self.dictvars)
         device = self.dictvars.get('devices', "")
         num_of_commands = self.dictvars.get('number-of-commands', "")
-        print(num_of_commands)
         if len(device) > 0 :
             device = device[0]
         else:
@@ -378,7 +376,6 @@ class Analyse(tornado.web.RequestHandler):
             " ON tterminal.terminal_id = d_iface_commands.terminal_id"
         if str.upper(terminal_desc) != 'ALL': tx += " WHERE description = '" + terminal_desc + "'"
         tx += " ORDER BY iface_command_id DESC"
-        print(tx)
         command_list = sqlconns.sql_select(tx)
         if command_list == -1: return
         tx = ''
@@ -430,20 +427,16 @@ class DeviceOptions(tornado.web.RequestHandler):
 
     def post(self):
         self.terminal_options_dict = self.request.arguments
-        print(type(self.terminal_options_dict), self.terminal_options_dict)
         for key, value in self.terminal_options_dict.items():
             if 'timezone' in key:
                 self.terminal_id = str.replace(key, 'timezone', '')
-                print(key, value, self.terminal_id)
                 uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone = self.get_terminal_options_flags()
-                print(uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)
                 tx = "UPDATE d_iface_options SET uface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, notime=?, timezone=?"\
                     " WHERE terminal_id = ?"\
                     " IF @@ROWCOUNT=0"\
                     " INSERT INTO d_iface_options(terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)"\
                     " VALUES (?,?,?,?,?,?,?,?,?)"
                 ret = sqlconns.sql_command(tx, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
-                print('ret', ret)
 
         terminal_grid_options = self.terminal_grid()
 
@@ -545,12 +538,11 @@ def log_ip_address(sn, ip):
     ret = sqlconns.sql_command(tx)
 
 def get_terminal_status_list():
-    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration,poll_success," \
-                                                " (SELECT TOP 1 last_ip as lastIp from d_iface_stamps WHERE terminal_id = tterminal.terminal_id)" \
+    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration,poll_success, last_ip" \
                                                 " FROM tterminal LEFT OUTER JOIN" \
                                                 " d_iface_stamps ON tterminal.terminal_id = d_iface_stamps.terminal_id" \
                                                 " WHERE" \
-                                                " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
+                                                " table_name = 'att_stamp' AND configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
                                                 " ORDER BY configuration, description")
     if terminal_list==-1: return ""
     tx = ""
@@ -723,7 +715,7 @@ def get_commands_list(sn):
     terminal_id = sqlconns.sql_select_single_field("SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn+"'")
     if terminal_id == "": return -1
     if int(terminal_id) > 0:
-        data_list = sqlconns.sql_select_into_list("SELECT top 50 iface_command_id,command FROM d_iface_commands where sent <> 1 and terminal_id ="+terminal_id+"ORDER BY iface_command_id")
+        data_list = sqlconns.sql_select_into_list("SELECT top 50 iface_command_id,command FROM d_iface_commands where sent <> 1 and terminal_id ="+terminal_id+" ORDER BY iface_command_id")
         if data_list==-1: return -1
         return data_list
     else:
@@ -902,7 +894,6 @@ def build_power_on_get_request(sn):
         return ret
     tx = "SELECT TOP 1 uface from d_iface_options WHERE terminal_id = " + str(terminal_id)
     uface = str.lower(sqlconns.sql_select_single_field(tx))
-    print('UFACE',uface)
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
     trans_flag_string = "1"
     if uface:

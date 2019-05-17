@@ -31,7 +31,6 @@ def sqlselect(sql):
 
 
 def sql_select_into_list(sql):
-    print(sql)
     try:
         conn = p.connect(gl.python_sql)
         dbcursor = conn.cursor()
@@ -39,7 +38,6 @@ def sql_select_into_list(sql):
         sql_list = dbcursor.fetchall()
         conn.close()
     except Exception as e:
-        print(str(e))
         f.error_logging("functions",e,"sql",sql)
         return -1
     return sql_list
