@@ -65,7 +65,6 @@ class IclockHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        print('poweron', sn)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "":
@@ -89,7 +88,6 @@ class IclockHandler(tornado.web.RequestHandler):
         if terminal_id == -1: return
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
-        print("WE ARE IN POST",postvars)
         list = postvars.split("\n")
         if table_type =="": return
         if table_type == "OPERLOG":
@@ -109,7 +107,6 @@ class IclockHandler(tornado.web.RequestHandler):
             ret = save_op_stamp(stamp,terminal_id,sn)
             if ret==-1: return -1
         if table_type == "ATTLOG":
-            print(list)
             for index in range(len(list)):
                 ret = insert_booking(str(list[index]),terminal_id,sn,configuration,stamp)
                 if ret == -1: return
@@ -513,8 +510,9 @@ class DeviceOptions(tornado.web.RequestHandler):
 def make_app():
 #TODO do we need this when its built?
 #SCRIPT_ROOT=SCRIPT_ROOT.replace("library.zip","")
+
     settings = {
-        "static_path": os.path.join(os.path.dirname(__file__), "static").replace(("\\"), ("/"))
+        "static_path": (os.path.join(os.path.dirname(__file__), "static").replace(("\\"), ("/"))).replace("library.zip/","")
     }
     handlers = [
         (r"/", MainHandler),
@@ -1251,18 +1249,15 @@ def return_version():
 
 
 if __name__ == "__main__":
-    """    win32serviceutil.HandleCommandLine(AppServerSvc)
+    win32serviceutil.HandleCommandLine(AppServerSvc)
     set_env()
-
-"""
-
-    if set_env()==True:
+"""    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+            tornado.ioloop.IOLoop.current().start()"""
 
 

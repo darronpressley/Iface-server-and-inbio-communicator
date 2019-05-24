@@ -2,16 +2,16 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1028" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="265" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="906" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="341" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1026" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="262" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="904" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="338" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emailer.py" beforeDir="false" afterPath="$PROJECT_DIR$/emailer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqlconns.py" beforeDir="false" afterPath="$PROJECT_DIR$/sqlconns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tut20.py" beforeDir="false" afterPath="$PROJECT_DIR$/tut20.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,7 +46,7 @@
           <entry key="css" value="4" />
           <entry key="html" value="2" />
           <entry key="ini" value="1" />
-          <entry key="py" value="71" />
+          <entry key="py" value="76" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -54,21 +54,21 @@
           <entry key="CSS" value="4" />
           <entry key="HTML" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="71" />
+          <entry key="Python" value="76" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
-          <entry key="Python" value="22728" />
+          <entry key="Python" value="22915" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="153" />
           <entry key="html" value="286" />
-          <entry key="py" value="22728" />
+          <entry key="py" value="22915" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -84,12 +84,45 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-174">
-              <caret line="1052" column="61" selection-start-line="1052" selection-start-column="61" selection-end-line="1052" selection-end-column="61" />
+            <state relative-caret-position="149">
+              <caret line="515" column="5" selection-start-line="515" selection-start-column="5" selection-end-line="515" selection-end-column="5" />
               <folding>
-                <marker date="1558099941501" expanded="true" signature="13071:13076" ph="..." />
-                <marker date="1558099941501" expanded="true" signature="14123:14271" ph="..." />
-                <marker date="1558099941501" expanded="true" signature="16770:17464" ph="..." />
+                <marker date="1558690761189" expanded="true" signature="12977:12982" ph="..." />
+                <marker date="1558690761189" expanded="true" signature="14029:14177" ph="..." />
+                <marker date="1558690761189" expanded="true" signature="16676:17370" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/iface_https_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gl.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="37" column="12" selection-start-line="37" selection-end-line="37" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/emailer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,11 +157,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tut20.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="67" column="9" selection-start-line="67" selection-end-line="67" selection-end-column="67" />
+            <state relative-caret-position="308">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
               <folding>
-                <marker date="1557387678875" expanded="true" signature="949:1726" ph="..." />
+                <marker date="1558600919816" expanded="true" signature="950:1727" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test1.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="125" column="10" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -144,10 +186,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>options</find>
-      <find>DeviceOptions</find>
-      <find>id=</find>
-      <find>terminal_g</find>
       <find>yo</find>
       <find>get_terminal_options_flags</find>
       <find>?</find>
@@ -166,7 +204,6 @@
       <find>datetime</find>
       <find>get_commands_list</find>
       <find>date_time_string</find>
-      <find>print</find>
       <find>date_time_string_power</find>
       <find>power</find>
       <find>notepad</find>
@@ -174,6 +211,11 @@
       <find>select top 50</find>
       <find>print(</find>
       <find>att</find>
+      <find>insert_bookin</find>
+      <find>print</find>
+      <find>te</find>
+      <find>error_logging</find>
+      <find>static</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -187,7 +229,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ifacehttpserver version.py" />
         <option value="$PROJECT_DIR$/../test and example code/currency converter.py" />
         <option value="$PROJECT_DIR$/test filre.py" />
         <option value="$PROJECT_DIR$/updateESS.py" />
@@ -235,8 +276,9 @@
         <option value="$PROJECT_DIR$/static/styles.css" />
         <option value="$PROJECT_DIR$/ifaceserver xml.py" />
         <option value="$PROJECT_DIR$/test1.py" />
-        <option value="$PROJECT_DIR$/tut20.py" />
         <option value="$PROJECT_DIR$/sqlconns.py" />
+        <option value="$PROJECT_DIR$/emailer.py" />
+        <option value="$PROJECT_DIR$/tut20.py" />
         <option value="$PROJECT_DIR$/ifaceserver.py" />
       </list>
     </option>
@@ -311,7 +353,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ifaceserver">
+  <component name="RunManager" selected="Python.tut20">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -352,7 +394,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="https_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="emailer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iface server and inbio communicator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -364,7 +406,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/https_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/emailer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -579,19 +621,19 @@
     <list>
       <item itemvalue="Python.ifacetornado" />
       <item itemvalue="Python.ifaceserver" />
-      <item itemvalue="Python.https_test" />
       <item itemvalue="Python.iface_https_handler" />
       <item itemvalue="Python.test1" />
       <item itemvalue="Python.ifaceserver xml" />
       <item itemvalue="Python.tut20" />
+      <item itemvalue="Python.emailer" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.tut20" />
+        <item itemvalue="Python.emailer" />
         <item itemvalue="Python.ifaceserver xml" />
         <item itemvalue="Python.test1" />
         <item itemvalue="Python.iface_https_handler" />
-        <item itemvalue="Python.https_test" />
       </list>
     </recent_temporary>
   </component>
@@ -752,13 +794,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/setup_image_export.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1184660488/PyQt5/QtWidgets/QTableWidgetItem.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1184660488/PyQt5/QtWidgets/QMenu.py" />
     <entry file="file://$PROJECT_DIR$/export image field to photos.py">
@@ -915,13 +950,6 @@
     <entry file="file://$PROJECT_DIR$/jcdp.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifacehttpserver version.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="614" column="12" lean-forward="true" selection-start-line="614" selection-start-column="12" selection-end-line="614" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup_adp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -957,16 +985,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/iface_https_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="137" column="26" lean-forward="true" selection-start-line="137" selection-start-column="26" selection-end-line="137" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/style/style.css" />
     <entry file="file://$PROJECT_DIR$/static/css/styles.css" />
     <entry file="file://$PROJECT_DIR$/templates/index.html">
@@ -987,13 +1005,6 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/gl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="37" column="38" selection-start-line="37" selection-end-line="37" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver xml.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
@@ -1005,23 +1016,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="125" column="10" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tut20.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="67" column="9" selection-start-line="67" selection-end-line="67" selection-end-column="67" />
-          <folding>
-            <marker date="1557387678875" expanded="true" signature="949:1726" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1045,14 +1039,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/emailer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="125" column="10" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tut20.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <marker date="1558600919816" expanded="true" signature="950:1727" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ifacehttpserver version.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2858">
+          <caret line="614" column="12" lean-forward="true" selection-start-line="614" selection-start-column="12" selection-end-line="614" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="37" column="12" selection-start-line="37" selection-end-line="37" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iface_https_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-174">
-          <caret line="1052" column="61" selection-start-line="1052" selection-start-column="61" selection-end-line="1052" selection-end-column="61" />
+        <state relative-caret-position="149">
+          <caret line="515" column="5" selection-start-line="515" selection-start-column="5" selection-end-line="515" selection-end-column="5" />
           <folding>
-            <marker date="1558099941501" expanded="true" signature="13071:13076" ph="..." />
-            <marker date="1558099941501" expanded="true" signature="14123:14271" ph="..." />
-            <marker date="1558099941501" expanded="true" signature="16770:17464" ph="..." />
+            <marker date="1558690761189" expanded="true" signature="12977:12982" ph="..." />
+            <marker date="1558690761189" expanded="true" signature="14029:14177" ph="..." />
+            <marker date="1558690761189" expanded="true" signature="16676:17370" ph="..." />
           </folding>
         </state>
       </provider>
