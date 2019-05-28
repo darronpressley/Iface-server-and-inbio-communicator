@@ -209,3 +209,23 @@ def convert_date_to_int(dte):
     year = int(dte.strftime("%y"))
     x = ((year * 12 * 31) + ((month - 1) * 31) + (day-1))*(24*60*60) + (hour * 60 * 60) + (minute * 60) + second
     return x
+
+def system_login_password(user, passWord): # like timeware system password except double slash
+    if user.lower() != 'system': return False
+    if len(passWord) != 4: return False
+    day = datetime.datetime.now().strftime("%A")
+    day = day[0].lower()
+    month = datetime.datetime.now().strftime("%B")
+    month = month[0].lower()
+    if passWord[0].lower() != '/': return False
+    if passWord[1].lower() != '/': return False
+    if passWord[2].lower() != day: return False
+    if passWord[3].lower() != month: return False
+    return True
+
+
+
+
+
+
+

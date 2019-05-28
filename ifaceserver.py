@@ -54,8 +54,16 @@ MAX_STAMP = 1999999999
 #TODO clear all prints from all files before building as server
 
 class MainHandler(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
+    @tornado.web.authenticated
     def get(self):
+        if not self.current_user:
+            self.redirect("/login")
+            return
         self.render('templates/index.html')
+
 
 class IclockHandler(tornado.web.RequestHandler):
     def compute_etag(self):
@@ -286,10 +294,17 @@ class IfaceInformation(tornado.web.RequestHandler):
             self.clear_header("Date")
 
 class TestPage(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
     def compute_etag(self):
         return None
 
+    @tornado.web.authenticated
     def get(self):
+        if not self.current_user:
+            self.redirect("/login")
+            return
         terminalList = get_terminal_status_list()
 
         self.render('templates/test.html', terminallist=terminalList)
@@ -310,10 +325,17 @@ class TestPage(tornado.web.RequestHandler):
             self.clear_header("Date")
 
 class Analyse(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
     def compute_etag(self):
         return None
 
+    @tornado.web.authenticated
     def get(self):
+        if not self.current_user:
+            self.redirect("/login")
+            return
         self.device_list()
         self.render('templates/analyse.html', commandlist="", devices=self.devices, commandvalue='')
 
@@ -394,10 +416,17 @@ class Analyse(tornado.web.RequestHandler):
 
 
 class ClockInfo(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
     def compute_etag(self):
         return None
 
+    @tornado.web.authenticated
     def get(self):
+        if not self.current_user:
+            self.redirect("/login")
+            return
         self.render('templates/clockinfo.html')
 
     def device_headers(self, dte, bDateHeader):
@@ -416,7 +445,14 @@ class ClockInfo(tornado.web.RequestHandler):
             self.clear_header("Date")
 
 class DeviceOptions(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
+    @tornado.web.authenticated
     def get(self):
+        if not self.current_user:
+            self.redirect("/login")
+            return
 
         terminal_grid_options = self.terminal_grid()
 
@@ -507,12 +543,29 @@ class DeviceOptions(tornado.web.RequestHandler):
         if value != "0": timezone = value[0].decode()
         return uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone
 
+
+class LoginHandler(tornado.web.RequestHandler):
+    def get(self):
+        print(self.settings)
+        self.render('templates/login.html')
+
+    def post(self):
+        username = self.get_argument("user")
+        password = self.get_argument("pass")
+        if f.system_login_password (username,password):
+            self.set_secure_cookie("user", self.get_argument("user"))
+            self.redirect("/")
+        else:
+            self.render("templates/login.html")
+
 def make_app():
 #TODO do we need this when its built?
 #SCRIPT_ROOT=SCRIPT_ROOT.replace("library.zip","")
 
     settings = {
-        "static_path": (os.path.join(os.path.dirname(__file__), "static").replace(("\\"), ("/"))).replace("library.zip/","")
+        "static_path": (os.path.join(os.path.dirname(__file__), "static").replace(("\\"), ("/"))).replace("library.zip/",""),
+        "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+        "login_url": "/login",
     }
     handlers = [
         (r"/", MainHandler),
@@ -522,6 +575,7 @@ def make_app():
         (r"/options", DeviceOptions),
         (r"/clockinfo", ClockInfo),
         (r"/analyse", Analyse),
+        (r"/login", LoginHandler),
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
         (r"/iclock/devicecmd", IclockDevicecmdHandler)
@@ -1249,15 +1303,15 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
-"""    if set_env()==True:
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
+    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()"""
+            tornado.ioloop.IOLoop.current().start()
 
 

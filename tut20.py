@@ -78,3 +78,6 @@ for key, value in x.items():
         print(key,value, terminal_id, uface)
 
 
+import functions as f
+
+print(f.system_login_password('system','//f5m'))
