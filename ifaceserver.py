@@ -62,8 +62,8 @@ class MainHandler(tornado.web.RequestHandler):
         if not self.current_user:
             self.redirect("/login")
             return
-        self.render('templates/index.html')
-
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/index.html"
+        self.render(path)
 
 class IclockHandler(tornado.web.RequestHandler):
     def compute_etag(self):
@@ -276,7 +276,8 @@ class IfaceInformation(tornado.web.RequestHandler):
                                                 + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
                                                 + 'Max Stamp = ' + str(MAX_STAMP) + '<br><br>')
 
-        self.render('templates/ifaceinformation.html', data=data)
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/ifaceinformation.html"
+        self.render(path, data=data)
 
     def device_headers(self, dte, bDateHeader):
         self.set_status(200)# do not know if we need this and seems to conflict with status OK?
@@ -307,7 +308,9 @@ class TestPage(tornado.web.RequestHandler):
             return
         terminalList = get_terminal_status_list()
 
-        self.render('templates/test.html', terminallist=terminalList)
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/test.html"
+        self.render(path, terminallist=terminalList)
+
 
     def device_headers(self, dte, bDateHeader):
         self.set_status(200)# do not know if we need this and seems to conflict with status OK?
@@ -337,7 +340,8 @@ class Analyse(tornado.web.RequestHandler):
             self.redirect("/login")
             return
         self.device_list()
-        self.render('templates/analyse.html', commandlist="", devices=self.devices, commandvalue='')
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/analyse.html"
+        self.render(path, commandlist="", devices=self.devices, commandvalue='')
 
     def post(self):
         self.device_list()
@@ -358,7 +362,9 @@ class Analyse(tornado.web.RequestHandler):
             if str.replace(self.devices[n], '<option>', '') == device:
                 self.devices[n] = str.replace(self.devices[n], '<option>', '<option selected>')
         self.get_command_list(device, num_of_commands)
-        self.render('templates/analyse.html', commandlist=self.commanddata, devices=self.devices, commandvalue='value='+str(num_of_commands))
+
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/analyse.html"
+        self.render(path, commandlist=self.commanddata, devices=self.devices, commandvalue='value='+str(num_of_commands))
 
     def device_headers(self, dte, bDateHeader):
         self.set_status(200)# do not know if we need this and seems to conflict with status OK?
@@ -427,7 +433,8 @@ class ClockInfo(tornado.web.RequestHandler):
         if not self.current_user:
             self.redirect("/login")
             return
-        self.render('templates/clockinfo.html')
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/clockinfo.html"
+        self.render(path)
 
     def device_headers(self, dte, bDateHeader):
         self.set_status(200)# do not know if we need this and seems to conflict with status OK?
@@ -453,10 +460,9 @@ class DeviceOptions(tornado.web.RequestHandler):
         if not self.current_user:
             self.redirect("/login")
             return
-
         terminal_grid_options = self.terminal_grid()
-
-        self.render('templates/options.html', terminal_grid_options=terminal_grid_options)
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/options.html"
+        self.render(path, terminal_grid_options=terminal_grid_options)
 
     def post(self):
         self.terminal_options_dict = self.request.arguments
@@ -473,7 +479,8 @@ class DeviceOptions(tornado.web.RequestHandler):
 
         terminal_grid_options = self.terminal_grid()
 
-        self.render('templates/options.html', terminal_grid_options=terminal_grid_options)
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/options.html"
+        self.render(path, terminal_grid_options=terminal_grid_options)
 
 
     def terminal_grid(self):
@@ -546,8 +553,8 @@ class DeviceOptions(tornado.web.RequestHandler):
 
 class LoginHandler(tornado.web.RequestHandler):
     def get(self):
-        print(self.settings)
-        self.render('templates/login.html')
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/login.html"
+        self.render(path)
 
     def post(self):
         username = self.get_argument("user")
@@ -556,7 +563,8 @@ class LoginHandler(tornado.web.RequestHandler):
             self.set_secure_cookie("user", self.get_argument("user"))
             self.redirect("/")
         else:
-            self.render("templates/login.html")
+            path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/", "") + "login.html"
+            self.render(path)
 
 def make_app():
 #TODO do we need this when its built?
@@ -1303,15 +1311,15 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
-    if set_env()==True:
-        if version_check()==True:
-            log_initialise()
-            app = make_app()
-            app.listen(gl.server_port)
-            SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
+    #if set_env()==True:
+     #   if version_check()==True:
+      #      log_initialise()
+       #     app = make_app()
+        #    app.listen(gl.server_port)
+         #   SERVER_STARTED = 1
+          #  logging.getLogger('tornado.access').disabled = True
+           # tornado.ioloop.IOLoop.current().start()
 
 
