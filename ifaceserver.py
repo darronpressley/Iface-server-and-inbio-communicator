@@ -563,7 +563,9 @@ class LoginHandler(tornado.web.RequestHandler):
             self.set_secure_cookie("user", self.get_argument("user"))
             self.redirect("/")
         else:
-            path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/", "") + "login.html"
+            #ath = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/",
+             #                                                                                           "") + "/options.html"
+            path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/", "") + "/login.html"
             self.render(path)
 
 def make_app():

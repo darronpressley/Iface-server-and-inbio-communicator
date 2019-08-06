@@ -1,4 +1,6 @@
-import
+import wx
+import gl
+
 
 def set_env():
         global VERSION
