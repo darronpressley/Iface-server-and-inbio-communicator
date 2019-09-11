@@ -125,18 +125,27 @@ sample = """<?xml version="1.0"?>
    </book>
 </catalog>"""
 
-import requests
+#import requests
 
 # Set the name of the XML file.
-xml_file = ""
+#xml_file = ""
 
-sample = sample.replace('"', '\"')
+#sample = sample.replace('"', '\"')
 
-sample = sample.replace("'", "\'")
+#sample = sample.replace("'", "\'")
 
-headers = {'Content-Type':'text/xml'}
+#headers = {'Content-Type':'text/xml'}
 
 
-r = requests.post('http://localhost:82', data=sample)
+#r = requests.post('http://localhost:82', data=sample)
 
-print (r.content);
+#print (r.content);
+
+#os.system('cls' if os.name == 'nt' else 'clear')
+
+x = 1
+test = ('grrr' if x==1 else 'GRRRRRRRR') #how to set a var depending on a var'
+print(test)
+
+import os
+print(os.name)

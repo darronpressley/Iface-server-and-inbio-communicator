@@ -42,3 +42,4 @@ function isNumCommandsNull(commands) {
         return commands;
     }
 }
+;

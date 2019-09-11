@@ -73,6 +73,7 @@ class IclockHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        print('PON',sn,self.request.remote_ip)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "":
@@ -185,6 +186,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        print(sn)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "": return -1
@@ -293,6 +295,41 @@ class IfaceInformation(tornado.web.RequestHandler):
             self.set_header("Date", dte)
         else:
             self.clear_header("Date")
+
+class ServerTime(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
+    def compute_etag(self):
+        return None
+
+    @tornado.web.authenticated
+    def get(self):
+        if not self.current_user:
+            self.redirect("/login")
+            return
+
+        timer = str(date_time_string_test('normaltime'))
+
+        path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/servertime.html"
+        self.render(path, timer=timer)
+
+
+    def device_headers(self, dte, bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("Etag", "")
+        self.clear_header("Etag")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status", "OK")
+        #line removed for the test page
+        #self.set_header("content-type", "text/plain")
+        # send time header or not
+        if bDateHeader:
+            self.set_header("Date", dte)
+        else:
+            self.clear_header("Date")
+
 
 class TestPage(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -513,7 +550,7 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<td><input type="checkbox" name=noface' + id + ' id=noface' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#noface
             tx += '<td><input type="checkbox" name=nofinger' + id + ' id=nofinger' + id  + self.bitBoolean(self.terminal_list[index][8]) + '</td>'#nofinger
             tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][9]) + '</td>'#notime#
-            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'# #timezone #TODO JS to restrict to numeric plus minus 23 hours
+            tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'
             tx += '</tr>' #end row
         return tx
 
@@ -585,6 +622,7 @@ def make_app():
         (r"/options", DeviceOptions),
         (r"/clockinfo", ClockInfo),
         (r"/analyse", Analyse),
+        (r"/servertime", ServerTime),
         (r"/login", LoginHandler),
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
@@ -1313,15 +1351,15 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
-    #if set_env()==True:
-     #   if version_check()==True:
-      #      log_initialise()
-       #     app = make_app()
-        #    app.listen(gl.server_port)
-         #   SERVER_STARTED = 1
-          #  logging.getLogger('tornado.access').disabled = True
-           # tornado.ioloop.IOLoop.current().start()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
+    if set_env()==True:
+        if version_check()==True:
+            log_initialise()
+            app = make_app()
+            app.listen(gl.server_port)
+            SERVER_STARTED = 1
+            logging.getLogger('tornado.access').disabled = True
+            tornado.ioloop.IOLoop.current().start()
 
 

@@ -304,3 +304,15 @@ a{color:inherit;text-decoration:none}
 .foot-lnk{
 	text-align:center;
 }
+
+.clock{
+  background: #ebebeb;
+  opacity: 0.5;
+  text-align: center;
+  font-size: 100px;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-family: Orbitron;
+  color: black;
+}
