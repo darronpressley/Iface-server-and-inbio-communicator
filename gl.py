@@ -46,6 +46,7 @@ ERROR_LOG = SCRIPT_ROOT + "error.log"
 SPOOL_LOG = SCRIPT_ROOT + "spool.log"
 GENERAL_INI = SCRIPT_ROOT + "general.ini"
 ADP_INI = SCRIPT_ROOT + "adp.ini"
+ADP2_INI = SCRIPT_ROOT + "adp2.ini"
 LICENSE_TXT = SCRIPT_ROOT + "license.txt"
 
 KEY_FILE = SCRIPT_ROOT + "privatekey.pem"

@@ -73,7 +73,6 @@ class IclockHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        print('PON',sn,self.request.remote_ip)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "":
@@ -92,6 +91,7 @@ class IclockHandler(tornado.web.RequestHandler):
         #if dte != None: bDateHeader = True do not send dte heaaer in power on
         self.device_headers(dte,bDateHeader)
 
+#data from clock to ifaceserver
     def post(self):
         terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
         if terminal_id == -1: return
@@ -186,7 +186,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
-        print(sn)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "": return -1
@@ -972,7 +971,7 @@ def save_user_photo(xx,terminal_id):
                     " IF @@ROWCOUNT=0" \
                     " INSERT INTO d_iface_photo(employee_id,file_name,size,content,date_added,terminal_id,new) VALUES ('"+user_id+"','"+file_name+"','"+size+"','"+content+"',"+date_now+","+str(terminal_id)+",1)"
     ret = sqlconns.sql_command(tx)
-    if ret==0:
+    if ret==0: #0 is ok
         if gl.face_to_personnel==True:
             content = base64.b64decode(content)
             tx = "UPDATE temployee SET photo = ? WHERE employee_id = ?"
@@ -1066,7 +1065,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     emp_id = int(list[0])
     booking = list[1]
     flag = 0
-    #if stamp is bad do not save it
+    #if stamp is bad do not save it but save it as a BAD stamp
     if int(stamp) >= int(MAX_STAMP) or int(stamp) <= int(MIN_STAMP):
         date_now = f.get_sql_date(datetime.now(), "yyyy-mm-dd hh:mm:ss")
         tx = "UPDATE d_iface_stamps SET stamp = " + stamp + ",date_added = " + date_now + ",sn = '" + str(
@@ -1077,12 +1076,12 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
              date_now + ",'" + str(sn) + "')"
         ret = sqlconns.sql_command(tx)
         if ret == -1: return -1
-        return 1 #go no further if bad stamp, change on 18012019, this line was not here.
+        return 1 #go no further if bad stamp but return 1 as successful
 
     #check if in att log table and bail out if need be
     test_dte = f.iface_string_to_date_format(booking)
     test_booking = f.get_sql_date(test_dte, "yyyy-mm-dd hh:mm:ss")
-    if int(list[2]) != 100 :#100 is cost centre
+    if int(list[2]) != 100:#100 is cost centre
         if bAttFound (sn,emp_id,test_booking): return 1
     #if a cost centre clocking then check att_log_table and bail out if need be
     else:
@@ -1170,7 +1169,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 def bAttFound (sn,emp_id,booking):
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE sn = '"+ sn+ "' AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
     ret = sqlconns.sql_select_single_field(tx)
-
+    print(tx)
     if ret == "":
         return False
     if int(ret) > 0:
@@ -1186,6 +1185,7 @@ def bAttFound (sn,emp_id,booking):
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
         " WHERE d_iface_att_id = "+ str(int(ret))
+        print(tx)
         ret = sqlconns.sql_command(tx)
 
         return True

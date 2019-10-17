@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#single columnt, 12 bookings
 
 # Form implementation generated from reading ui file 'iface analyser.ui'
 #
@@ -9,9 +10,20 @@
 
 APPNAME = "ADP"
 
-#lastname, firstname , 4 x in outs
-#DATA_LIST = [['None','None','0','None','None','None','None','None','None','None','None'],['None','None','0','None','None','None','None','None','None','None','None',]]
+'this is 10 seconds'
+ADP_REFRESH = 10000
 
+#screen defaults
+#Orig 1500,900
+SCREEN_SIZE_X=1500
+SCREEN_SIZE_Y=1500
+
+#grid defaults
+#orig 10, 10, 1500, 900
+GRID_POS_X=10
+GRID_POS_Y=10
+GRID_SIZE_X=1500
+GRID_SIZE_Y=900
 
 #COUNT_COMMANDS = 1
 SQL_TOP = ""
@@ -67,19 +79,19 @@ class Ui_MainWindow(QtGui.QMainWindow):
 
         #self.timer.timeout.connect(self.refreshTable)
 
-        self.timer = QtCore.QTimer.singleShot(1000, self.refreshTable)
+        self.timer = QtCore.QTimer.singleShot(ADP_REFRESH, self.refreshTable)
 
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         self.setWindowIcon(QtGui.QIcon('python_small.ico'))
-        MainWindow.resize(1300, 800)
+        MainWindow.resize(SCREEN_SIZE_X, SCREEN_SIZE_Y)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.tableWidget = QtGui.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(10, 10, 1300, 800))
+        self.tableWidget.setGeometry(QtCore.QRect(GRID_POS_X, GRID_POS_Y, GRID_SIZE_X, GRID_SIZE_Y))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
-        self.tableWidget.setColumnCount(23)
+        self.tableWidget.setColumnCount(15)
         self.tableItem= QTableWidgetItem()
         #self.refreshTable()
         MainWindow.setCentralWidget(self.centralwidget)
@@ -124,8 +136,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
     #@QtCore.pyqtSlot()
     def refreshTable(self):
         #global DATA_LIST
-        DATA_LIST = [['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None'],
-                          ['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', ]]
+        DATA_LIST = ['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None']
+
 
 #        DATA_LIST = self.get_employee_details()
 #**********************************************************
@@ -135,19 +147,19 @@ class Ui_MainWindow(QtGui.QMainWindow):
         tx += EMPLOYEE_SQL
         ret = sqlconns.sql_select_into_list(tx)
         if ret == -1:
-            DATA_LIST = [['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None']]
+            DATA_LIST = ['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None']
         else:
             DATA_LIST = [x for x in ret]
             for n in range(len(DATA_LIST)):
                 DATA_LIST[n] = DATA_LIST[n] = [x for x in DATA_LIST[n]]
-                for y in range(8):
+                for y in range(12):
                     DATA_LIST[n].append('')
 
             for n in range(len(DATA_LIST)):
-                for y in range(8):
+                for y in range(12):
                     DATA_LIST[n][y + 3] = ''
 
-                sql_get_swipes_tx = 'SELECT TOP (8) twork_swipe.date_and_time from twork INNER JOIN twork_swipe ON twork.work_id = twork_swipe.work_id ' \
+                sql_get_swipes_tx = 'SELECT TOP (12) twork_swipe.date_and_time from twork INNER JOIN twork_swipe ON twork.work_id = twork_swipe.work_id ' \
                                     ' WHERE twork.employee_id = ' + str(
                     DATA_LIST[n][2]) + ' AND twork.[type] = 1000 and twork.date_and_time = ' + f.get_sql_date(
                     datetime.now(), "yyyy-mm-dd") + ' ORDER BY twork_swipe.date_and_time ASC'
@@ -159,32 +171,30 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.tableWidget.verticalHeader().setVisible(False)
 
         self.tableWidget.setHorizontalHeaderLabels([' LastName               ',' FirstName              ',' IN      ',' OUT  ',' IN      ', ' OUT  ',' IN       ',' OUT  ',' IN      ',' OUT   ',
-                                                    ' Total      ',
-                                                    ' ',
-                                                    ' LastName               ', ' FirstName              ', ' IN      ',
-                                                    ' OUT  ', ' IN      ', ' OUT  ', ' IN       ', ' OUT  ',
-                                                    ' IN      ', ' OUT   ', ' Total      '])
-        for n in range(22):
+                                                    ' IN       ', ' OUT  ', ' IN      ', ' OUT   ',
+                                                    ' Total      '
+                                                    ])
+        for n in range(15):
             self.tableWidget.horizontalHeaderItem(n).setTextAlignment(Qt.AlignLeft)
 
         rowcount = 0
         if len(DATA_LIST) == 1:
             rowcount = 1
         else:
-            rowcount = int((len(DATA_LIST)+1)/2)
+            rowcount = int((len(DATA_LIST)+1))
 
         self.tableWidget.setRowCount(rowcount)
 
         for n in range(len(DATA_LIST)):
-            row_number = int((n)/2)
+            row_number = int((n))
             if n %2 ==0:
                 column ='left'
             else:
-                column = 'right'
+                column = 'left'
 
             swipes_count = 0
 
-            for y in range(11):
+            for y in range(15):
                 yy=y
                 if yy>2: yy -= 1
                 if y != 2 :
@@ -193,10 +203,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
                         swipes_count+=1
                     else:
                         field = str(DATA_LIST[n][y])
-                    if column == 'left':
-                        self.tableWidget.setItem(row_number, yy, QTableWidgetItem(field))
-                    else:
-                       self.tableWidget.setItem(row_number,yy+12, QTableWidgetItem(field))
+
+                self.tableWidget.setItem(row_number, yy, QTableWidgetItem(field))
 
             #green
             r=OUT_RED
@@ -211,20 +219,14 @@ class Ui_MainWindow(QtGui.QMainWindow):
             #get total hours for display if there are clockings
             if swipes_count > 0:
                 display_emp_total = self.get_total_time(n,DATA_LIST)
-                if column == 'left':
-                    self.tableWidget.setItem(row_number, 10, QTableWidgetItem(display_emp_total))
-                else:
-                   self.tableWidget.setItem(row_number, 22, QTableWidgetItem(display_emp_total))
+                self.tableWidget.setItem(row_number, 14, QTableWidgetItem(display_emp_total))
             else:
                 null_time = '0:00'
-                if column == 'left':
-                    self.tableWidget.setItem(row_number, 10, QTableWidgetItem(null_time))
-                else:
-                   self.tableWidget.setItem(row_number, 22, QTableWidgetItem(null_time))
+                self.tableWidget.setItem(row_number, 14, QTableWidgetItem(null_time))
 
-            for col in range(11):
+
+            for col in range(15):
                 actual_col = col
-                if column=='right': actual_col+=12
                 if self.tableWidget.item(row_number, actual_col)!=None: self.tableWidget.item(row_number, actual_col).setBackground(QtGui.QColor(r,g,b))
 
 
@@ -260,7 +262,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
             DATA_LIST = [x for x in ret]
             for n in range(len(DATA_LIST)):
                 DATA_LIST[n] = DATA_LIST[n] = [x for x in DATA_LIST[n]]
-                for y in range(8):
+                for y in range(12):
                     DATA_LIST[n].append('')
 
             for n in range(len(DATA_LIST)):
@@ -282,7 +284,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
     def get_total_time(self,row_number,DATA_LIST):
         mins = 0
         y = 3
-        for n in range(4):
+        for n in range(6):
             mins += work_out_pairs(DATA_LIST[row_number][y], DATA_LIST[row_number][y+1])
             y+=2
         hours = str(int(mins / 60)) + "h "
@@ -290,33 +292,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
         if len(str(mins)) == 1: mins = "0" + str(mins)
         hours += str(mins) + 'm'
         return hours
-
-
-#class TerminalX(QtCore.QThread):
-#    def __init__(self,parent=None):
-#        QtCore.QThread.__init__(self,parent)
-#        self.test=''
-
- #   def run(self):
-  #      x = ''
-   #     print("in run")
-    #    while self.COUNT_COMMANDS == 1:
-     #       self.get_employee_details()
-      #      #time.sleep(10)
-#
-
-#def get_total_time(row_number):
-#    mins = 0
-#    y = 3
-#    for n in range(4):
-#        mins += work_out_pairs(DATA_LIST[row_number][y], DATA_LIST[row_number][y+1])
-#        y+=2#
-
- #   hours = str(int(mins / 60)) + "h "
-  #  mins = mins % 60
- #   if len(str(mins)) == 1: mins = "0" + str(mins)
- #   hours += str(mins) + 'm'
- #   return hours
 
 def work_out_pairs(time1,time2):
 
@@ -377,6 +352,14 @@ def set_env():
     global OUT_RED
     global OUT_GREEN
     global OUT_BLUE
+    global SCREEN_SIZE_X
+    global SCREEN_SIZE_Y
+    global GRID_POS_X
+    global GRID_POS_Y
+    global GRID_SIZE_X
+    global GRID_SIZE_Y
+    global ADP_REFRESH
+
     path = str.replace(gl.SCRIPT_ROOT,'adp.exe','')
     if os.path.isfile(path + 'database.ini'):
         if sqlconns.readsql_connection_timeware_main_6() == 0:
@@ -387,8 +370,8 @@ def set_env():
             if test_comms == 0:
                     showdialog('Error connecting to database!!!! ' + path)
             else:
-                if os.path.isfile(gl.ADP_INI):
-                    fob=open(gl.ADP_INI, "r")
+                if os.path.isfile(gl.ADP2_INI):
+                    fob=open(gl.ADP2_INI, "r")
                     listme = fob.readlines()
                     fob.close()
                 else:
@@ -413,6 +396,20 @@ def set_env():
                             OUT_GREEN = int(str.split(listme[index], '=')[1])
                         if 'OUT_BLUE' in listme[index]:
                             OUT_BLUE = int(str.split(listme[index], '=')[1])
+                        if 'SCREEN_SIZE_X' in listme[index]:
+                            SCREEN_SIZE_X = int(str.split(listme[index], '=')[1])
+                        if 'SCREEN_SIZE_Y' in listme[index]:
+                            SCREEN_SIZE_Y = int(str.split(listme[index], '=')[1])
+                        if 'GRID_POS_X' in listme[index]:
+                            GRID_POS_X = int(str.split(listme[index], '=')[1])
+                        if 'GRID_POS_Y' in listme[index]:
+                            GRID_POS_Y = int(str.split(listme[index], '=')[1])
+                        if 'GRID_SIZE_X' in listme[index]:
+                            GRID_SIZE_X = int(str.split(listme[index], '=')[1])
+                        if 'GRID_SIZE_Y' in listme[index]:
+                            GRID_SIZE_Y = int(str.split(listme[index], '=')[1])
+                        if 'ADP_REFRESH' in listme[index]:
+                            ADP_REFRESH = int(str.split(listme[index], '=')[1])
 
 
                 except Exception as e:
