@@ -52,7 +52,7 @@ setup(
                     }
     },
     windows = [{
-        'script': "adp.py",
+        'script': "adp2.py",
         "icon_resources": [(1, "python_small.ico")]
     }],
     zipfile=None
