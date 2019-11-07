@@ -91,7 +91,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.tableWidget = QtGui.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(GRID_POS_X, GRID_POS_Y, GRID_SIZE_X, GRID_SIZE_Y))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
-        self.tableWidget.setColumnCount(15)
+        self.tableWidget.setColumnCount(14)
         self.tableItem= QTableWidgetItem()
         #self.refreshTable()
         MainWindow.setCentralWidget(self.centralwidget)
@@ -145,6 +145,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         if SQL_TOP != '': tx += SQL_TOP + ' '
         tx += "last_name, first_name, employee_id from temployee "
         tx += EMPLOYEE_SQL
+
         ret = sqlconns.sql_select_into_list(tx)
         if ret == -1:
             DATA_LIST = ['None', 'None', '0', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None']
@@ -174,7 +175,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
                                                     ' IN       ', ' OUT  ', ' IN      ', ' OUT   ',
                                                     ' Total      '
                                                     ])
-        for n in range(15):
+        for n in range(14):
             self.tableWidget.horizontalHeaderItem(n).setTextAlignment(Qt.AlignLeft)
 
         rowcount = 0
@@ -219,13 +220,13 @@ class Ui_MainWindow(QtGui.QMainWindow):
             #get total hours for display if there are clockings
             if swipes_count > 0:
                 display_emp_total = self.get_total_time(n,DATA_LIST)
-                self.tableWidget.setItem(row_number, 14, QTableWidgetItem(display_emp_total))
+                #self.tableWidget.setItem(row_number, 14, QTableWidgetItem(display_emp_total))
             else:
                 null_time = '0:00'
-                self.tableWidget.setItem(row_number, 14, QTableWidgetItem(null_time))
+               # self.tableWidget.setItem(row_number, 14, QTableWidgetItem(null_time))
 
 
-            for col in range(15):
+            for col in range(14):
                 actual_col = col
                 if self.tableWidget.item(row_number, actual_col)!=None: self.tableWidget.item(row_number, actual_col).setBackground(QtGui.QColor(r,g,b))
 
@@ -266,10 +267,10 @@ class Ui_MainWindow(QtGui.QMainWindow):
                     DATA_LIST[n].append('')
 
             for n in range(len(DATA_LIST)):
-                for y in range(8):
+                for y in range(12):
                     DATA_LIST[n][y + 3] = ''
 
-                sql_get_swipes_tx = 'SELECT TOP (8) twork_swipe.date_and_time from twork INNER JOIN twork_swipe ON twork.work_id = twork_swipe.work_id ' \
+                sql_get_swipes_tx = 'SELECT TOP (12) twork_swipe.date_and_time from twork INNER JOIN twork_swipe ON twork.work_id = twork_swipe.work_id ' \
                                     ' WHERE twork.employee_id = ' + str(
                     DATA_LIST[n][2]) + ' AND twork.[type] = 1000 and twork.date_and_time = ' + f.get_sql_date(
                     datetime.now(), "yyyy-mm-dd") + ' ORDER BY twork_swipe.date_and_time ASC'
