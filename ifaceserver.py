@@ -33,7 +33,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "uface 2019.0.1000"
+APP_VERSION = "uface 2020.0.0001"
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -65,14 +65,67 @@ class MainHandler(tornado.web.RequestHandler):
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/index.html"
         self.render(path)
 
+class IclockRegistry(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
+
+    def get(self):
+        print("GET")
+        print(self.request.uri)
+        list = self.request.uri.split("?SN=")
+        sn = list[1]
+        terminal_id = sqlconns.sql_select_single_field(
+            "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
+        if terminal_id == "": return -1
+        dte = date_time_string(sn)
+        bDateHeader = False # are we sending the date header?
+        if dte != None: bDateHeader = True
+        self.device_headers(dte,bDateHeader)
+
+    def post(self):
+        print("POST")
+        print(self.request.uri)
+        list = self.request.uri.split("?SN=")
+        list2 = list[1].split("&")
+        sn = list2[0]
+        terminal_id = sqlconns.sql_select_single_field(
+            "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
+        print(terminal_id)
+        if terminal_id == "": return -1
+        print()
+        print("returnin ok")
+        postvars = self.request.body
+        postvars = postvars.decode("utf-8")
+        cmd_list = postvars.split("\n")
+        print(cmd_list)
+        self.write("OK")
+        dte = date_time_string(sn)
+        bDateHeader = False # are we sending the date header?
+        if dte != None: bDateHeader = True
+        self.device_headers(dte,bDateHeader)
+
+    def device_headers(self,dte,bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status","OK")
+        self.set_header("cotent-type", "text/plain")
+        #send time header or not
+        if bDateHeader:
+            self.set_header("Date",dte)
+        else:
+            self.clear_header("Date")
+
 class IclockHandler(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
 ##power on request
     def get(self):
         list = self.request.uri.split("?SN=")
+        print(list)
         list2 = list[1].split("&")
         sn = list2[0]
+        print(sn)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "":
@@ -85,6 +138,7 @@ class IclockHandler(tornado.web.RequestHandler):
         if remote_ip != None: log_ip_address(sn,remote_ip)
         #power on send stamps and options
         power_on_getrequest = build_power_on_get_request(sn)
+        print(power_on_getrequest)
         if power_on_getrequest != "": self.write(power_on_getrequest)
         dte = date_time_string(sn)
         bDateHeader = False # are we sending the date header?
@@ -98,12 +152,17 @@ class IclockHandler(tornado.web.RequestHandler):
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         list = postvars.split("\n")
+        print(list)
+        print('TABLE TYPE ----', table_type)
         if table_type =="": return
         if table_type == "OPERLOG":
             for index in range(len(list)):
                 if "USERPIC" in list[index]:
                     ret = save_user_photo(list[index],terminal_id)
-                    if ret==-1: return -1.
+                    if ret==-1: return -1
+                if "BIOPHOTO" in list[index]:
+                    ret = save_bio_photo(list[index],terminal_id)
+                    if ret==-1: return -1
                 if "FACE PIN" in list[index]:
                     ret = save_user_face(list[index],terminal_id)
                     if ret==-1: return -1
@@ -505,13 +564,13 @@ class DeviceOptions(tornado.web.RequestHandler):
         for key, value in self.terminal_options_dict.items():
             if 'timezone' in key:
                 self.terminal_id = str.replace(key, 'timezone', '')
-                uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone = self.get_terminal_options_flags()
+                uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone = self.get_terminal_options_flags()
                 tx = "UPDATE d_iface_options SET uface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, notime=?, timezone=?"\
                     " WHERE terminal_id = ?"\
                     " IF @@ROWCOUNT=0"\
-                    " INSERT INTO d_iface_options(terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)"\
-                    " VALUES (?,?,?,?,?,?,?,?,?)"
-                ret = sqlconns.sql_command(tx, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
+                    " INSERT INTO d_iface_options(terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)"\
+                    " VALUES (?,?,?,?,?,?,?,?,?,?)"
+                ret = sqlconns.sql_command(tx, uface,proface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
 
         terminal_grid_options = self.terminal_grid()
 
@@ -521,7 +580,7 @@ class DeviceOptions(tornado.web.RequestHandler):
 
     def terminal_grid(self):
         self.terminal_list = sqlconns.sql_select_into_list("SELECT description, configuration, tterminal.terminal_id," \
-                                                        " uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone"
+                                                        " uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone"
                                                         " FROM tterminal LEFT OUTER JOIN" \
                                                         " d_iface_options ON tterminal.terminal_id = d_iface_options.terminal_id" \
                                                         " WHERE" \
@@ -543,12 +602,13 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<td>' + self.terminal_list[index][0] + '</td>' #description
             tx += '<td>' + self.terminal_type + '</td>'  #configuration
             tx += '<td><input type="checkbox" name=uface' + id + ' id=uface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#uface
-            tx += '<td><input type="checkbox" name=oldtime' + id + ' id=oldime' + id + self.bitBoolean(self.terminal_list[index][4]) + '</td>'#oldtime
-            tx += '<td><input type="checkbox" name=prox' + id + ' id=prox' + id  + self.bitBoolean(self.terminal_list[index][5]) + '</td>'#prox
-            tx += '<td><input type="checkbox" name=nophoto' + id + ' id=nophoto' + id  + self.bitBoolean(self.terminal_list[index][6]) + '</td>'#nophoto
-            tx += '<td><input type="checkbox" name=noface' + id + ' id=noface' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#noface
-            tx += '<td><input type="checkbox" name=nofinger' + id + ' id=nofinger' + id  + self.bitBoolean(self.terminal_list[index][8]) + '</td>'#nofinger
-            tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][9]) + '</td>'#notime#
+            tx += '<td><input type="checkbox" name=proface' + id + ' id=proface' + id + self.bitBoolean(self.terminal_list[index][4]) + '</td>'  # proface
+            tx += '<td><input type="checkbox" name=oldtime' + id + ' id=oldime' + id + self.bitBoolean(self.terminal_list[index][5]) + '</td>'#oldtime
+            tx += '<td><input type="checkbox" name=prox' + id + ' id=prox' + id  + self.bitBoolean(self.terminal_list[index][6]) + '</td>'#prox
+            tx += '<td><input type="checkbox" name=nophoto' + id + ' id=nophoto' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#nophoto
+            tx += '<td><input type="checkbox" name=noface' + id + ' id=noface' + id  + self.bitBoolean(self.terminal_list[index][8]) + '</td>'#noface
+            tx += '<td><input type="checkbox" name=nofinger' + id + ' id=nofinger' + id  + self.bitBoolean(self.terminal_list[index][9]) + '</td>'#nofinger
+            tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][10]) + '</td>'#notime#
             tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'
             tx += '</tr>' #end row
         return tx
@@ -561,6 +621,7 @@ class DeviceOptions(tornado.web.RequestHandler):
 
     def get_terminal_options_flags(self):
         uface = "0"
+        proface = "0"
         oldtime = "0"
         prox = "0"
         nophoto = "0"
@@ -570,6 +631,8 @@ class DeviceOptions(tornado.web.RequestHandler):
         timezone = "0"
         value = self.terminal_options_dict.get('uface' + self.terminal_id, "0")
         if value != "0": uface = "1"
+        value = self.terminal_options_dict.get('proface' + self.terminal_id, "0")
+        if value != "0": proface = "1"
         value = self.terminal_options_dict.get('oldtime' + self.terminal_id, "0")
         if value != "0": oldtime = "1"
         value = self.terminal_options_dict.get('prox' + self.terminal_id, "0")
@@ -584,7 +647,7 @@ class DeviceOptions(tornado.web.RequestHandler):
         if value != "0": notime = "1"
         value = self.terminal_options_dict.get('timezone' + self.terminal_id, "0")
         if value != "0": timezone = value[0].decode()
-        return uface, oldtime, prox, nophoto, noface, nofinger, notime, timezone
+        return uface,proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone
 
 
 class LoginHandler(tornado.web.RequestHandler):
@@ -625,7 +688,8 @@ def make_app():
         (r"/login", LoginHandler),
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
-        (r"/iclock/devicecmd", IclockDevicecmdHandler)
+        (r"/iclock/devicecmd", IclockDevicecmdHandler),
+        (r"/iclock/registry", IclockRegistry)
     ]
 
     return tornado.web.Application(
@@ -978,7 +1042,92 @@ def save_user_photo(xx,terminal_id):
             ret = sqlconns.sql_command_args(tx,content,user_id)
     return ret
 
+def save_bio_photo(xx,terminal_id):
+    list = xx.split("\t")
+    user_id = list[0].replace("BIODATA Pin=","")
+    no = list[1].replace("No=","")
+    index = list[2].replace("Index=","")
+    valid = list[3].replace("Valid-1","")
+    duress = list[4].replace("Duress=","")
+    type = list[5].replace("Type","")
+    majorver = list[6].replace("MajorVer=","")
+    minorver = list[7].replace("MinorVer=","")
+    format = list[8].replace("Format=","")
+    tmp = list[9].replace("Tmp=", "")
+    date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
+    #check exixts and dont write
+    tx = "Select top 1 [d_iface_biophoto_id] from d_iface_biophoto WHERE employee_id =" + user_id + " AND tmp = '"+ tmp + "'"
+    ret = sqlconns.sql_select_single_field(tx)
+    if ret != "" and int(ret) > 0:
+        tx = "If ("\
+        "SELECT count(*) from d_iface_biophoto"\
+        " where d_iface_biophoto_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+        " UPDATE d_iface_biophoto"\
+        " SET repoll_count = 1,"\
+        " repoll_date = getdate()"\
+        " WHERE d_iface_biophoto_id ="+ str(int(ret))+ ""\
+        " ELSE"\
+        " UPDATE d_iface_biophoto"\
+        " SET repoll_count = repoll_count + 1,"\
+        " repoll_date = getdate()"\
+        " WHERE d_iface_biophoto_id = "+ str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        return 1
+    #photo does not exist, carry on
+    tx = "UPDATE d_iface_biophoto SET tmp='" + tmp + "',date_added="+date_now+",terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + "" \
+                    " IF @@ROWCOUNT=0" \
+                    " INSERT INTO d_iface_biophoto(employee_id,tmp,date_added,terminal_id) VALUES ('" + user_id + "','" + " + tmp + "'," + date_now + "," + str(terminal_id) + ",1)"
+    ret = sqlconns.sql_command(tx)
+    if ret==0: #0 is ok
+        if gl.face_to_personnel==True:
+            print("CONTENT", tmp)
+            content = base64.b64decode(tmp)
+            tx = "UPDATE temployee SET photo = ? WHERE employee_id = ?"
+            ret = sqlconns.sql_command_args(tx,content,user_id)
+    return ret
+
 def build_power_on_get_request(sn):
+    terminal_id = get_terminal_id_from_sn(sn)
+    if terminal_id=="": return ""
+    att_stamp = 1
+    op_stamp = 1
+    tx = "SELECT table_name,stamp FROM d_iface_stamps WHERE terminal_id = " + str(terminal_id)
+    ret = sqlconns.sql_select_into_list(tx)
+    if ret!=-1:
+        for index in range(len(ret)):
+            if ret[index][0]== "att_stamp": att_stamp = ret[index][1]
+            if ret[index][0]== "op_stamp": op_stamp = ret[index][1]
+    else:
+        return ret
+    tx = "SELECT TOP 1 uface from d_iface_options WHERE terminal_id = " + str(terminal_id)
+    uface = str.lower(sqlconns.sql_select_single_field(tx))
+#tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
+    trans_flag_string = "2"
+    #if uface:
+    #    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
+    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic\tBioPhoto'
+    trans_flag_string = '111111111111'
+    xx = "GET OPTION FROM:" + sn + \
+            "\r\nErrorDelay=3" +\
+            "\r\nDelay=5" + \
+            "\r\nTransTimes=" + "00:00;14:05" + \
+            "\r\nTransInterval=" + "1" + \
+            "\r\nTransFlag=" + trans_flag_string + \
+            "\r\nRealtime=1" + \
+            "\r\nTimeZoneclock=1" + \
+            "\r\nTimezone=0" + \
+            "\r\nATTLOGStamp=" + str(att_stamp) + \
+            "\r\nOPERLOGStamp=" + str(op_stamp) + \
+            "\r\nATTPHOTOStamp=" + str(op_stamp) + \
+            "\r\nUSERINFOStamp=0" + \
+            "\r\nFINGERTMPStamp=0" + \
+            "\r\nUSERPICStamp=0" + \
+            "\r\nServerVer=2" + \
+            "\r\nServerName=Logitime Server"
+    return xx
+
+
+def build_power_on_get_request_old(sn):
     terminal_id = get_terminal_id_from_sn(sn)
     if terminal_id=="": return ""
     att_stamp = 1
