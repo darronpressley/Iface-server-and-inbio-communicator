@@ -2,9 +2,9 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1268" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1286" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="330" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1146" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1164" mnemonic="2" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="455" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="56" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="62" />
@@ -12,11 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newtesrter.py" beforeDir="false" afterPath="$PROJECT_DIR$/newtesrter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/options.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/options.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test1.py" beforeDir="false" afterPath="$PROJECT_DIR$/test1.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,14 +64,14 @@
         <counts>
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
-          <entry key="Python" value="26340" />
+          <entry key="Python" value="26743" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="153" />
           <entry key="html" value="286" />
-          <entry key="py" value="26340" />
+          <entry key="py" value="26743" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -91,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="1078" column="173" selection-start-line="1078" selection-start-column="173" selection-end-line="1078" selection-end-column="173" />
+            <state relative-caret-position="472">
+              <caret line="1096" column="119" selection-start-line="1096" selection-start-column="119" selection-end-line="1096" selection-end-column="119" />
             </state>
           </provider>
         </entry>
@@ -1086,8 +1082,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="1078" column="173" selection-start-line="1078" selection-start-column="173" selection-end-line="1078" selection-end-column="173" />
+        <state relative-caret-position="472">
+          <caret line="1096" column="119" selection-start-line="1096" selection-start-column="119" selection-end-line="1096" selection-end-column="119" />
         </state>
       </provider>
     </entry>

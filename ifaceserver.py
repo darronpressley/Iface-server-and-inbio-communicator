@@ -1043,6 +1043,14 @@ def save_user_photo(xx,terminal_id):
     return ret
 
 def save_bio_photo(xx,terminal_id):
+    no = 0
+    index = 0
+    valid = 1
+    duress = 0
+    type = 9
+    majorver = 58
+    minorver = 0
+    format = 0
     list = xx.split("\t")
     user_id = list[0].replace("BIODATA Pin=","")
     no = list[1].replace("No=","")
@@ -1074,9 +1082,19 @@ def save_bio_photo(xx,terminal_id):
         ret = sqlconns.sql_command(tx)
         return 1
     #photo does not exist, carry on
-    tx = "UPDATE d_iface_biophoto SET tmp='" + tmp + "',date_added="+date_now+",terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + "" \
+    tx = "UPDATE d_iface_biophoto SET tmp='" + tmp + "',date_added="+date_now+\
+                    ", no=" + str(no)+\
+                    ", index=" + str(index)+ \
+                    ", valid=" + str(valid) + \
+                    ", duress=" + str(duress) + \
+                    ", type=" + str(type) + \
+                    ", majorver=" + str(majorver) +\
+                    ", minorver=" + str(minorver) +\
+                    ", format=" + str(format) +\
+                    ", terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + "" \
                     " IF @@ROWCOUNT=0" \
-                    " INSERT INTO d_iface_biophoto(employee_id,tmp,date_added,terminal_id) VALUES ('" + user_id + "','" + " + tmp + "'," + date_now + "," + str(terminal_id) + ",1)"
+                    " INSERT INTO d_iface_biophoto(employee_id,no,index,valid,duress,type,majorver,minorver,format,tmp,date_added,terminal_id) VALUES ('" + \
+                    user_id + "','" + tmp + "'," + date_now + "," + str(terminal_id) + ",1)"//TODO finish this HERE!!!!
     ret = sqlconns.sql_command(tx)
     if ret==0: #0 is ok
         if gl.face_to_personnel==True:
