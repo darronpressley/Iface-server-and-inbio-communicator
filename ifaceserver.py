@@ -153,15 +153,25 @@ class IclockHandler(tornado.web.RequestHandler):
         postvars = postvars.decode("utf-8")
         list = postvars.split("\n")
         print(list)
-        print('TABLE TYPE ----', table_type)
+        print('TABLE TYPE ----', table_type, 'STAMP = ',stamp)
         if table_type =="": return
+        print("before OPERLOG")
+        if table_type == "BIODATA":
+            for index in range(len(list)):
+                if "BIODATA" in list[index]:
+                    ret = save_bio_data(list[index], terminal_id)
+                    if ret == -1: return -1
         if table_type == "OPERLOG":
             for index in range(len(list)):
                 if "USERPIC" in list[index]:
                     ret = save_user_photo(list[index],terminal_id)
+                    print('returned from USERPIC', ret)
                     if ret==-1: return -1
                 if "BIOPHOTO" in list[index]:
-                    ret = save_bio_photo(list[index],terminal_id)
+                    ret = save_user_photo(list[index],terminal_id)
+                    if ret==-1: return -1
+                if "BIODATA" in list[index]:
+                    ret = save_bio_data(list[index],terminal_id)
                     if ret==-1: return -1
                 if "FACE PIN" in list[index]:
                     ret = save_user_face(list[index],terminal_id)
@@ -172,6 +182,7 @@ class IclockHandler(tornado.web.RequestHandler):
                 if "OPLOG" in list[index]:
                     ret = save_op_log(list[index],terminal_id,sn)
                     if ret==-1: return -1
+            print("end of operlogs before stamp save")
             ret = save_op_stamp(stamp,terminal_id,sn)
             if ret==-1: return -1
         if table_type == "ATTLOG":
@@ -1007,14 +1018,21 @@ def update_tevent_update(empid):
 
 def save_user_photo(xx,terminal_id):
     list = xx.split("\t")
-    user_id = list[0].replace("USERPIC PIN=","")
-    file_name = list[1].replace("FileName=","")
-    size = list[2].replace("Size=","")
-    content = list[3].replace("Content=","")
+    if "USERPIC" in list[0]:
+        user_id = list[0].replace("USERPIC PIN=","")
+        file_name = list[1].replace("FileName=","")
+        size = list[2].replace("Size=","")
+        content = list[3].replace("Content=","")
+    if "BIOPHOTO" in list[0]:
+        user_id = list[0].replace("BIOPHOTO PIN=", "")
+        file_name = list[1].replace("FileName=","")
+        size = list[3].replace("Size=","")
+        content = list[4].replace("Content=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
     tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
     ret = sqlconns.sql_select_single_field(tx)
+    print("save user photo", tx, ret)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
         "SELECT count(*) from d_iface_photo"\
@@ -1039,10 +1057,12 @@ def save_user_photo(xx,terminal_id):
         if gl.face_to_personnel==True:
             content = base64.b64decode(content)
             tx = "UPDATE temployee SET photo = ? WHERE employee_id = ?"
+            print(tx)
             ret = sqlconns.sql_command_args(tx,content,user_id)
     return ret
 
-def save_bio_photo(xx,terminal_id):
+def save_bio_data(xx,terminal_id):
+    print("IN BIO DATA")
     no = 0
     index = 0
     valid = 1
@@ -1055,9 +1075,9 @@ def save_bio_photo(xx,terminal_id):
     user_id = list[0].replace("BIODATA Pin=","")
     no = list[1].replace("No=","")
     index = list[2].replace("Index=","")
-    valid = list[3].replace("Valid-1","")
+    valid = list[3].replace("Valid=","")
     duress = list[4].replace("Duress=","")
-    type = list[5].replace("Type","")
+    type = list[5].replace("Type=","")
     majorver = list[6].replace("MajorVer=","")
     minorver = list[7].replace("MinorVer=","")
     format = list[8].replace("Format=","")
@@ -1065,7 +1085,9 @@ def save_bio_photo(xx,terminal_id):
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
     tx = "Select top 1 [d_iface_biophoto_id] from d_iface_biophoto WHERE employee_id =" + user_id + " AND tmp = '"+ tmp + "'"
+
     ret = sqlconns.sql_select_single_field(tx)
+    print("BIODATA",ret,tx)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
         "SELECT count(*) from d_iface_biophoto"\
@@ -1082,26 +1104,22 @@ def save_bio_photo(xx,terminal_id):
         ret = sqlconns.sql_command(tx)
         return 1
     #photo does not exist, carry on
-    tx = "UPDATE d_iface_biophoto SET tmp='" + tmp + "',date_added="+date_now+\
-                    ", no=" + str(no)+\
-                    ", index=" + str(index)+ \
-                    ", valid=" + str(valid) + \
-                    ", duress=" + str(duress) + \
-                    ", type=" + str(type) + \
-                    ", majorver=" + str(majorver) +\
-                    ", minorver=" + str(minorver) +\
-                    ", format=" + str(format) +\
-                    ", terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + "" \
+    tx = "UPDATE d_iface_biophoto SET [tmp] = '" + tmp + "',[date_added] = " + date_now + \
+                    ", [no]=" + str(no)+\
+                    ", [index]=" + str(index)+ \
+                    ", [valid]=" + str(valid) + \
+                    ", [duress]=" + str(duress) + \
+                    ", [type]=" + str(type) + \
+                    ", [majorver]=" + str(majorver) +\
+                    ", [minorver]=" + str(minorver) +\
+                    ", [format]=" + str(format) +\
+                    ", [terminal_id]="+str(terminal_id)+" WHERE [employee_id] =" + user_id + "" \
                     " IF @@ROWCOUNT=0" \
-                    " INSERT INTO d_iface_biophoto(employee_id,no,index,valid,duress,type,majorver,minorver,format,tmp,date_added,terminal_id) VALUES ('" + \
-                    user_id + "','" + tmp + "'," + date_now + "," + str(terminal_id) + ",1)"//TODO finish this HERE!!!!
+                    " INSERT INTO d_iface_biophoto([employee_id],[no],[index],[valid],[duress],[type],[majorver],[minorver],[format],[tmp],[date_added],[terminal_id]) VALUES (" + \
+                        user_id + "," + no + "," + index + "," + valid + "," + duress + "," + type + "," + majorver + "," + minorver + "," + format + \
+                        ",'" +  tmp + "'," + date_now + "," + str(terminal_id) + ")"
     ret = sqlconns.sql_command(tx)
-    if ret==0: #0 is ok
-        if gl.face_to_personnel==True:
-            print("CONTENT", tmp)
-            content = base64.b64decode(tmp)
-            tx = "UPDATE temployee SET photo = ? WHERE employee_id = ?"
-            ret = sqlconns.sql_command_args(tx,content,user_id)
+    print("UPDATE BIODATA", ret, tx)
     return ret
 
 def build_power_on_get_request(sn):
@@ -1123,8 +1141,8 @@ def build_power_on_get_request(sn):
     trans_flag_string = "2"
     #if uface:
     #    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
-    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic\tBioPhoto'
-    trans_flag_string = '111111111111'
+    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic\tBioPhoto\tBioData'
+    #trans_flag_string = '111111111111'
     xx = "GET OPTION FROM:" + sn + \
             "\r\nErrorDelay=3" +\
             "\r\nDelay=5" + \
