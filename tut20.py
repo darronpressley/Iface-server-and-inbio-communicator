@@ -81,3 +81,12 @@ for key, value in x.items():
 import functions as f
 
 print(f.system_login_password('system','//f5m'))
+
+list = ['BIOPHOTO',0]
+
+print(list[0])
+
+if 'BIOPHOTO' in list[0]:
+    print("yes")
+else:
+    print("no")

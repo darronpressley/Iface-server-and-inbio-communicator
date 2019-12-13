@@ -70,8 +70,6 @@ class IclockRegistry(tornado.web.RequestHandler):
         return None
 
     def get(self):
-        print("GET")
-        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         sn = list[1]
         terminal_id = sqlconns.sql_select_single_field(
@@ -83,21 +81,15 @@ class IclockRegistry(tornado.web.RequestHandler):
         self.device_headers(dte,bDateHeader)
 
     def post(self):
-        print("POST")
-        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
-        print(terminal_id)
         if terminal_id == "": return -1
-        print()
-        print("returnin ok")
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         cmd_list = postvars.split("\n")
-        print(cmd_list)
         self.write("OK")
         dte = date_time_string(sn)
         bDateHeader = False # are we sending the date header?
@@ -122,10 +114,8 @@ class IclockHandler(tornado.web.RequestHandler):
 ##power on request
     def get(self):
         list = self.request.uri.split("?SN=")
-        print(list)
         list2 = list[1].split("&")
         sn = list2[0]
-        print(sn)
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "":
@@ -138,7 +128,6 @@ class IclockHandler(tornado.web.RequestHandler):
         if remote_ip != None: log_ip_address(sn,remote_ip)
         #power on send stamps and options
         power_on_getrequest = build_power_on_get_request(sn)
-        print(power_on_getrequest)
         if power_on_getrequest != "": self.write(power_on_getrequest)
         dte = date_time_string(sn)
         bDateHeader = False # are we sending the date header?
@@ -152,23 +141,15 @@ class IclockHandler(tornado.web.RequestHandler):
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         list = postvars.split("\n")
-        print(list)
-        print('TABLE TYPE ----', table_type, 'STAMP = ',stamp)
         if table_type =="": return
-        print("before OPERLOG")
-        if table_type == "BIODATA":
-            for index in range(len(list)):
-                if "BIODATA" in list[index]:
-                    ret = save_bio_data(list[index], terminal_id)
-                    if ret == -1: return -1
+        #if clock sends a table not matched then dont worry about it, ignore and send OK
         if table_type == "OPERLOG":
             for index in range(len(list)):
                 if "USERPIC" in list[index]:
                     ret = save_user_photo(list[index],terminal_id)
-                    print('returned from USERPIC', ret)
                     if ret==-1: return -1
                 if "BIOPHOTO" in list[index]:
-                    ret = save_user_photo(list[index],terminal_id)
+                    ret = save_bio_photo(list[index],terminal_id)
                     if ret==-1: return -1
                 if "BIODATA" in list[index]:
                     ret = save_bio_data(list[index],terminal_id)
@@ -182,7 +163,6 @@ class IclockHandler(tornado.web.RequestHandler):
                 if "OPLOG" in list[index]:
                     ret = save_op_log(list[index],terminal_id,sn)
                     if ret==-1: return -1
-            print("end of operlogs before stamp save")
             ret = save_op_stamp(stamp,terminal_id,sn)
             if ret==-1: return -1
         if table_type == "ATTLOG":
@@ -576,13 +556,12 @@ class DeviceOptions(tornado.web.RequestHandler):
             if 'timezone' in key:
                 self.terminal_id = str.replace(key, 'timezone', '')
                 uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone = self.get_terminal_options_flags()
-                tx = "UPDATE d_iface_options SET uface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, notime=?, timezone=?"\
+                tx = "UPDATE d_iface_options SET uface=?, proface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, notime=?, timezone=?"\
                     " WHERE terminal_id = ?"\
                     " IF @@ROWCOUNT=0"\
                     " INSERT INTO d_iface_options(terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)"\
                     " VALUES (?,?,?,?,?,?,?,?,?,?)"
-                ret = sqlconns.sql_command(tx, uface,proface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
-
+                ret = sqlconns.sql_command(tx, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
         terminal_grid_options = self.terminal_grid()
 
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/options.html"
@@ -598,17 +577,17 @@ class DeviceOptions(tornado.web.RequestHandler):
                                                         " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
                                                         " AND description not like '%.%' and number < 1000" \
                                                         " ORDER BY configuration, description")
-        #0=description,1=configurattion,2=id,3=uface,4=oldtime,5=prox,6=nophoto,7=noface,8=nofinger,9=notime,10=timezone
+        #0=description,1=configurattion,2=id,3=uface,4=proface,5=oldtime,6=prox,7=nophoto,8=noface,9=nofinger,10=notime,11=timezone
         if self.terminal_list == -1: return ""
         tx = ""
         for index in range(len(self.terminal_list)):
             # have included other terminal types but they will not show unless they are in the general.ini as access or attendance terminal config type
             id = str(self.terminal_list[index][2])
             self.terminal_type = strTerminalConfiguration(self.terminal_list[index][1])
-            if self.terminal_list[index][10] == None:
+            if self.terminal_list[index][11] == None:
                 self.timezone = '0'
             else:
-                self.timezone = str(self.terminal_list[index][10])
+                self.timezone = str(self.terminal_list[index][11])
             tx += '<tr>' #start row
             tx += '<td>' + self.terminal_list[index][0] + '</td>' #description
             tx += '<td>' + self.terminal_type + '</td>'  #configuration
@@ -813,13 +792,14 @@ def date_time_string(serial_number):
     notime = False
     timezone = 0
     oldtime = False
-    if terminal_options[0][0] == True:
-        notime = True
-    if terminal_options[0][1] != None:
-        timezone = int(terminal_options[0][1])
-    if notime: return None
-    if terminal_options[0][2] == True:
-        oldtime = True
+    if len(terminal_options) > 0:
+        if terminal_options[0][0] == True:
+            notime = True
+        if terminal_options[0][1] != None:
+            timezone = int(terminal_options[0][1])
+        if notime: return None
+        if terminal_options[0][2] == True:
+            oldtime = True
     dte = datetime.now()
     if OLD_TIME == True:
         if oldtime:
@@ -1017,22 +997,22 @@ def update_tevent_update(empid):
     return ret
 
 def save_user_photo(xx,terminal_id):
+
     list = xx.split("\t")
+    if "BIOPHOTO" in list[0]:
+        user_id = list[0].replace("BIOPHOTO PIN=", "")
+        file_name = list[1].replace("FileName=", "")
+        size = list[3].replace("Size=", "")
+        content = list[4].replace("Content=", "")
     if "USERPIC" in list[0]:
         user_id = list[0].replace("USERPIC PIN=","")
         file_name = list[1].replace("FileName=","")
         size = list[2].replace("Size=","")
         content = list[3].replace("Content=","")
-    if "BIOPHOTO" in list[0]:
-        user_id = list[0].replace("BIOPHOTO PIN=", "")
-        file_name = list[1].replace("FileName=","")
-        size = list[3].replace("Size=","")
-        content = list[4].replace("Content=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
     tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
     ret = sqlconns.sql_select_single_field(tx)
-    print("save user photo", tx, ret)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
         "SELECT count(*) from d_iface_photo"\
@@ -1057,12 +1037,46 @@ def save_user_photo(xx,terminal_id):
         if gl.face_to_personnel==True:
             content = base64.b64decode(content)
             tx = "UPDATE temployee SET photo = ? WHERE employee_id = ?"
-            print(tx)
             ret = sqlconns.sql_command_args(tx,content,user_id)
     return ret
 
+def save_bio_photo(xx,terminal_id):
+    ret = save_user_photo(xx, terminal_id)  #save as USERPIC first but continue on if ret -1
+    list = xx.split("\t")
+    user_id = list[0].replace("BIOPHOTO PIN=", "")
+    file_name = list[1].replace("FileName=","")
+    size = list[3].replace("Size=","")
+    content = list[4].replace("Content=","")
+    date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
+    #check exixts and dont write
+    tx = "Select top 1 [d_iface_bio_photo_id] from d_iface_bio_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
+    ret = sqlconns.sql_select_single_field(tx)
+    if ret != "" and int(ret) > 0:
+        tx = "If ("\
+        "SELECT count(*) from d_iface_bio_photo"\
+        " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+        " UPDATE d_iface_bio_photo"\
+        " SET repoll_count = 1,"\
+        " repoll_date = getdate()"\
+        " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
+        " ELSE"\
+        " UPDATE d_iface_bio_photo"\
+        " SET repoll_count = repoll_count + 1,"\
+        " repoll_date = getdate()"\
+        " WHERE d_iface_bio_photo_id = "+ str(int(ret))
+        ret = sqlconns.sql_command(tx)
+        return 1
+    #photo does not exist, carry on
+    tx = "UPDATE d_iface_bio_photo SET size = '" + size + "', content='" + content + "',date_added="+date_now+",terminal_id="+str(terminal_id)+",new=1 WHERE employee_id =" + user_id + "" \
+                    " IF @@ROWCOUNT=0" \
+                    " INSERT INTO d_iface_bio_photo(employee_id,file_name,size,content,date_added,terminal_id,new) VALUES ('"+user_id+"','"+file_name+"','"+size+"','"+content+"',"+date_now+","+str(terminal_id)+",1)"
+    ret = sqlconns.sql_command(tx)
+    ret = update_tevent_update(user_id) # flag for hardware update
+    return ret
+
 def save_bio_data(xx,terminal_id):
-    print("IN BIO DATA")
+#keep this function for reference but it is not used
+#was completed for BIODATA table but do not think we need to use BIODATA yet
     no = 0
     index = 0
     valid = 1
@@ -1087,20 +1101,19 @@ def save_bio_data(xx,terminal_id):
     tx = "Select top 1 [d_iface_biophoto_id] from d_iface_biophoto WHERE employee_id =" + user_id + " AND tmp = '"+ tmp + "'"
 
     ret = sqlconns.sql_select_single_field(tx)
-    print("BIODATA",ret,tx)
     if ret != "" and int(ret) > 0:
         tx = "If ("\
-        "SELECT count(*) from d_iface_biophoto"\
-        " where d_iface_biophoto_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
-        " UPDATE d_iface_biophoto"\
+        "SELECT count(*) from d_iface_bio_photo"\
+        " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+        " UPDATE d_iface_bio_photo"\
         " SET repoll_count = 1,"\
         " repoll_date = getdate()"\
-        " WHERE d_iface_biophoto_id ="+ str(int(ret))+ ""\
+        " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
         " ELSE"\
-        " UPDATE d_iface_biophoto"\
+        " UPDATE d_iface_bio_photo"\
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
-        " WHERE d_iface_biophoto_id = "+ str(int(ret))
+        " WHERE d_iface_bio_photo_id = "+ str(int(ret))
         ret = sqlconns.sql_command(tx)
         return 1
     #photo does not exist, carry on
@@ -1119,7 +1132,7 @@ def save_bio_data(xx,terminal_id):
                         user_id + "," + no + "," + index + "," + valid + "," + duress + "," + type + "," + majorver + "," + minorver + "," + format + \
                         ",'" +  tmp + "'," + date_now + "," + str(terminal_id) + ")"
     ret = sqlconns.sql_command(tx)
-    print("UPDATE BIODATA", ret, tx)
+
     return ret
 
 def build_power_on_get_request(sn):
@@ -1135,16 +1148,32 @@ def build_power_on_get_request(sn):
             if ret[index][0]== "op_stamp": op_stamp = ret[index][1]
     else:
         return ret
-    tx = "SELECT TOP 1 uface from d_iface_options WHERE terminal_id = " + str(terminal_id)
+    tx = "SELECT TOP 1 uface,proface from d_iface_options WHERE terminal_id = " + str(terminal_id)
+    list = sqlconns.sql_select(tx)
+
+    if list != -1:
+        if list[0][0] == None:
+            uface = False
+        else:
+            uface = list[0][0]
+        if list[0][1] == None:
+            proface = False
+        else:
+            proface = list[0][1]
+
     uface = str.lower(sqlconns.sql_select_single_field(tx))
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
-    trans_flag_string = "2"
-    #if uface:
-    #    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
-    trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic\tBioPhoto\tBioData'
+    trans_flag_string = "1"
+    if uface:
+        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
+    if proface:
+        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tBioPhoto'
     #trans_flag_string = '111111111111'
     xx = "GET OPTION FROM:" + sn + \
-            "\r\nErrorDelay=3" +\
+             "\r\nStamp=" + str(att_stamp) + \
+             "\r\nOpStamp=" + str(op_stamp) + \
+             "\r\nPhotoStamp=" + str(op_stamp) + \
+             "\r\nErrorDelay=3" +\
             "\r\nDelay=5" + \
             "\r\nTransTimes=" + "00:00;14:05" + \
             "\r\nTransInterval=" + "1" + \
@@ -1158,8 +1187,7 @@ def build_power_on_get_request(sn):
             "\r\nUSERINFOStamp=0" + \
             "\r\nFINGERTMPStamp=0" + \
             "\r\nUSERPICStamp=0" + \
-            "\r\nServerVer=2" + \
-            "\r\nServerName=Logitime Server"
+            "\r\n"
     return xx
 
 
@@ -1176,7 +1204,11 @@ def build_power_on_get_request_old(sn):
             if ret[index][0]== "op_stamp": op_stamp = ret[index][1]
     else:
         return ret
-    tx = "SELECT TOP 1 uface from d_iface_options WHERE terminal_id = " + str(terminal_id)
+    tx = "SELECT TOP 1 uface,proface from d_iface_options WHERE terminal_id = " + str(terminal_id)
+    list = sqlconns.sql_select(tx)
+    if list != -1:
+        uface = list[0][0]
+        proface = list[0][1]
     uface = str.lower(sqlconns.sql_select_single_field(tx))
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
     trans_flag_string = "1"
@@ -1354,7 +1386,6 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 def bAttFound (sn,emp_id,booking):
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE sn = '"+ sn+ "' AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
     ret = sqlconns.sql_select_single_field(tx)
-    print(tx)
     if ret == "":
         return False
     if int(ret) > 0:
@@ -1370,7 +1401,6 @@ def bAttFound (sn,emp_id,booking):
         " SET repoll_count = repoll_count + 1,"\
         " repoll_date = getdate()"\
         " WHERE d_iface_att_id = "+ str(int(ret))
-        print(tx)
         ret = sqlconns.sql_command(tx)
 
         return True
@@ -1536,15 +1566,15 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
-    if set_env()==True:
-        if version_check()==True:
-            log_initialise()
-            app = make_app()
-            app.listen(gl.server_port)
-            SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
+    #if set_env()==True:
+     #   if version_check()==True:
+      #      log_initialise()
+       #     app = make_app()
+        #    app.listen(gl.server_port)
+         #   SERVER_STARTED = 1
+          #  logging.getLogger('tornado.access').disabled = True
+           # tornado.ioloop.IOLoop.current().start()
 
 
