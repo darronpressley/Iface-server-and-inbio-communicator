@@ -2,19 +2,19 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1336" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="321" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1214" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="446" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="56" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="62" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="95" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1340" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="326" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1218" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="451" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="61" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="67" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="100" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1578" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tut20.py" beforeDir="false" afterPath="$PROJECT_DIR$/tut20.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,19 +31,19 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="53" />
+          <entry key="project.closed" value="54" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.10" value="7" />
           <entry key="project.open.time.11" value="3" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.5" value="14" />
-          <entry key="project.open.time.6" value="22" />
+          <entry key="project.open.time.6" value="23" />
           <entry key="project.open.time.7" value="11" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="65" />
+          <entry key="project.opened" value="67" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -66,14 +66,14 @@
         <counts>
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
-          <entry key="Python" value="29193" />
+          <entry key="Python" value="29564" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="153" />
           <entry key="html" value="286" />
-          <entry key="py" value="29193" />
+          <entry key="py" value="29564" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -89,26 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="1560" column="24" lean-forward="true" selection-start-line="1560" selection-start-column="24" selection-end-line="1560" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tut20.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1197">
-              <caret line="81" selection-start-line="81" selection-end-line="81" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
-              <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
+            <state relative-caret-position="195">
+              <caret line="1380" column="141" selection-start-line="1380" selection-start-column="132" selection-end-line="1380" selection-end-column="141" />
             </state>
           </provider>
         </entry>
@@ -133,16 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>select</find>
-      <find>decrypt</find>
-      <find>ADP_REFRESH</find>
-      <find>15</find>
-      <find>hours</find>
-      <find>(14)</find>
-      <find>get_total_time</find>
-      <find>get_total</find>
-      <find>post</find>
-      <find>GET</find>
       <find>devicecmd</find>
       <find>devicecm</find>
       <find>password</find>
@@ -163,6 +135,16 @@
       <find>userpic</find>
       <find>print</find>
       <find>tmp</find>
+      <find>biophoto</find>
+      <find>tterminal</find>
+      <find>make_app</find>
+      <find>IfaceInformation</find>
+      <find>test</find>
+      <find>get_terminal_status_list</find>
+      <find>op_stamp</find>
+      <find>'att_st</find>
+      <find>select</find>
+      <find>att_stamp</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -233,9 +215,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="233" />
-    <option name="y" value="108" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-243" />
+    <option name="y" value="264" />
     <option name="width" value="1620" />
     <option name="height" value="860" />
   </component>
@@ -247,7 +229,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -259,6 +240,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -295,7 +277,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tut20">
+  <component name="RunManager" selected="Python.ifaceserver">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -637,12 +619,12 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4972145" visible="true" weight="0.17017913" />
-      <window_info id="Structure" order="1" sideWeight="0.5027855" side_tool="true" visible="true" weight="0.17017913" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49472097" visible="true" weight="0.14172813" />
+      <window_info id="Structure" order="1" sideWeight="0.50527906" side_tool="true" visible="true" weight="0.14172813" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.22210184" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.28169015" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
@@ -1025,10 +1007,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setup_py2exe_comm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-132">
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-132" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13">
+          <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -1039,24 +1024,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tut20.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1197">
+        <state relative-caret-position="578">
           <caret line="81" selection-start-line="81" selection-end-line="81" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="1560" column="24" lean-forward="true" selection-start-line="1560" selection-start-column="24" selection-end-line="1560" selection-end-column="24" />
+        <state relative-caret-position="195">
+          <caret line="1380" column="141" selection-start-line="1380" selection-start-column="132" selection-end-line="1380" selection-end-column="141" />
         </state>
       </provider>
     </entry>

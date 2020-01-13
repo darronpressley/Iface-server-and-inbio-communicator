@@ -2,6 +2,9 @@
 #Author Darron Pressley darronpressley@gmail.com
 #there is a lot of commented out code in this project
 #this is to allow quickish switching between running this as a service and running as a application
+
+
+
 import decimal
 import sys
 import os
@@ -12,7 +15,9 @@ from ctypes import *
 import tornado.ioloop
 import tornado.web
 import tornado.httputil
-from tornado import template as t
+
+# from tornado import template as t
+
 import logging
 
 import servicemanager
@@ -33,7 +38,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "uface 2020.0.0001"
+APP_VERSION = "proface 2020.0.0001"
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -691,11 +696,12 @@ def log_ip_address(sn, ip):
     ret = sqlconns.sql_command(tx)
 
 def get_terminal_status_list():
-    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration,poll_success, last_ip" \
+    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration, poll_success, lastip = " \
+                                                  " (SELECT top 1 last_ip from d_iface_stamps where d_iface_stamps.terminal_id = tterminal.terminal_id and table_name = 'att_stamp')" \
                                                 " FROM tterminal LEFT OUTER JOIN" \
                                                 " d_iface_stamps ON tterminal.terminal_id = d_iface_stamps.terminal_id" \
                                                 " WHERE" \
-                                                " table_name = 'att_stamp' AND configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
+                                                " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
                                                 " ORDER BY configuration, description")
     if terminal_list==-1: return ""
     tx = ""
@@ -1041,7 +1047,6 @@ def save_user_photo(xx,terminal_id):
     return ret
 
 def save_bio_photo(xx,terminal_id):
-    ret = save_user_photo(xx, terminal_id)  #save as USERPIC first but continue on if ret -1
     list = xx.split("\t")
     user_id = list[0].replace("BIOPHOTO PIN=", "")
     file_name = list[1].replace("FileName=","")
@@ -1566,15 +1571,16 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
-    #if set_env()==True:
-     #   if version_check()==True:
-      #      log_initialise()
-       #     app = make_app()
-        #    app.listen(gl.server_port)
-         #   SERVER_STARTED = 1
-          #  logging.getLogger('tornado.access').disabled = True
-           # tornado.ioloop.IOLoop.current().start()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
+    if set_env()==True:
+        if version_check()==True:
+            log_initialise()
+            app = make_app()
+            app.listen(gl.server_port)
+            SERVER_STARTED = 1
+            logging.getLogger('tornado.access').disabled = True
+            tornado.ioloop.IOLoop.current().start()
+
 
 
