@@ -1571,16 +1571,16 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
-    if set_env()==True:
-        if version_check()==True:
-            log_initialise()
-            app = make_app()
-            app.listen(gl.server_port)
-            SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
+    #if set_env()==True:
+     #   if version_check()==True:
+      #      log_initialise()
+       #     app = make_app()
+        #    app.listen(gl.server_port)
+         #   SERVER_STARTED = 1
+          #  logging.getLogger('tornado.access').disabled = True
+           # tornado.ioloop.IOLoop.current().start()
 
 
 

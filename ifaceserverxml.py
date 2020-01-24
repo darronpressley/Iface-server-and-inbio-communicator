@@ -32,7 +32,7 @@ import gl
 
 SERVER_STARTED = 0
 
-APPNAME = "IFACESERVER"
+APPNAME = "IFACESERVERXML"
 APP_VERSION = "uface 2018.0.5000"
 # log file names
 COMM_ERROR = "communications_log"
@@ -60,12 +60,16 @@ class MainHandler(tornado.web.RequestHandler):
     def post(self):
         data = self.request.body
         data = data.decode("utf-8")
-        print(data)
-        tx = """Insert into d_xml_receiver (xml_data, date_added) values (?, ?)"""
-        print(tx)
-        ret = sqlconns.sql_command(tx, data,datetime.now())
-        print(ret)
-        self.write("OK")
+
+        #print(data)
+        data = str.replace(data,' encoding="UTF-8"', '')
+
+        tx = """Insert into d_xml_receiver (xml_data, date_added, date_and_time_added) values (?, ?, ?)"""
+
+        ret = sqlconns.sql_command(tx, data,datetime.now(),datetime.now())
+
+        #self.write("OK")
+        self.set_status(200)
 
 
 
@@ -388,9 +392,9 @@ def get_terminal_status_list():
     return tx
 
 class AppServerSvc(win32serviceutil.ServiceFramework):
-    _svc_name_ = "ifaceserver"
-    _svc_display_name_ = "ifaceserver"
-    _svc_description_ = "ifaceserver from North Time and Data"
+    _svc_name_ = "ifaceserverxml"
+    _svc_display_name_ = "ifaceserverxml"
+    _svc_description_ = "ifaceserverxml from North Time and Data"
 
     def __init__(self,args):
         win32serviceutil.ServiceFramework.__init__(self, args)
@@ -1063,12 +1067,12 @@ def return_version():
 
 
 if __name__ == "__main__":
-    """    win32serviceutil.HandleCommandLine(AppServerSvc)
+    win32serviceutil.HandleCommandLine(AppServerSvc)
     set_env()
 
-"""
 
-    if set_env()==True:
+
+    """if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
@@ -1076,5 +1080,5 @@ if __name__ == "__main__":
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disabled = True
             tornado.ioloop.IOLoop.current().start()
-
+"""
 
