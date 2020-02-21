@@ -50,6 +50,8 @@ FUNCTION_KEYS = False
 IFACE_FUNCTION_KEYS = False
 CC_FUNCTION_KEYS = False
 ORIGINAL_BOOKINGS = True
+RAW_CLOCKINGS = False
+CHECK_REPOLL = False
 
 #mins and max stamps allowed to be recorded to prevent repoll issues
 #criteris is > and < than
@@ -81,6 +83,7 @@ class IclockRegistry(tornado.web.RequestHandler):
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "": return -1
         dte = date_time_string(sn)
+        print(dte)
         bDateHeader = False # are we sending the date header?
         if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
@@ -97,6 +100,7 @@ class IclockRegistry(tornado.web.RequestHandler):
         cmd_list = postvars.split("\n")
         self.write("OK")
         dte = date_time_string(sn)
+        print(dte)
         bDateHeader = False # are we sending the date header?
         if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
@@ -135,6 +139,7 @@ class IclockHandler(tornado.web.RequestHandler):
         power_on_getrequest = build_power_on_get_request(sn)
         if power_on_getrequest != "": self.write(power_on_getrequest)
         dte = date_time_string(sn)
+        print(dte)
         bDateHeader = False # are we sending the date header?
         #if dte != None: bDateHeader = True do not send dte heaaer in power on
         self.device_headers(dte,bDateHeader)
@@ -282,6 +287,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         if reboot==1:
             self.write("C:ID"+str(data_list[index][0])+":REBOOT\r\n")
         dte = date_time_string(sn)
+        print(dte)
         bDateHeader = False # are we sending the date header?
         if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
@@ -330,7 +336,9 @@ class IfaceInformation(tornado.web.RequestHandler):
                                                 + 'Iface Function keys = ' + str(IFACE_FUNCTION_KEYS) + '.<br><br>' \
                                                 + 'License Year = ' + str(return_version()) + '.<br><br>'\
                                                 + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
-                                                + 'Max Stamp = ' + str(MAX_STAMP) + '<br><br>')
+                                                + 'Max Stamp = ' + str(MAX_STAMP) + '<br><br>'\
+                                                + 'Raw clockings = ' + str(RAW_CLOCKINGS) + '<br><br>'\
+                                                + 'Check Repoll = ' + str(CHECK_REPOLL) + '<br><br>')
 
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/ifaceinformation.html"
         self.render(path, data=data)
@@ -922,24 +930,25 @@ def save_user_face(xx,terminal_id):
     tmp = list[4].replace("TMP=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check if already there
-    tx = "SELECT TOP 1 d_iface_face_id from d_iface_tmp WHERE employee_id ="+ user_id+ " AND fid="+fid+" AND [tmp] ='"+ tmp+ "'"
-    ret = sqlconns.sql_select_single_field(tx)
-    if ret!= "" and int(ret) > 0:
-        tx = "If ("\
-        "SELECT count(*) from d_iface_tmp"\
-        " where d_iface_face_id = " + str(int(ret)) + " and repoll_count is null) > 0"\
-        " UPDATE d_iface_tmp"\
-        " SET repoll_count = 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_face_id =" + str(int(ret)) + ""\
-        " ELSE"\
-        " UPDATE d_iface_tmp"\
-        " SET repoll_count = repoll_count + 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_Face_id = " + str(int(ret))
-        ret = sqlconns.sql_command(tx)
+    if CHECK_REPOLL:
+        tx = "SELECT TOP 1 d_iface_face_id from d_iface_tmp WHERE employee_id ="+ user_id+ " AND fid="+fid+" AND [tmp] ='"+ tmp+ "'"
+        ret = sqlconns.sql_select_single_field(tx)
+        if ret!= "" and int(ret) > 0:
+            tx = "If ("\
+            "SELECT count(*) from d_iface_tmp"\
+            " where d_iface_face_id = " + str(int(ret)) + " and repoll_count is null) > 0"\
+            " UPDATE d_iface_tmp"\
+            " SET repoll_count = 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_face_id =" + str(int(ret)) + ""\
+            " ELSE"\
+            " UPDATE d_iface_tmp"\
+            " SET repoll_count = repoll_count + 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_Face_id = " + str(int(ret))
+            ret = sqlconns.sql_command(tx)
 
-        return 1
+            return 1
     tx = "UPDATE d_iface_tmp SET size = '" + size + "',[valid]="+valid+", [tmp]='" + tmp + "',date_added="+date_now+",terminal_id="+str(terminal_id)+" WHERE employee_id =" + user_id + " AND fid="+fid+"" \
                 " IF @@ROWCOUNT=0" \
                 " INSERT INTO d_iface_tmp(employee_id,size,tmp,date_added,[valid],fid,terminal_id) VALUES ('"+user_id+"','"+size+"','"+tmp+"',"+date_now+","+valid+","+fid+","+str(terminal_id)+")"
@@ -959,23 +968,24 @@ def save_user_finger(xx,terminal_id):
     valid = list[3].replace("Valid=","")
     tmp = list[4].replace("TMP=","")
     #check if exists
-    tx = "Select top 1 [d_iface_finger_id] from d_iface_finger WHERE employee_id =" + user_id + " AND fid="+fid+ " AND tmp = '"+ tmp + "'"
-    ret = sqlconns.sql_select_single_field(tx)
-    if ret != "" and int(ret) > 0:
-        tx = "If ("\
-        "SELECT count(*) from d_iface_finger"\
-        " where d_iface_finger_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
-        " UPDATE d_iface_finger"\
-        " SET repoll_count = 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_finger_id ="+ str(int(ret))+ ""\
-        " ELSE"\
-        " UPDATE d_iface_finger"\
-        " SET repoll_count = repoll_count + 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_finger_id = "+ str(int(ret))
-        ret = sqlconns.sql_command(tx)
-        return 1
+    if CHECK_REPOLL:
+        tx = "Select top 1 [d_iface_finger_id] from d_iface_finger WHERE employee_id =" + user_id + " AND fid="+fid+ " AND tmp = '"+ tmp + "'"
+        ret = sqlconns.sql_select_single_field(tx)
+        if ret != "" and int(ret) > 0:
+            tx = "If ("\
+            "SELECT count(*) from d_iface_finger"\
+            " where d_iface_finger_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+            " UPDATE d_iface_finger"\
+            " SET repoll_count = 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_finger_id ="+ str(int(ret))+ ""\
+            " ELSE"\
+            " UPDATE d_iface_finger"\
+            " SET repoll_count = repoll_count + 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_finger_id = "+ str(int(ret))
+            ret = sqlconns.sql_command(tx)
+            return 1
     #clear old templates
     tx = "DELETE from d_iface_finger WHERE employee_id = " + str(user_id) + " AND date_added < dateadd(minute,-" + str(FINGER_DELETION_MINS) + ",getdate())"
     sqlconns.sql_command(tx)
@@ -1017,23 +1027,24 @@ def save_user_photo(xx,terminal_id):
         content = list[3].replace("Content=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
-    tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
-    ret = sqlconns.sql_select_single_field(tx)
-    if ret != "" and int(ret) > 0:
-        tx = "If ("\
-        "SELECT count(*) from d_iface_photo"\
-        " where d_iface_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
-        " UPDATE d_iface_photo"\
-        " SET repoll_count = 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_photo_id ="+ str(int(ret))+ ""\
-        " ELSE"\
-        " UPDATE d_iface_photo"\
-        " SET repoll_count = repoll_count + 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_photo_id = "+ str(int(ret))
-        ret = sqlconns.sql_command(tx)
-        return 1
+    if CHECK_REPOLL:
+        tx = "Select top 1 [d_iface_photo_id] from d_iface_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
+        ret = sqlconns.sql_select_single_field(tx)
+        if ret != "" and int(ret) > 0:
+            tx = "If ("\
+            "SELECT count(*) from d_iface_photo"\
+            " where d_iface_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+            " UPDATE d_iface_photo"\
+            " SET repoll_count = 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_photo_id ="+ str(int(ret))+ ""\
+            " ELSE"\
+            " UPDATE d_iface_photo"\
+            " SET repoll_count = repoll_count + 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_photo_id = "+ str(int(ret))
+            ret = sqlconns.sql_command(tx)
+            return 1
     #photo does not exist, carry on
     tx = "UPDATE d_iface_photo SET size = '" + size + "', content='" + content + "',date_added="+date_now+",terminal_id="+str(terminal_id)+",new=1 WHERE employee_id =" + user_id + "" \
                     " IF @@ROWCOUNT=0" \
@@ -1054,23 +1065,24 @@ def save_bio_photo(xx,terminal_id):
     content = list[4].replace("Content=","")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
-    tx = "Select top 1 [d_iface_bio_photo_id] from d_iface_bio_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
-    ret = sqlconns.sql_select_single_field(tx)
-    if ret != "" and int(ret) > 0:
-        tx = "If ("\
-        "SELECT count(*) from d_iface_bio_photo"\
-        " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
-        " UPDATE d_iface_bio_photo"\
-        " SET repoll_count = 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
-        " ELSE"\
-        " UPDATE d_iface_bio_photo"\
-        " SET repoll_count = repoll_count + 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_bio_photo_id = "+ str(int(ret))
-        ret = sqlconns.sql_command(tx)
-        return 1
+    if CHECK_REPOLL:
+        tx = "Select top 1 [d_iface_bio_photo_id] from d_iface_bio_photo WHERE employee_id =" + user_id + " AND content = '"+ content + "'"
+        ret = sqlconns.sql_select_single_field(tx)
+        if ret != "" and int(ret) > 0:
+            tx = "If ("\
+            "SELECT count(*) from d_iface_bio_photo"\
+            " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+            " UPDATE d_iface_bio_photo"\
+            " SET repoll_count = 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
+            " ELSE"\
+            " UPDATE d_iface_bio_photo"\
+            " SET repoll_count = repoll_count + 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_bio_photo_id = "+ str(int(ret))
+            ret = sqlconns.sql_command(tx)
+            return 1
     #photo does not exist, carry on
     tx = "UPDATE d_iface_bio_photo SET size = '" + size + "', content='" + content + "',date_added="+date_now+",terminal_id="+str(terminal_id)+",new=1 WHERE employee_id =" + user_id + "" \
                     " IF @@ROWCOUNT=0" \
@@ -1103,24 +1115,24 @@ def save_bio_data(xx,terminal_id):
     tmp = list[9].replace("Tmp=", "")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
     #check exixts and dont write
-    tx = "Select top 1 [d_iface_biophoto_id] from d_iface_biophoto WHERE employee_id =" + user_id + " AND tmp = '"+ tmp + "'"
-
-    ret = sqlconns.sql_select_single_field(tx)
-    if ret != "" and int(ret) > 0:
-        tx = "If ("\
-        "SELECT count(*) from d_iface_bio_photo"\
-        " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
-        " UPDATE d_iface_bio_photo"\
-        " SET repoll_count = 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
-        " ELSE"\
-        " UPDATE d_iface_bio_photo"\
-        " SET repoll_count = repoll_count + 1,"\
-        " repoll_date = getdate()"\
-        " WHERE d_iface_bio_photo_id = "+ str(int(ret))
-        ret = sqlconns.sql_command(tx)
-        return 1
+    if CHECK_REPOLL:
+        tx = "Select top 1 [d_iface_biophoto_id] from d_iface_biophoto WHERE employee_id =" + user_id + " AND tmp = '"+ tmp + "'"
+        ret = sqlconns.sql_select_single_field(tx)
+        if ret != "" and int(ret) > 0:
+            tx = "If ("\
+            "SELECT count(*) from d_iface_bio_photo"\
+            " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
+            " UPDATE d_iface_bio_photo"\
+            " SET repoll_count = 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
+            " ELSE"\
+            " UPDATE d_iface_bio_photo"\
+            " SET repoll_count = repoll_count + 1,"\
+            " repoll_date = getdate()"\
+            " WHERE d_iface_bio_photo_id = "+ str(int(ret))
+            ret = sqlconns.sql_command(tx)
+            return 1
     #photo does not exist, carry on
     tx = "UPDATE d_iface_biophoto SET [tmp] = '" + tmp + "',[date_added] = " + date_now + \
                     ", [no]=" + str(no)+\
@@ -1174,27 +1186,44 @@ def build_power_on_get_request(sn):
     if proface:
         trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tBioPhoto'
     #trans_flag_string = '111111111111'
+    if uface:
+        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tEnrollFP\tChgFP\tFACE\tUserPic'
     xx = "GET OPTION FROM:" + sn + \
-             "\r\nStamp=" + str(att_stamp) + \
-             "\r\nOpStamp=" + str(op_stamp) + \
-             "\r\nPhotoStamp=" + str(op_stamp) + \
-             "\r\nErrorDelay=3" +\
+            "\r\nStamp=" + str(att_stamp) +\
+            "\r\nOpStamp=" + str(op_stamp) + \
+            "\r\nPhotoStamp=" + str(op_stamp) + \
+            "\r\nErrorDelay=3" +\
             "\r\nDelay=5" + \
             "\r\nTransTimes=" + "00:00;14:05" + \
             "\r\nTransInterval=" + "1" + \
             "\r\nTransFlag=" + trans_flag_string + \
             "\r\nRealtime=1" + \
-            "\r\nTimeZoneclock=1" + \
-            "\r\nTimezone=0" + \
+            "\r\nTimeZone=1" + \
             "\r\nATTLOGStamp=" + str(att_stamp) + \
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
-            "\r\nUSERINFOStamp=0" + \
-            "\r\nFINGERTMPStamp=0" + \
-            "\r\nUSERPICStamp=0" + \
             "\r\n"
+    if proface:
+        xx = "GET OPTION FROM:" + sn + \
+             "\r\nStamp=" + str(att_stamp) + \
+             "\r\nOpStamp=" + str(op_stamp) + \
+             "\r\nPhotoStamp=" + str(op_stamp) + \
+             "\r\nErrorDelay=3" + \
+             "\r\nDelay=5" + \
+             "\r\nTransTimes=" + "00:00;14:05" + \
+             "\r\nTransInterval=" + "1" + \
+             "\r\nTransFlag=" + trans_flag_string + \
+             "\r\nRealtime=1" + \
+             "\r\nTimeZoneclock=1" + \
+             "\r\nTimezone=0" + \
+             "\r\nATTLOGStamp=" + str(att_stamp) + \
+             "\r\nOPERLOGStamp=" + str(op_stamp) + \
+             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
+             "\r\nUSERINFOStamp=0" + \
+             "\r\nFINGERTMPStamp=0" + \
+             "\r\nUSERPICStamp=0" + \
+             "\r\n"
     return xx
-
 
 def build_power_on_get_request_old(sn):
     terminal_id = get_terminal_id_from_sn(sn)
@@ -1311,12 +1340,12 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 
     if IFACE_FUNCTION_KEYS == True:
         if int(list[4])  == 3: flag = 3
-    #backup attendance clocking, may add as an option in future, may add a purge to the build commands script anything older than a year?
-    #this is handled in the application script
-    tx = "INSERT INTO d_iface_att (stamp,emp_id,date_and_time,sn)"\
-        " VALUES ('" + stamp + "'," + str(emp_id) + ",'" + booking + "','" + sn + "')"
-    ret = sqlconns.sql_command(tx)
-    if ret==-1: return -1
+    #backup attendance clocking, default not to store as it builds up massive amounts of data
+    if RAW_CLOCKINGS:
+        tx = "INSERT INTO d_iface_att (stamp,emp_id,date_and_time,sn)"\
+            " VALUES ('" + stamp + "'," + str(emp_id) + ",'" + booking + "','" + sn + "')"
+        ret = sqlconns.sql_command(tx)
+        if ret==-1: return -1
 
     dte = f.iface_string_to_date_format(booking)
 
@@ -1389,6 +1418,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     return 1
 
 def bAttFound (sn,emp_id,booking):
+    if CHECK_REPOLL == False: return False  # if not checking repoll then just return false
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE sn = '"+ sn+ "' AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
     ret = sqlconns.sql_select_single_field(tx)
     if ret == "":
@@ -1413,6 +1443,7 @@ def bAttFound (sn,emp_id,booking):
         return False
 
 def bAttEventFound (terminal_id,emp_id,booking):
+    if CHECK_REPOLL == False: return False # if not checking repoll then just return false
     tx = "select TOP 1 [d_iface_att_id] from d_iface_att WHERE terminal_id = "+ str(terminal_id) + " AND emp_id = "+ str(emp_id)+ " AND date_and_time = "+ booking
     ret = sqlconns.sql_select_single_field(tx)
     if ret == "": return False
@@ -1524,6 +1555,10 @@ def set_env():
                             MAX_STAMP = str.split(listme[index], '=')[1]
                         if "min_stamp" in listme[index]:
                             MIN_STAMP = str.split(listme[index], '=')[1]
+                        if "raw_clockings" in listme[index]:
+                            RAW_CLOCKINGS = str.split(listme[index], '=')[1]
+                        if "check_repoll" in listme[index]:
+                            CHECK_REPOLL = str.split(listme[index], '=')[1]
                     f.error_logging(APPNAME, "Port is now: "+str(gl.server_port), "error_log", "")
                 except Exception as e:
                     return False
@@ -1571,16 +1606,16 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
-    #if set_env()==True:
-     #   if version_check()==True:
-      #      log_initialise()
-       #     app = make_app()
-        #    app.listen(gl.server_port)
-         #   SERVER_STARTED = 1
-          #  logging.getLogger('tornado.access').disabled = True
-           # tornado.ioloop.IOLoop.current().start()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
+    if set_env()==True:
+        if version_check()==True:
+            log_initialise()
+            app = make_app()
+            app.listen(gl.server_port)
+            SERVER_STARTED = 1
+            logging.getLogger('tornado.access').disabled = True
+            tornado.ioloop.IOLoop.current().start()
 
 
 

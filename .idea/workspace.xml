@@ -2,20 +2,20 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1341" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="326" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1219" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="451" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="61" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="67" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="100" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1579" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1370" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="332" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1248" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="459" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="63" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="69" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="104" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1614" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/setup_ifaceserverxml.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sqllitetest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifaceserver xml.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
@@ -33,8 +33,9 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="55" />
+          <entry key="project.closed" value="57" />
           <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="7" />
           <entry key="project.open.time.11" value="3" />
           <entry key="project.open.time.12" value="1" />
@@ -43,9 +44,9 @@
           <entry key="project.open.time.5" value="14" />
           <entry key="project.open.time.6" value="23" />
           <entry key="project.open.time.7" value="11" />
-          <entry key="project.open.time.8" value="2" />
+          <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="68" />
+          <entry key="project.opened" value="70" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -54,7 +55,7 @@
           <entry key="html" value="2" />
           <entry key="ini" value="1" />
           <entry key="log" value="1" />
-          <entry key="py" value="129" />
+          <entry key="py" value="133" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -62,21 +63,21 @@
           <entry key="CSS" value="4" />
           <entry key="HTML" value="2" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="129" />
+          <entry key="Python" value="133" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
-          <entry key="Python" value="29661" />
+          <entry key="Python" value="30370" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="153" />
           <entry key="html" value="286" />
-          <entry key="py" value="29661" />
+          <entry key="py" value="30370" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -90,42 +91,9 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Hughes Web Project/setup_sftp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
-              <folding>
-                <element signature="e#1#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ifaceserverxml.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="396" column="39" selection-start-line="396" selection-start-column="39" selection-end-line="396" selection-end-column="39" />
-              <folding>
-                <element signature="e#226#240#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup_ifaceserverxml.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup_adp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="838">
+            <state relative-caret-position="799">
               <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
               <folding>
                 <element signature="e#1#33#0" expanded="true" />
@@ -137,8 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="41" column="5" selection-end-line="43" />
+            <state relative-caret-position="17">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -164,8 +132,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1887">
+            <state relative-caret-position="430">
               <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sqllitetest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="12" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -190,6 +167,24 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ifaceserver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="471">
+              <caret line="1621" lean-forward="true" selection-start-line="1621" selection-end-line="1621" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gl.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="816">
+              <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -201,13 +196,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>devicecm</find>
-      <find>password</find>
-      <find>registry</find>
       <find>BIOPH</find>
       <find>bio</find>
       <find>save_user_ph</find>
-      <find>power</find>
       <find>save_bio_data</find>
       <find>table</find>
       <find>table_type</find>
@@ -229,8 +220,12 @@
       <find>'att_st</find>
       <find>select</find>
       <find>att_stamp</find>
-      <find>print</find>
       <find>ifaceserver</find>
+      <find>time</find>
+      <find>power</find>
+      <find>xx</find>
+      <find>print</find>
+      <find>check_repoll</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -247,8 +242,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Inbio Config.py" />
-        <option value="$PROJECT_DIR$/regex_examples.py" />
         <option value="$PROJECT_DIR$/test_sql_test.py" />
         <option value="$PROJECT_DIR$/test gui.py" />
         <option value="$PROJECT_DIR$/test ifaceserver.py" />
@@ -293,17 +286,19 @@
         <option value="$PROJECT_DIR$/test1.py" />
         <option value="$PROJECT_DIR$/newtesrter.py" />
         <option value="$PROJECT_DIR$/tut20.py" />
-        <option value="$PROJECT_DIR$/ifaceserver.py" />
         <option value="$PROJECT_DIR$/../Hughes Web Project/sftp.py" />
         <option value="$PROJECT_DIR$/../Hughes Web Project/setup_sftp.py" />
         <option value="$PROJECT_DIR$/setup_ifaceserverxml.py" />
         <option value="$PROJECT_DIR$/ifaceserverxml.py" />
+        <option value="$PROJECT_DIR$/../Fleming/ADP.py" />
+        <option value="$PROJECT_DIR$/sqllitetest.py" />
+        <option value="$PROJECT_DIR$/ifaceserver.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="201" />
-    <option name="y" value="198" />
+    <option name="x" value="621" />
+    <option name="y" value="145" />
     <option name="width" value="1620" />
     <option name="height" value="860" />
   </component>
@@ -315,7 +310,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -323,14 +317,20 @@
               <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
               <item name="Iface-server-and-inbio-communicator" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Iface-server-and-inbio-communicator" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Hughes Web Project/setup_sftp.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Custom" />
     <property name="settings.editor.splitter.proportion" value="0.26017874" />
@@ -363,7 +363,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ifaceserverxml">
+  <component name="RunManager" selected="Python.ifaceserver">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -513,7 +513,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="sqllitetest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Iface server and inbio communicator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -525,7 +525,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sqllitetest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -631,19 +631,19 @@
     <list>
       <item itemvalue="Python.ifacetornado" />
       <item itemvalue="Python.ifaceserver" />
-      <item itemvalue="Python.test1" />
       <item itemvalue="Python.newtesrter" />
       <item itemvalue="Python.sftp" />
       <item itemvalue="Python.tut20" />
       <item itemvalue="Python.ifaceserverxml" />
+      <item itemvalue="Python.sqllitetest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.sqllitetest" />
         <item itemvalue="Python.ifaceserverxml" />
         <item itemvalue="Python.sftp" />
         <item itemvalue="Python.tut20" />
         <item itemvalue="Python.newtesrter" />
-        <item itemvalue="Python.test1" />
       </list>
     </recent_temporary>
   </component>
@@ -702,11 +702,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8898944" visible="true" weight="0.14172813" />
-      <window_info id="Structure" order="1" sideWeight="0.11010558" side_tool="true" visible="true" weight="0.14172813" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.88687783" visible="true" weight="0.14172813" />
+      <window_info id="Structure" order="1" sideWeight="0.11312217" side_tool="true" visible="true" weight="0.14172813" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
@@ -809,20 +809,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ifaceeserver diagnostic previous version.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="318" column="74" lean-forward="true" selection-start-line="318" selection-start-column="74" selection-end-line="318" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pword.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/iface analyser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -937,13 +923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ADP.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -968,13 +947,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver xml.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="440" column="44" lean-forward="true" selection-start-line="440" selection-start-column="44" selection-end-line="440" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ifaceserver xml.py" />
     <entry file="file://$PROJECT_DIR$/sqlconnector_setup.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1002,13 +975,6 @@
     <entry file="file://$PROJECT_DIR$/setup_py2exe_comm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-132" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="1583" selection-start-line="1583" selection-end-line="1583" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/export image field to photos.py">
@@ -1056,6 +1022,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Hughes Web Project/setup_sftp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ifaceserverxml.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6375">
+          <caret line="401" selection-start-line="401" selection-end-line="401" />
+          <folding>
+            <element signature="e#226#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Fleming/ADP.py" />
+    <entry file="file://$PROJECT_DIR$/setup_ifaceserverxml.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup_adp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+          <folding>
+            <element signature="e#1#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/setup_update_ess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1067,13 +1075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13753">
           <caret line="832" column="51" selection-start-line="832" selection-start-column="51" selection-end-line="832" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1887">
-          <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -1093,47 +1094,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup_py2exe_iface_server.py">
+    <entry file="file://$PROJECT_DIR$/test1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="41" column="5" selection-end-line="43" />
+        <state relative-caret-position="430">
+          <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup_ifaceserverxml.py">
+    <entry file="file://$PROJECT_DIR$/sqllitetest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+        <state relative-caret-position="306">
+          <caret line="18" column="12" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup_adp.py">
+    <entry file="file://$PROJECT_DIR$/gl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="838">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-          <folding>
-            <element signature="e#1#33#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="816">
+          <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Hughes Web Project/setup_sftp.py">
+    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#1#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserverxml.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="396" column="39" selection-start-line="396" selection-start-column="39" selection-end-line="396" selection-end-column="39" />
-          <folding>
-            <element signature="e#226#240#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="471">
+          <caret line="1621" lean-forward="true" selection-start-line="1621" selection-end-line="1621" />
         </state>
       </provider>
     </entry>
