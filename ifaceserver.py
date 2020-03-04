@@ -3,8 +3,6 @@
 #there is a lot of commented out code in this project
 #this is to allow quickish switching between running this as a service and running as a application
 
-
-
 import decimal
 import sys
 import os
@@ -38,7 +36,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.0001"
+APP_VERSION = "proface 2020.0.5000"
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -83,7 +81,6 @@ class IclockRegistry(tornado.web.RequestHandler):
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "": return -1
         dte = date_time_string(sn)
-        print(dte)
         bDateHeader = False # are we sending the date header?
         if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
@@ -100,7 +97,6 @@ class IclockRegistry(tornado.web.RequestHandler):
         cmd_list = postvars.split("\n")
         self.write("OK")
         dte = date_time_string(sn)
-        print(dte)
         bDateHeader = False # are we sending the date header?
         if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
@@ -139,7 +135,6 @@ class IclockHandler(tornado.web.RequestHandler):
         power_on_getrequest = build_power_on_get_request(sn)
         if power_on_getrequest != "": self.write(power_on_getrequest)
         dte = date_time_string(sn)
-        print(dte)
         bDateHeader = False # are we sending the date header?
         #if dte != None: bDateHeader = True do not send dte heaaer in power on
         self.device_headers(dte,bDateHeader)
@@ -287,7 +282,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         if reboot==1:
             self.write("C:ID"+str(data_list[index][0])+":REBOOT\r\n")
         dte = date_time_string(sn)
-        print(dte)
         bDateHeader = False # are we sending the date header?
         if dte != None: bDateHeader = True
         self.device_headers(dte,bDateHeader)
@@ -705,11 +699,18 @@ def log_ip_address(sn, ip):
     ret = sqlconns.sql_command(tx)
 
 def get_terminal_status_list():
-    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration, poll_success, lastip = " \
+    """terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration, poll_success, lastip = " \
                                                   " (SELECT top 1 last_ip from d_iface_stamps where d_iface_stamps.terminal_id = tterminal.terminal_id and table_name = 'att_stamp')" \
                                                 " FROM tterminal LEFT OUTER JOIN" \
                                                 " d_iface_stamps ON tterminal.terminal_id = d_iface_stamps.terminal_id" \
                                                 " WHERE" \
+                                                " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
+                                                " ORDER BY configuration, description")"""
+
+    terminal_list = sqlconns.sql_select_into_list("SELECT description, ip_address, configuration, poll_success, lastip = " \
+                                                  " (SELECT top 1 last_ip from d_iface_stamps where d_iface_stamps.terminal_id = tterminal.terminal_id and table_name = 'att_stamp')" \
+                                                " FROM tterminal" \
+                                                  " WHERE" \
                                                 " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
                                                 " ORDER BY configuration, description")
     if terminal_list==-1: return ""
@@ -1607,16 +1608,17 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
-    if set_env()==True:
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
+
+    """if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabled = True
-            tornado.ioloop.IOLoop.current().start()
+            logging.getLogger('tornado.access').disabl1ed = True
+            tornado.ioloop.IOLoop.current().start() #"""
 
 
 
