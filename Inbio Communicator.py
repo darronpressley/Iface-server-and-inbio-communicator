@@ -56,6 +56,7 @@ class AppServerSvc(win32serviceutil.ServiceFramework):
                     #e = open("c:/temp/1log.txt", 'a')
                     #e.write(dte + """\n""")
                     #e.close()
+
                     county = 0
                 main_function()
             else:

@@ -337,8 +337,9 @@ class IfaceInformation(tornado.web.RequestHandler):
                                                 + 'License Year = ' + str(return_version()) + '.<br><br>'\
                                                 + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
                                                 + 'Max Stamp = ' + str(MAX_STAMP) + '<br><br>'\
-                                                + 'Raw clockings = ' + str(RAW_CLOCKINGS) + '<br><br>'\
+                                                + 'Raw clockings = ' + str(RAW_CLOCKINGS) + '<br>'\
                                                 + 'Check Repoll = ' + str(CHECK_REPOLL) + '<br><br>')
+                            #page will need to be bigged to display more data on web page, limit is reached
 
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/ifaceinformation.html"
         self.render(path, data=data)
