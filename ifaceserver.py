@@ -156,6 +156,8 @@ class IclockHandler(tornado.web.RequestHandler):
                 if "BIOPHOTO" in list[index]:
                     ret = save_bio_photo(list[index],terminal_id)
                     if ret==-1: return -1
+                    ret = save_user_photo(list[index],terminal_id)
+                    if ret==-1: return -1
                 if "BIODATA" in list[index]:
                     ret = save_bio_data(list[index],terminal_id)
                     if ret==-1: return -1
@@ -687,7 +689,7 @@ def make_app():
         (r"/iclock/cdata", IclockHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
         (r"/iclock/devicecmd", IclockDevicecmdHandler),
-        (r"/iclock/registry", IclockRegistry)
+        (r"/iclock/registry", IclockRegistry),
     ]
 
     return tornado.web.Application(
@@ -1170,23 +1172,24 @@ def build_power_on_get_request(sn):
     tx = "SELECT TOP 1 uface,proface from d_iface_options WHERE terminal_id = " + str(terminal_id)
     list = sqlconns.sql_select(tx)
 
+    uface = False
+    proface = False
     if list != -1:
         if list[0][0] == None:
             uface = False
         else:
-            uface = list[0][0]
+            if list[0][0] == 1: uface = True
         if list[0][1] == None:
             proface = False
         else:
-            proface = list[0][1]
+            if list[0][1] == 1: proface = True
 
-    uface = str.lower(sqlconns.sql_select_single_field(tx))
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
     trans_flag_string = "1"
     if uface:
         trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
     if proface:
-        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tBioPhoto'
+        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tBioPhoto\tUserPic'
     #trans_flag_string = '111111111111'
     if uface:
         trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tEnrollFP\tChgFP\tFACE\tUserPic'
@@ -1225,6 +1228,7 @@ def build_power_on_get_request(sn):
              "\r\nFINGERTMPStamp=0" + \
              "\r\nUSERPICStamp=0" + \
              "\r\n"
+
     return xx
 
 def build_power_on_get_request_old(sn):
@@ -1617,8 +1621,10 @@ if __name__ == "__main__":
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disabl1ed = True
-            tornado.ioloop.IOLoop.current().start() #"""
+            logging.getLogger('tornado.access').disab1ed = True
+            tornado.ioloop.IOLoop.current().start()
+"""
+
 
 
 

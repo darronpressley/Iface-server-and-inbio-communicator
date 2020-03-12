@@ -2,17 +2,20 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1372" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="326" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1250" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="454" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1376" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="328" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1254" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="456" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="61" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="67" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="100" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1617" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1621" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1055" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.ini" beforeDir="false" afterPath="$PROJECT_DIR$/database.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
@@ -30,7 +33,7 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="58" />
+          <entry key="project.closed" value="59" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="7" />
@@ -39,11 +42,11 @@
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.5" value="14" />
-          <entry key="project.open.time.6" value="23" />
+          <entry key="project.open.time.6" value="24" />
           <entry key="project.open.time.7" value="11" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="71" />
+          <entry key="project.opened" value="72" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -67,14 +70,14 @@
         <counts>
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
-          <entry key="Python" value="30567" />
+          <entry key="Python" value="31105" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="153" />
           <entry key="html" value="286" />
-          <entry key="py" value="30567" />
+          <entry key="py" value="31105" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -90,8 +93,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="1622" lean-forward="true" selection-start-line="1622" selection-end-line="1622" />
+            <state relative-caret-position="250">
+              <caret line="1617" column="7" selection-start-line="1617" selection-start-column="7" selection-end-line="1617" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -107,15 +110,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>save_user_ph</find>
-      <find>save_bio_data</find>
-      <find>table</find>
-      <find>table_type</find>
-      <find>biodata</find>
-      <find>in bio</find>
-      <find>save_user_photo</find>
-      <find>save_bio</find>
-      <find>proface</find>
       <find>proface,</find>
       <find>userpic</find>
       <find>tmp</find>
@@ -132,11 +126,20 @@
       <find>power</find>
       <find>xx</find>
       <find>check_repoll</find>
-      <find>print</find>
       <find>test</find>
       <find>TestPage</find>
       <find>terminalList</find>
       <find>get_terminal_status_list</find>
+      <find>servertime</find>
+      <find>robot</find>
+      <find>robots</find>
+      <find>bio</find>
+      <find>save_bio_data</find>
+      <find>table</find>
+      <find>save_bio_photo</find>
+      <find>table_type</find>
+      <find>save_user_photo</find>
+      <find>print</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -207,9 +210,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="168" />
-    <option name="y" value="476" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="521" />
+    <option name="y" value="418" />
     <option name="width" value="1620" />
     <option name="height" value="384" />
   </component>
@@ -221,6 +224,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -232,7 +236,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -611,8 +614,8 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.88687783" visible="true" weight="0.14172813" />
-      <window_info id="Structure" order="1" sideWeight="0.11312217" side_tool="true" visible="true" weight="0.14172813" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.88536954" visible="true" weight="0.14172813" />
+      <window_info id="Structure" order="1" sideWeight="0.11463047" side_tool="true" visible="true" weight="0.14172813" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
@@ -993,13 +996,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/timeware iface server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/gl.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1012,16 +1009,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
           <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
-          <folding>
-            <element signature="e#1#33#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="1622" lean-forward="true" selection-start-line="1622" selection-end-line="1622" />
+        <state relative-caret-position="250">
+          <caret line="1617" column="7" selection-start-line="1617" selection-start-column="7" selection-end-line="1617" selection-end-column="7" />
         </state>
       </provider>
     </entry>
