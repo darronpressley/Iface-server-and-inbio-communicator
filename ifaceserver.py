@@ -36,7 +36,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.5000"
+APP_VERSION = "proface 2020.0.6000"
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -714,6 +714,7 @@ def get_terminal_status_list():
                                                 " FROM tterminal" \
                                                   " WHERE" \
                                                 " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
+                                                " AND ip_address not like '%.%'" \
                                                 " ORDER BY configuration, description")
     if terminal_list==-1: return ""
     tx = ""
@@ -1208,26 +1209,27 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
-    if proface:
-        xx = "GET OPTION FROM:" + sn + \
-             "\r\nStamp=" + str(att_stamp) + \
-             "\r\nOpStamp=" + str(op_stamp) + \
-             "\r\nPhotoStamp=" + str(op_stamp) + \
-             "\r\nErrorDelay=3" + \
-             "\r\nDelay=5" + \
-             "\r\nTransTimes=" + "00:00;14:05" + \
-             "\r\nTransInterval=" + "1" + \
-             "\r\nTransFlag=" + trans_flag_string + \
-             "\r\nRealtime=1" + \
-             "\r\nTimeZoneclock=1" + \
-             "\r\nTimezone=0" + \
-             "\r\nATTLOGStamp=" + str(att_stamp) + \
-             "\r\nOPERLOGStamp=" + str(op_stamp) + \
-             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
-             "\r\nUSERINFOStamp=0" + \
-             "\r\nFINGERTMPStamp=0" + \
-             "\r\nUSERPICStamp=0" + \
-             "\r\n"
+   #this part not neeed and causes time issues
+  #  if proface:
+   #     xx = "GET OPTION FROM:" + sn + \
+    #         "\r\nStamp=" + str(att_stamp) + \
+     #        "\r\nOpStamp=" + str(op_stamp) + \
+      #       "\r\nPhotoStamp=" + str(op_stamp) + \
+       #      "\r\nErrorDelay=3" + \
+        #     "\r\nDelay=5" + \
+       #      "\r\nTransTimes=" + "00:00;14:05" + \
+      #       "\r\nTransInterval=" + "1" + \
+        #     "\r\nTransFlag=" + trans_flag_string + \
+         #    "\r\nRealtime=1" + \
+          #   "\r\nTimeZoneclock=1" + \
+           #  "\r\nTimezone=0" + \
+            # "\r\nATTLOGStamp=" + str(att_stamp) + \
+         #    "\r\nOPERLOGStamp=" + str(op_stamp) + \
+        #     "\r\nATTPHOTOStamp=" + str(op_stamp) + \
+         #    "\r\nUSERINFOStamp=0" + \
+          #   "\r\nFINGERTMPStamp=0" + \
+           #  "\r\nUSERPICStamp=0" + \
+            # "\r\n"
 
     return xx
 
@@ -1622,8 +1624,8 @@ if __name__ == "__main__":
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disab1ed = True
-            tornado.ioloop.IOLoop.current().start()
-"""
+            tornado.ioloop.IOLoop.current().start()"""
+
 
 
 

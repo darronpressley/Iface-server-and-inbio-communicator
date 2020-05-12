@@ -26,14 +26,14 @@ setup(
     data_files=mydata_files,
     options={
         'py2exe' : {"optimize": 0,
-                    "bundle_files": 3,
+                    "bundle_files": 2,
                     "packages":packages,
                     "includes":includes,
                     "excludes":excludes,
                     }
     },
-    windows = [{
-        'script': "test_sql_test.py",
+    console = [{
+        'script': "ntp_export_photo.py",
         "icon_resources": [(1, "python_small.ico")]
     }]
 )

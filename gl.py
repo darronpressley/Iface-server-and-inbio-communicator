@@ -39,6 +39,7 @@ SCRIPT_ROOT=SCRIPT_ROOT.replace("library.zip","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("iface analyser.exe","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("adp.exe","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("jcdp.exe","")
+SCRIPT_ROOT=SCRIPT_ROOT.replace("jc_count_down.exe","")
 SCRIPT_ROOT=SCRIPT_ROOT.replace("inbio config.exe","")
 
 COMM_ERROR_LOG = SCRIPT_ROOT+"communications.log"
@@ -47,7 +48,9 @@ SPOOL_LOG = SCRIPT_ROOT + "spool.log"
 GENERAL_INI = SCRIPT_ROOT + "general.ini"
 ADP_INI = SCRIPT_ROOT + "adp.ini"
 ADP2_INI = SCRIPT_ROOT + "adp2.ini"
+JC_COUNT_DOWN_INI = SCRIPT_ROOT + "jc_count_down.ini"
 LICENSE_TXT = SCRIPT_ROOT + "license.txt"
+
 
 KEY_FILE = SCRIPT_ROOT + "privatekey.pem"
 CERT_FILE = SCRIPT_ROOT + "certificate.pem"
