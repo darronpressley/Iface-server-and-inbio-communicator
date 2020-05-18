@@ -141,41 +141,51 @@ class IclockHandler(tornado.web.RequestHandler):
 
 #data from clock to ifaceserver
     def post(self):
-        terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
-        if terminal_id == -1: return
-        postvars = self.request.body
-        postvars = postvars.decode("utf-8")
-        list = postvars.split("\n")
-        if table_type =="": return
-        #if clock sends a table not matched then dont worry about it, ignore and send OK
-        if table_type == "OPERLOG":
-            for index in range(len(list)):
-                if "USERPIC" in list[index]:
-                    ret = save_user_photo(list[index],terminal_id)
-                    if ret==-1: return -1
-                if "BIOPHOTO" in list[index]:
-                    ret = save_bio_photo(list[index],terminal_id)
-                    if ret==-1: return -1
-                    ret = save_user_photo(list[index],terminal_id)
-                    if ret==-1: return -1
-                if "BIODATA" in list[index]:
-                    ret = save_bio_data(list[index],terminal_id)
-                    if ret==-1: return -1
-                if "FACE PIN" in list[index]:
-                    ret = save_user_face(list[index],terminal_id)
-                    if ret==-1: return -1
-                if "FP PIN" in list[index]:
-                    ret = save_user_finger(list[index],terminal_id)
-                    if ret==-1: return -1
-                if "OPLOG" in list[index]:
-                    ret = save_op_log(list[index],terminal_id,sn)
-                    if ret==-1: return -1
-            ret = save_op_stamp(stamp,terminal_id,sn)
-            if ret==-1: return -1
-        if table_type == "ATTLOG":
-            for index in range(len(list)):
-                ret = insert_booking(str(list[index]),terminal_id,sn,configuration,stamp)
-                if ret == -1: return
+        if 'TABLE=OPTIONS' not in str.upper(self.request.uri):   #TODO someday record the options
+            postvars = self.request.body
+            postvars = postvars.decode("utf-8")
+            terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
+            if terminal_id == -1: return
+            list = postvars.split("\n")
+            if table_type =="": return
+            #if clock sends a table not matched then dont worry about it, ignore and send OK
+            print(table_type, list)
+            if table_type == "OPERLOG":
+                for index in range(len(list)):
+                    if "USERPIC" in list[index]:
+                        ret = save_user_photo(list[index],terminal_id)
+                        if ret==-1: return -1
+                    if "BIOPHOTO" in list[index]:
+                        ret = save_bio_photo(list[index],terminal_id)
+                        if ret==-1: return -1
+                        ret = save_user_photo(list[index],terminal_id)
+                        if ret==-1: return -1
+                    if "BIODATA" in list[index]:
+                        ret = save_bio_data(list[index],terminal_id)
+                        if ret==-1: return -1
+                    if "FACE PIN" in list[index]:
+                        ret = save_user_face(list[index],terminal_id)
+                        if ret==-1: return -1
+                    if "FP PIN" in list[index]:
+                        ret = save_user_finger(list[index],terminal_id)
+                        if ret==-1: return -1
+                    if "OPLOG" in list[index]:
+                        ret = save_op_log(list[index],terminal_id,sn)
+                        if ret==-1: return -1
+                    #if "OPLOG 4" in list[index]: TODO oplog 4 is no face mask
+                     #   ret = save_op_log(list[index],terminal_id,sn)
+                      #  if ret==-1: return -1
+
+                ret = save_op_stamp(stamp,terminal_id,sn)
+                if ret==-1: return -1
+            if table_type == "ATTLOG":
+                for index in range(len(list)):
+                    ret = insert_booking(str(list[index]),terminal_id,sn,configuration,stamp)
+                    if ret == -1: return
+        else:# just need serial number at this stage
+            path = self.request.uri.replace("/iclock/cdata?SN=", "")
+            list = str.split(path, "&")
+            sn = list[0]
         self.write("OK")
         dte = date_time_string(sn)
         bDateHeader = False # are we sending the date header?
@@ -202,7 +212,6 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
 #####devicecmd page, to update if commands are successful
     def post(self):
         sn = self.request.uri.replace("/iclock/devicecmd?SN=","")
-        #terminal_id = get_terminal_id_from_sn(sn)#TODO is this line used?
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         cmd_list = postvars.split("\n")
@@ -227,7 +236,7 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
         self.clear_header("Server")
         self.set_header("HTTP", "1.1")
         self.set_header("Status","OK")
-        self.set_header("cotent-type", "text/plain")
+        self.set_header("content-type", "text/plain")
         #send time header or not
         if bDateHeader:
             self.set_header("Date",dte)
@@ -1230,7 +1239,7 @@ def build_power_on_get_request(sn):
           #   "\r\nFINGERTMPStamp=0" + \
            #  "\r\nUSERPICStamp=0" + \
             # "\r\n"
-
+    print(xx)
     return xx
 
 def build_power_on_get_request_old(sn):
@@ -1303,8 +1312,6 @@ def get_terminal_id(path):
     path = path.replace("/iclock/cdata?SN=","")
     list = str.split(path,"&")
     sn = list[0]
-    table_type = list[1].replace("table=","")
-    stamp = list[2].split("=",1)[1]
     tx = "SELECT TOP 1 terminal_id, configuration FROM tterminal WHERE ip_address = '" + sn+"'"
     ret = sqlconns.sql_select_into_list(tx)
     if ret == -1 or len(ret) == 0:
@@ -1313,6 +1320,8 @@ def get_terminal_id(path):
     else:
         terminal_id = ret[0][0]
         configuration = ret[0][1]
+    table_type = list[1].replace("table=", "")
+    stamp = list[2].split("=", 1)[1]
     return terminal_id, configuration, sn, table_type, stamp
 
 def ret_error(ip_address, ret, function):
@@ -1614,19 +1623,18 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
 
-    """if set_env()==True:
+    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disab1ed = True
-            tornado.ioloop.IOLoop.current().start()"""
+            tornado.ioloop.IOLoop.current().start()
 
 
-
-
+#TODO check out order of options page display!!
 

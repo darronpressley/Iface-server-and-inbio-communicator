@@ -2,25 +2,21 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1378" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="328" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1256" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="456" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1387" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="337" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1265" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="465" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="61" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="67" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="100" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1623" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1056" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1632" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1065" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/export.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.ini" beforeDir="false" afterPath="$PROJECT_DIR$/database.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gl.py" beforeDir="false" afterPath="$PROJECT_DIR$/gl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup_image_export.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup_image_export.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_sql_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ntp_export_photo.py" beforeDir="false" afterPath="$PROJECT_DIR$/ntp_export_photo.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,7 +33,7 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="63" />
+          <entry key="project.closed" value="64" />
           <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="7" />
@@ -46,11 +42,11 @@
           <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.5" value="14" />
-          <entry key="project.open.time.6" value="27" />
+          <entry key="project.open.time.6" value="28" />
           <entry key="project.open.time.7" value="11" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="76" />
+          <entry key="project.opened" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -75,7 +71,7 @@
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
           <entry key="PLAIN_TEXT" value="192" />
-          <entry key="Python" value="38285" />
+          <entry key="Python" value="38947" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -83,7 +79,7 @@
           <entry key="css" value="153" />
           <entry key="html" value="286" />
           <entry key="ini" value="192" />
-          <entry key="py" value="38285" />
+          <entry key="py" value="38947" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -96,11 +92,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="69" column="47" selection-start-line="69" selection-start-column="45" selection-end-line="69" selection-end-column="47" />
+            <state relative-caret-position="382">
+              <caret line="174" column="78" selection-start-line="174" selection-start-column="78" selection-end-line="174" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -108,7 +104,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/export image field to photos.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
+            <state relative-caret-position="374">
               <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -129,7 +125,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup_image_export.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="306">
               <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
               <folding>
                 <element signature="e#1#33#0" expanded="true" />
@@ -141,7 +137,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SQL Connector.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1037">
+            <state>
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -152,17 +148,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup_iface_analyser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
+            <state relative-caret-position="510">
               <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ntp_export_photo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+            <state relative-caret-position="1666">
+              <caret line="104" selection-start-line="104" selection-end-line="104" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -173,7 +169,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="374">
               <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
             </state>
           </provider>
@@ -191,7 +187,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
+            <state relative-caret-position="1819">
               <caret line="110" column="64" selection-start-line="110" selection-start-column="64" selection-end-line="110" selection-end-column="64" />
               <folding>
                 <element signature="e#234#269#0" expanded="true" />
@@ -211,14 +207,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>xx</find>
-      <find>check_repoll</find>
-      <find>TestPage</find>
-      <find>terminalList</find>
-      <find>servertime</find>
-      <find>robot</find>
-      <find>robots</find>
-      <find>bio</find>
       <find>save_bio_data</find>
       <find>table</find>
       <find>save_bio_photo</find>
@@ -237,10 +225,18 @@
       <find>pushButtonAttLog</find>
       <find>tab</find>
       <find>select</find>
-      <find>power</find>
-      <find>print</find>
       <find>set_</find>
       <find>__</find>
+      <find>power</find>
+      <find>print</find>
+      <find>sn =</find>
+      <find>todo</find>
+      <find>operlog</find>
+      <find>ATTLOGStamp</find>
+      <find>ATTLOG</find>
+      <find>insert_booking</find>
+      <find>p</find>
+      <find>get_terminal_id</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -300,7 +296,6 @@
         <option value="$PROJECT_DIR$/../JC CountDown/JC_Count_Down.py" />
         <option value="$PROJECT_DIR$/../JC CountDown/setup.py" />
         <option value="$PROJECT_DIR$/../iface tester/iface tester.py" />
-        <option value="$PROJECT_DIR$/ifaceserver.py" />
         <option value="$PROJECT_DIR$/gl.py" />
         <option value="$PROJECT_DIR$/test_sql_test.py" />
         <option value="$PROJECT_DIR$/export.ini" />
@@ -308,6 +303,7 @@
         <option value="$PROJECT_DIR$/setup_iface_analyser.py" />
         <option value="$PROJECT_DIR$/setup_image_export.py" />
         <option value="$PROJECT_DIR$/ntp_export_photo.py" />
+        <option value="$PROJECT_DIR$/ifaceserver.py" />
       </list>
     </option>
   </component>
@@ -325,7 +321,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -337,6 +332,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -373,7 +369,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ntp_export_photo">
+  <component name="RunManager" selected="Python.ifaceserver">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -713,10 +709,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.71040726" visible="true" weight="0.16596417" />
-      <window_info id="Structure" order="1" sideWeight="0.28959277" side_tool="true" visible="true" weight="0.16596417" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.70889896" visible="true" weight="0.13804004" />
+      <window_info id="Structure" order="1" sideWeight="0.29110107" side_tool="true" visible="true" weight="0.13804004" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
@@ -1052,43 +1047,7 @@
     <entry file="file://$PROJECT_DIR$/file access.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_sql_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/export image field to photos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="110" column="64" selection-start-line="110" selection-start-column="64" selection-end-line="110" selection-end-column="64" />
-          <folding>
-            <element signature="e#234#269#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/export.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test_sql_test.py" />
     <entry file="file://$PROJECT_DIR$/setup_sql_connector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1096,11 +1055,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SQL Connector.py">
+    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1037">
+        <state relative-caret-position="382">
+          <caret line="174" column="78" selection-start-line="174" selection-start-column="78" selection-end-line="174" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/export image field to photos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1112,30 +1079,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="69" column="47" selection-start-line="69" selection-start-column="45" selection-end-line="69" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup_iface_analyser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup_image_export.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
+        <state relative-caret-position="306">
           <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
           <folding>
             <element signature="e#1#33#0" expanded="true" />
@@ -1143,12 +1089,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SQL Connector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup_iface_analyser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ntp_export_photo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+        <state relative-caret-position="1666">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/export.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../iface tester/iface tester.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1819">
+          <caret line="110" column="64" selection-start-line="110" selection-start-column="64" selection-end-line="110" selection-end-column="64" />
+          <folding>
+            <element signature="e#234#269#0" expanded="true" />
           </folding>
         </state>
       </provider>
