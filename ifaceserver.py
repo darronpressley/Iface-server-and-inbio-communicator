@@ -36,7 +36,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.6000"
+APP_VERSION = "proface 2020.0.7000x" # X version has proface face, palm and face mask
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -50,6 +50,15 @@ CC_FUNCTION_KEYS = False
 ORIGINAL_BOOKINGS = True
 RAW_CLOCKINGS = False
 CHECK_REPOLL = False
+'''proface parameters
+max_temp=37.3
+email_temp_warning=true
+email_no_mask_detect=true
+record_booking_on_warning=true'''
+EMAIL_TEMP_WARNING = True
+EMAIL_NO_MASK_WARNING = True
+RECORD_BOOKING_ON_WARNING = True
+MAX_TEMP = 37.3
 
 #mins and max stamps allowed to be recorded to prevent repoll issues
 #criteris is > and < than
@@ -146,10 +155,10 @@ class IclockHandler(tornado.web.RequestHandler):
             postvars = postvars.decode("utf-8")
             terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
             if terminal_id == -1: return
-            list = postvars.split("\n")
             if table_type =="": return
+            list = postvars.split("\n")
             #if clock sends a table not matched then dont worry about it, ignore and send OK
-            print(table_type, list)
+            #print(sn, table_type, list)
             if table_type == "OPERLOG":
                 for index in range(len(list)):
                     if "USERPIC" in list[index]:
@@ -160,9 +169,9 @@ class IclockHandler(tornado.web.RequestHandler):
                         if ret==-1: return -1
                         ret = save_user_photo(list[index],terminal_id)
                         if ret==-1: return -1
-                    if "BIODATA" in list[index]:
-                        ret = save_bio_data(list[index],terminal_id)
-                        if ret==-1: return -1
+                    #if "BIODATA" in list[index]: # for palm only
+                    #    ret = save_bio_data(list[index],terminal_id)
+                     #   if ret==-1: return -1 #TOTO remove later biodata is a table
                     if "FACE PIN" in list[index]:
                         ret = save_user_face(list[index],terminal_id)
                         if ret==-1: return -1
@@ -172,10 +181,13 @@ class IclockHandler(tornado.web.RequestHandler):
                     if "OPLOG" in list[index]:
                         ret = save_op_log(list[index],terminal_id,sn)
                         if ret==-1: return -1
-                    #if "OPLOG 4" in list[index]: TODO oplog 4 is no face mask
-                     #   ret = save_op_log(list[index],terminal_id,sn)
-                      #  if ret==-1: return -1
+            if table_type == "BIODATA":
+                for index in range(len(list)):
+                    print('listy', list[index])
+                    if list[index] != '': ret = save_bio_data(list[index], terminal_id)
 
+                    if ret==-1: return -1
+                #information: OPLOG 4 is menu selection
                 ret = save_op_stamp(stamp,terminal_id,sn)
                 if ret==-1: return -1
             if table_type == "ATTLOG":
@@ -222,6 +234,7 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
                 #the command below used to int command[0]
                 id = commands[0]
                 returned = int(commands[1].replace("Return=",""))
+                print(returned)
                 tx = "UPDATE d_iface_commands SET completed_flag = 1, completed_date = ?,returned = 0 WHERE iface_command_id = ?"
                 ret = sqlconns.sql_command(tx,datetime.now(),id)
                 if ret==-1: return
@@ -281,6 +294,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
             ret = update_commands_to_sent_status(data_list[index][0])
             if ret==-1:return
         if data!="":
+            print(data)
             self.write(data)
             dte = date_time_string(sn)
             bDateHeader = False  # are we sending the date header?
@@ -343,8 +357,11 @@ class IfaceInformation(tornado.web.RequestHandler):
                                                 + 'Min Stamp = ' + str(MIN_STAMP) + '.<br>'\
                                                 + 'Max Stamp = ' + str(MAX_STAMP) + '<br><br>'\
                                                 + 'Raw clockings = ' + str(RAW_CLOCKINGS) + '<br>'\
-                                                + 'Check Repoll = ' + str(CHECK_REPOLL) + '<br><br>')
-                            #page will need to be bigged to display more data on web page, limit is reached
+                                                + 'Check Repoll = ' + str(CHECK_REPOLL) + '<br>' \
+                                                + 'Email Temperature Warning = ' + str(EMAIL_TEMP_WARNING) + '<br>' \
+                                                + 'Email Max Temp = ' + str(MAX_TEMP) + '<br>' \
+                                                + 'Email No Mask Warning = ' + str(EMAIL_NO_MASK_WARNING) + '<br>' \
+                                                + 'Record Booking on Warning = ' + str(RECORD_BOOKING_ON_WARNING) + '<br>')
 
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/ifaceinformation.html"
         self.render(path, data=data)
@@ -525,7 +542,6 @@ class Analyse(tornado.web.RequestHandler):
             tx += '</tr>' #last row
         self.commanddata = tx
 
-
 class ClockInfo(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("user")
@@ -574,13 +590,13 @@ class DeviceOptions(tornado.web.RequestHandler):
         for key, value in self.terminal_options_dict.items():
             if 'timezone' in key:
                 self.terminal_id = str.replace(key, 'timezone', '')
-                uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone = self.get_terminal_options_flags()
-                tx = "UPDATE d_iface_options SET uface=?, proface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, notime=?, timezone=?"\
+                uface, proface, oldtime, prox, nophoto, noface, nofinger, nopalm, notime, timezone = self.get_terminal_options_flags()
+                tx = "UPDATE d_iface_options SET uface=?, proface=?, oldtime=?, prox=?, nophoto=?, noface=?, nofinger=?, nopalm=?, notime=?, timezone=?"\
                     " WHERE terminal_id = ?"\
                     " IF @@ROWCOUNT=0"\
-                    " INSERT INTO d_iface_options(terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone)"\
-                    " VALUES (?,?,?,?,?,?,?,?,?,?)"
-                ret = sqlconns.sql_command(tx, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone), self.terminal_id, self.terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, str(timezone))
+                    " INSERT INTO d_iface_options(terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, nopalm, notime, timezone)"\
+                    " VALUES (?,?,?,?,?,?,?,?,?,?, ?)"
+                ret = sqlconns.sql_command(tx, uface, proface, oldtime, prox, nophoto, noface, nofinger, nopalm, notime, str(timezone), self.terminal_id, self.terminal_id, uface, proface, oldtime, prox, nophoto, noface, nofinger, nopalm, notime, str(timezone))
         terminal_grid_options = self.terminal_grid()
 
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/options.html"
@@ -589,14 +605,14 @@ class DeviceOptions(tornado.web.RequestHandler):
 
     def terminal_grid(self):
         self.terminal_list = sqlconns.sql_select_into_list("SELECT description, configuration, tterminal.terminal_id," \
-                                                        " uface, proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone"
+                                                        " uface, proface, oldtime, prox, nophoto, noface, nofinger, nopalm, notime, timezone"
                                                         " FROM tterminal LEFT OUTER JOIN" \
                                                         " d_iface_options ON tterminal.terminal_id = d_iface_options.terminal_id" \
                                                         " WHERE" \
                                                         " configuration in (" + str(ACCESS_TERMINAL) + "," + str(ATTENDANCE_TERMINAL) + ")" \
                                                         " AND description not like '%.%' and number < 1000" \
                                                         " ORDER BY configuration, description")
-        #0=description,1=configurattion,2=id,3=uface,4=proface,5=oldtime,6=prox,7=nophoto,8=noface,9=nofinger,10=notime,11=timezone
+
         if self.terminal_list == -1: return ""
         tx = ""
         for index in range(len(self.terminal_list)):
@@ -617,7 +633,8 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<td><input type="checkbox" name=nophoto' + id + ' id=nophoto' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#nophoto
             tx += '<td><input type="checkbox" name=noface' + id + ' id=noface' + id  + self.bitBoolean(self.terminal_list[index][8]) + '</td>'#noface
             tx += '<td><input type="checkbox" name=nofinger' + id + ' id=nofinger' + id  + self.bitBoolean(self.terminal_list[index][9]) + '</td>'#nofinger
-            tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][10]) + '</td>'#notime#
+            tx += '<td><input type="checkbox" name=nopalm' + id + ' id=nopalm' + id + self.bitBoolean(self.terminal_list[index][10]) + '</td>'  # nopalm
+            tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][11]) + '</td>'#notime#
             tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'
             tx += '</tr>' #end row
         return tx
@@ -636,6 +653,7 @@ class DeviceOptions(tornado.web.RequestHandler):
         nophoto = "0"
         noface = "0"
         nofinger = "0"
+        nopalm = "0"
         notime = "0"
         timezone = "0"
         value = self.terminal_options_dict.get('uface' + self.terminal_id, "0")
@@ -654,9 +672,11 @@ class DeviceOptions(tornado.web.RequestHandler):
         if value != "0": nofinger = "1"
         value = self.terminal_options_dict.get('notime' + self.terminal_id, "0")
         if value != "0": notime = "1"
+        value = self.terminal_options_dict.get('nopalm' + self.terminal_id, "0")
+        if value != "0": nopalm = "1"
         value = self.terminal_options_dict.get('timezone' + self.terminal_id, "0")
         if value != "0": timezone = value[0].decode()
-        return uface,proface, oldtime, prox, nophoto, noface, nofinger, notime, timezone
+        return uface,proface, oldtime, prox, nophoto, noface, nofinger, nopalm, notime, timezone
 
 
 class LoginHandler(tornado.web.RequestHandler):
@@ -1106,8 +1126,8 @@ def save_bio_photo(xx,terminal_id):
     return ret
 
 def save_bio_data(xx,terminal_id):
-#keep this function for reference but it is not used
-#was completed for BIODATA table but do not think we need to use BIODATA yet
+#for Palm Only
+    print('in save bio data')
     no = 0
     index = 0
     valid = 1
@@ -1117,54 +1137,55 @@ def save_bio_data(xx,terminal_id):
     minorver = 0
     format = 0
     list = xx.split("\t")
+    #print('xxlist', xx)
+    #print('biolist', list, xx, len(list))
     user_id = list[0].replace("BIODATA Pin=","")
     no = list[1].replace("No=","")
     index = list[2].replace("Index=","")
     valid = list[3].replace("Valid=","")
     duress = list[4].replace("Duress=","")
     type = list[5].replace("Type=","")
+    biodata = biodata_ref(int(type))
     majorver = list[6].replace("MajorVer=","")
     minorver = list[7].replace("MinorVer=","")
     format = list[8].replace("Format=","")
     tmp = list[9].replace("Tmp=", "")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
-    #check exixts and dont write
-    if CHECK_REPOLL:
-        tx = "Select top 1 [d_iface_biophoto_id] from d_iface_biophoto WHERE employee_id =" + user_id + " AND tmp = '"+ tmp + "'"
-        ret = sqlconns.sql_select_single_field(tx)
-        if ret != "" and int(ret) > 0:
-            tx = "If ("\
-            "SELECT count(*) from d_iface_bio_photo"\
-            " where d_iface_bio_photo_id = "+str(int(ret))+ " and repoll_count is null) > 0"\
-            " UPDATE d_iface_bio_photo"\
-            " SET repoll_count = 1,"\
-            " repoll_date = getdate()"\
-            " WHERE d_iface_bio_photo_id ="+ str(int(ret))+ ""\
-            " ELSE"\
-            " UPDATE d_iface_bio_photo"\
-            " SET repoll_count = repoll_count + 1,"\
-            " repoll_date = getdate()"\
-            " WHERE d_iface_bio_photo_id = "+ str(int(ret))
-            ret = sqlconns.sql_command(tx)
-            return 1
-    #photo does not exist, carry on
-    tx = "UPDATE d_iface_biophoto SET [tmp] = '" + tmp + "',[date_added] = " + date_now + \
-                    ", [no]=" + str(no)+\
-                    ", [index]=" + str(index)+ \
-                    ", [valid]=" + str(valid) + \
-                    ", [duress]=" + str(duress) + \
-                    ", [type]=" + str(type) + \
-                    ", [majorver]=" + str(majorver) +\
-                    ", [minorver]=" + str(minorver) +\
-                    ", [format]=" + str(format) +\
-                    ", [terminal_id]="+str(terminal_id)+" WHERE [employee_id] =" + user_id + "" \
-                    " IF @@ROWCOUNT=0" \
-                    " INSERT INTO d_iface_biophoto([employee_id],[no],[index],[valid],[duress],[type],[majorver],[minorver],[format],[tmp],[date_added],[terminal_id]) VALUES (" + \
-                        user_id + "," + no + "," + index + "," + valid + "," + duress + "," + type + "," + majorver + "," + minorver + "," + format + \
-                        ",'" +  tmp + "'," + date_now + "," + str(terminal_id) + ")"
-    ret = sqlconns.sql_command(tx)
-
+    print(biodata)
+    ret = 0
+    if biodata == 'palm' : # use legacy finger print method
+        tx = "UPDATE d_iface_biodata SET [tmp] = '" + tmp + "',[date_added] = " + date_now + \
+                        ", [no]=" + str(no)+\
+                        ", [index]=" + str(index)+ \
+                        ", [valid]=" + str(valid) + \
+                        ", [duress]=" + str(duress) + \
+                        ", [type]=" + str(type) + \
+                        ", [majorver]=" + str(majorver) +\
+                        ", [minorver]=" + str(minorver) +\
+                        ", [format]=" + str(format) +\
+                        ", [terminal_id]="+str(terminal_id)+" WHERE [employee_id] =" + user_id + "" \
+                        " AND [index]=" + index + "" \
+                        " IF @@ROWCOUNT=0" \
+                        " INSERT INTO d_iface_biodata([employee_id],[no],[index],[valid],[duress],[type],[majorver],[minorver],[format],[tmp],[date_added],[terminal_id]) VALUES (" + \
+                            user_id + "," + no + "," + index + "," + valid + "," + duress + "," + type + "," + majorver + "," + minorver + "," + format + \
+                            ",'" +  tmp + "'," + date_now + "," + str(terminal_id) + ")"
+        ret = sqlconns.sql_command(tx)
+        ret = update_tevent_update(user_id)
     return ret
+
+def biodata_ref(biodata_ref):
+    biodata = "Unknown"
+    if biodata_ref == 0: biodata = 'Common'
+    if biodata_ref == 1: biodata = 'finger'
+    if biodata_ref == 2: biodata = 'face'
+    if biodata_ref == 3: biodata = 'voiceprint'
+    if biodata_ref == 4: biodata = 'iris'
+    if biodata_ref == 5: biodata = 'retina'
+    if biodata_ref == 6: biodata = 'palmprint'
+    if biodata_ref == 7: biodata = 'vein'
+    if biodata_ref == 8: biodata = 'palm' # this one
+    if biodata_ref == 9: biodata = 'ambientface'
+    return biodata
 
 def build_power_on_get_request(sn):
     terminal_id = get_terminal_id_from_sn(sn)
@@ -1196,13 +1217,13 @@ def build_power_on_get_request(sn):
 
 #tidy up on stamps based on latest push firmware, refer to older backups if you need to revert this.
     trans_flag_string = "1"
-    if uface:
-        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
+    #if uface:
+     #   trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
     if proface:
-        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tBioPhoto\tUserPic'
-    #trans_flag_string = '111111111111'
+        trans_flag_string = 'TransData AttLog\tOpLog\tEnrollUser\tChgUser\tUserPic\tBioDataFun\tPalm\tChgUser\tEnrollFP'
+    trans_flag_string = '111111111111'
     if uface:
-        trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tEnrollFP\tChgFP\tFACE\tUserPic'
+        trans_flag_string = 'TransData AttLog\tOpLog\ttEnrollUser\tChgUser\tEnrollFP\tChgFP\tFACE\tUserPic'
     xx = "GET OPTION FROM:" + sn + \
             "\r\nStamp=" + str(att_stamp) +\
             "\r\nOpStamp=" + str(op_stamp) + \
@@ -1516,6 +1537,11 @@ def set_env():
     global CC_FUNCTION_KEYS
     global MIN_STAMP
     global MAX_STAMP
+    global RECORD_BOOKING_ON_WARNING
+    global EMAIL_NO_MASK_WARNING
+    global EMAIL_TEMP_WARNING
+    global MAX_TEMP
+
     if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
         if sqlconns.readsql_connection_timeware_main_6() == 0:
             f.error_logging(APPNAME, "Error reading database.ini file.", "error_log","")
@@ -1576,6 +1602,15 @@ def set_env():
                             RAW_CLOCKINGS = str.split(listme[index], '=')[1]
                         if "check_repoll" in listme[index]:
                             CHECK_REPOLL = str.split(listme[index], '=')[1]
+                        if "max_temp" in listme[index]:
+                            MAX_TEMP = float(str.split(listme[index], '=')[1])
+                        if "email_temp_warning" in listme[index]:
+                            EMAIL_TEMP_WARNING = str.split(listme[index], '=')[1]
+                        if "email_no_mask_detect" in listme[index]:
+                            EMAIL_NO_MASK_WARNING = str.split(listme[index], '=')[1]
+                        if "record_booking_on_warning" in listme[index]:
+                            RECORD_BOOKING_ON_WARNING = str.split(listme[index], '=')[1]
+
                     f.error_logging(APPNAME, "Port is now: "+str(gl.server_port), "error_log", "")
                 except Exception as e:
                     return False
