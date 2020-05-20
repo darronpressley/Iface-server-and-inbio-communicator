@@ -2,23 +2,22 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1408" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="351" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1286" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="482" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1437" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="347" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1277" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="478" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="70" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="76" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="109" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1667" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1085" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1716" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1081" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/options.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/options.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test1.py" beforeDir="false" afterPath="$PROJECT_DIR$/test1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlconns.py" beforeDir="false" afterPath="$PROJECT_DIR$/sqlconns.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,7 +57,7 @@
           <entry key="ini" value="2" />
           <entry key="log" value="1" />
           <entry key="png" value="1" />
-          <entry key="py" value="160" />
+          <entry key="py" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -67,7 +66,7 @@
           <entry key="HTML" value="2" />
           <entry key="Image" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="160" />
+          <entry key="Python" value="161" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -75,7 +74,7 @@
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
           <entry key="PLAIN_TEXT" value="192" />
-          <entry key="Python" value="40618" />
+          <entry key="Python" value="42441" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -83,7 +82,7 @@
           <entry key="css" value="153" />
           <entry key="html" value="286" />
           <entry key="ini" value="192" />
-          <entry key="py" value="40618" />
+          <entry key="py" value="42441" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -99,11 +98,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="1156" column="14" selection-start-line="1156" selection-start-column="14" selection-end-line="1156" selection-end-column="14" />
+            <state relative-caret-position="410">
+              <caret line="1719" column="54" selection-start-line="1719" selection-start-column="54" selection-end-line="1719" selection-end-column="54" />
               <folding>
-                <marker date="1589910634207" expanded="true" signature="54109:54585" ph="..." />
+                <marker date="1589975932664" expanded="true" signature="53847:54323" ph="..." />
+                <marker date="1589975932664" expanded="true" signature="67835:67837" ph="..." />
+                <marker date="1589975932664" expanded="true" signature="67890:68102" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sqlconns.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="82" column="16" selection-start-line="82" selection-start-column="16" selection-end-line="82" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -119,21 +129,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>operlog</find>
-      <find>ATTLOGStamp</find>
-      <find>ATTLOG</find>
-      <find>insert_booking</find>
-      <find>p</find>
-      <find>get_terminal_id</find>
-      <find>this is the lis</find>
-      <find>set_env</find>
       <find>general</find>
       <find>nofinger</find>
       <find>testpage</find>
       <find>ifaceinformation</find>
       <find>oplog</find>
       <find>power</find>
-      <find>print</find>
       <find>transflag</find>
       <find>proface</find>
       <find>BioDataFun</find>
@@ -149,6 +150,15 @@
       <find>deco</find>
       <find>decode</find>
       <find>base64</find>
+      <find>attlog</find>
+      <find>CHECK</find>
+      <find>CHECK_</find>
+      <find>MAX</find>
+      <find>MAX_TEMP</find>
+      <find>command</find>
+      <find>mas_</find>
+      <find>insert_</find>
+      <find>print</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -186,7 +196,6 @@
         <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/static/styles.css" />
         <option value="$PROJECT_DIR$/ifaceserver xml.py" />
-        <option value="$PROJECT_DIR$/sqlconns.py" />
         <option value="$PROJECT_DIR$/emailer.py" />
         <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/export image field to photos.py" />
@@ -214,14 +223,15 @@
         <option value="$PROJECT_DIR$/setup_iface_analyser.py" />
         <option value="$PROJECT_DIR$/setup_image_export.py" />
         <option value="$PROJECT_DIR$/ntp_export_photo.py" />
-        <option value="$PROJECT_DIR$/ifaceserver.py" />
         <option value="$PROJECT_DIR$/test1.py" />
+        <option value="$PROJECT_DIR$/sqlconns.py" />
+        <option value="$PROJECT_DIR$/ifaceserver.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="378" />
-    <option name="y" value="190" />
+    <option name="x" value="128" />
+    <option name="y" value="222" />
     <option name="width" value="1402" />
     <option name="height" value="1010" />
   </component>
@@ -914,13 +924,6 @@
         <state relative-caret-position="-1564" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sqlconns.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="160" column="34" selection-start-line="160" selection-start-column="27" selection-end-line="160" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tut20.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="550">
@@ -1047,12 +1050,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sqlconns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="82" column="16" selection-start-line="82" selection-start-column="16" selection-end-line="82" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="1156" column="14" selection-start-line="1156" selection-start-column="14" selection-end-line="1156" selection-end-column="14" />
+        <state relative-caret-position="410">
+          <caret line="1719" column="54" selection-start-line="1719" selection-start-column="54" selection-end-line="1719" selection-end-column="54" />
           <folding>
-            <marker date="1589910634207" expanded="true" signature="54109:54585" ph="..." />
+            <marker date="1589975932664" expanded="true" signature="53847:54323" ph="..." />
+            <marker date="1589975932664" expanded="true" signature="67835:67837" ph="..." />
+            <marker date="1589975932664" expanded="true" signature="67890:68102" ph="..." />
           </folding>
         </state>
       </provider>

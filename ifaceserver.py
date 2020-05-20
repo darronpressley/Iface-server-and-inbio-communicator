@@ -158,7 +158,6 @@ class IclockHandler(tornado.web.RequestHandler):
             if table_type =="": return
             list = postvars.split("\n")
             #if clock sends a table not matched then dont worry about it, ignore and send OK
-            #print(sn, table_type, list)
             if table_type == "OPERLOG":
                 for index in range(len(list)):
                     if "USERPIC" in list[index]:
@@ -183,7 +182,6 @@ class IclockHandler(tornado.web.RequestHandler):
                         if ret==-1: return -1
             if table_type == "BIODATA":
                 for index in range(len(list)):
-                    print('listy', list[index])
                     if list[index] != '': ret = save_bio_data(list[index], terminal_id)
 
                     if ret==-1: return -1
@@ -234,7 +232,6 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
                 #the command below used to int command[0]
                 id = commands[0]
                 returned = int(commands[1].replace("Return=",""))
-                print(returned)
                 tx = "UPDATE d_iface_commands SET completed_flag = 1, completed_date = ?,returned = 0 WHERE iface_command_id = ?"
                 ret = sqlconns.sql_command(tx,datetime.now(),id)
                 if ret==-1: return
@@ -294,7 +291,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
             ret = update_commands_to_sent_status(data_list[index][0])
             if ret==-1:return
         if data!="":
-            print(data)
             self.write(data)
             dte = date_time_string(sn)
             bDateHeader = False  # are we sending the date header?
@@ -619,10 +615,10 @@ class DeviceOptions(tornado.web.RequestHandler):
             # have included other terminal types but they will not show unless they are in the general.ini as access or attendance terminal config type
             id = str(self.terminal_list[index][2])
             self.terminal_type = strTerminalConfiguration(self.terminal_list[index][1])
-            if self.terminal_list[index][11] == None:
+            if self.terminal_list[index][12] == None:
                 self.timezone = '0'
             else:
-                self.timezone = str(self.terminal_list[index][11])
+                self.timezone = str(self.terminal_list[index][12])
             tx += '<tr>' #start row
             tx += '<td>' + self.terminal_list[index][0] + '</td>' #description
             tx += '<td>' + self.terminal_type + '</td>'  #configuration
@@ -1127,7 +1123,6 @@ def save_bio_photo(xx,terminal_id):
 
 def save_bio_data(xx,terminal_id):
 #for Palm Only
-    print('in save bio data')
     no = 0
     index = 0
     valid = 1
@@ -1137,8 +1132,6 @@ def save_bio_data(xx,terminal_id):
     minorver = 0
     format = 0
     list = xx.split("\t")
-    #print('xxlist', xx)
-    #print('biolist', list, xx, len(list))
     user_id = list[0].replace("BIODATA Pin=","")
     no = list[1].replace("No=","")
     index = list[2].replace("Index=","")
@@ -1151,7 +1144,6 @@ def save_bio_data(xx,terminal_id):
     format = list[8].replace("Format=","")
     tmp = list[9].replace("Tmp=", "")
     date_now = f.get_sql_date(datetime.now(),"yyyy-mm-dd hh:mm:ss")
-    print(biodata)
     ret = 0
     if biodata == 'palm' : # use legacy finger print method
         tx = "UPDATE d_iface_biodata SET [tmp] = '" + tmp + "',[date_added] = " + date_now + \
@@ -1220,8 +1212,8 @@ def build_power_on_get_request(sn):
     #if uface:
      #   trans_flag_string = 'TransData AttLog\tOpLog\tAttPhoto\tEnrollUser\tChgUser\tFACE\tUserPic'
     if proface:
-        trans_flag_string = 'TransData AttLog\tOpLog\tEnrollUser\tChgUser\tUserPic\tBioDataFun\tPalm\tChgUser\tEnrollFP'
-    trans_flag_string = '111111111111'
+        #trans_flag_string = 'TransData AttLog\tOpLog\tEnrollUser\tChgUser\tUserPic\tBioDataFun\tPalm\tChgUser\tEnrollFP'
+        trans_flag_string = '111111111111'
     if uface:
         trans_flag_string = 'TransData AttLog\tOpLog\ttEnrollUser\tChgUser\tEnrollFP\tChgFP\tFACE\tUserPic'
     xx = "GET OPTION FROM:" + sn + \
@@ -1260,7 +1252,6 @@ def build_power_on_get_request(sn):
           #   "\r\nFINGERTMPStamp=0" + \
            #  "\r\nUSERPICStamp=0" + \
             # "\r\n"
-    print(xx)
     return xx
 
 def build_power_on_get_request_old(sn):
@@ -1350,9 +1341,24 @@ def ret_error(ip_address, ret, function):
 
 def insert_booking(data,terminal_id,sn,configuration,stamp):
     list = data.split("\t")
-    if list[0]=='': return 1
+    try:
+        booking = list[1]
+    except: IndexError
+    if list[0]=='':
+        emp_id = 0
+        # check temperature
+        temperature = 0.0
+        bad_temp = False
+        try:
+            temperature = float(list[8])
+        except IndexError:
+            temperature = 0.0
+        if temperature >= MAX_TEMP:
+            bad_temp = True
+            if EMAIL_TEMP_WARNING: send_temperature_email(emp_id, booking, terminal_id, temperature)
+        return 1
+
     emp_id = int(list[0])
-    booking = list[1]
     flag = 0
     #if stamp is bad do not save it but save it as a BAD stamp
     if int(stamp) >= int(MAX_STAMP) or int(stamp) <= int(MIN_STAMP):
@@ -1367,7 +1373,6 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         if ret == -1: return -1
         return 1 #go no further if bad stamp but return 1 as successful
 
-    #check if in att log table and bail out if need be
     test_dte = f.iface_string_to_date_format(booking)
     test_booking = f.get_sql_date(test_dte, "yyyy-mm-dd hh:mm:ss")
     if int(list[2]) != 100:#100 is cost centre
@@ -1375,6 +1380,30 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     #if a cost centre clocking then check att_log_table and bail out if need be
     else:
         if bAttEventFound(terminal_id, emp_id, test_booking): return 1
+
+    #check temperature
+    temperature = 0.0
+    bad_temp = False
+    try:
+        temperature = float(list[8])
+    except IndexError:
+        temperature = 0.0
+    if temperature >= MAX_TEMP:
+        bad_temp = True
+        if EMAIL_TEMP_WARNING: send_temperature_email(emp_id, booking, terminal_id, temperature)
+
+    #check no mask
+    mask_detected = True
+    try:
+        if list[7] == '0': mask_detected = False
+    except IndexError:
+        mask_detected = True
+    if mask_detected == False:
+        if EMAIL_TEMP_WARNING: send_no_mask_email(emp_id, booking, terminal_id)
+
+    if RECORD_BOOKING_ON_WARNING == False:
+        if mask_detected == False: return 1
+        if bad_temp == True: return 1
 
     if IFACE_FUNCTION_KEYS == True:
         if int(list[4])  == 3: flag = 3
@@ -1453,6 +1482,17 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 
     ret = sqlconns.sql_command(tx)
     if ret==-1: return -1
+    return 1
+
+def send_temperature_email(emp_id, booking, terminal_id, temperature):
+    if emp_id == "": emp_id =0
+    ret = sqlconns.sql_command("INSERT INTO d_iface_temperature (emp_id, date_and_time, terminal_id, temperature, handled)" \
+                                " VALUES (?,?,?,?, ?)", emp_id, booking, terminal_id, temperature, False)
+    return 1
+
+def send_no_mask_email(emp_id, booking, terminal_id):
+    ret = sqlconns.sql_command("INSERT INTO d_iface_nomask (emp_id, date_and_time, terminal_id, handled)" \
+                                " VALUES (?,?,?,?)", emp_id, booking, terminal_id,False)
     return 1
 
 def bAttFound (sn,emp_id,booking):
@@ -1605,11 +1645,20 @@ def set_env():
                         if "max_temp" in listme[index]:
                             MAX_TEMP = float(str.split(listme[index], '=')[1])
                         if "email_temp_warning" in listme[index]:
-                            EMAIL_TEMP_WARNING = str.split(listme[index], '=')[1]
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                EMAIL_TEMP_WARNING = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                EMAIL_TEMP_WARNING = False
                         if "email_no_mask_detect" in listme[index]:
-                            EMAIL_NO_MASK_WARNING = str.split(listme[index], '=')[1]
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                EMAIL_NO_MASK_WARNING = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                EMAIL_NO_MASK_WARNING = False
                         if "record_booking_on_warning" in listme[index]:
-                            RECORD_BOOKING_ON_WARNING = str.split(listme[index], '=')[1]
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                RECORD_BOOKING_ON_WARNING = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                RECORD_BOOKING_ON_WARNING = False
 
                     f.error_logging(APPNAME, "Port is now: "+str(gl.server_port), "error_log", "")
                 except Exception as e:
@@ -1658,18 +1707,18 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
 
-    if set_env()==True:
+    """if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disab1ed = True
-            tornado.ioloop.IOLoop.current().start()
+            tornado.ioloop.IOLoop.current().start()"""
 
 
-#TODO check out order of options page display!!
+
 

@@ -80,6 +80,7 @@ def sql_command(sql,*args):
         conn.commit()
     except Exception as e:
         f.error_logging("functions",e,"sql",sql)
+        print(e)
         return -1
     return 0
 
