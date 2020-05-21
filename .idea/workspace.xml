@@ -13,12 +13,7 @@
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1081" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqlconns.py" beforeDir="false" afterPath="$PROJECT_DIR$/sqlconns.py" afterDir="false" />
-    </list>
+    <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="" />
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,7 +52,7 @@
           <entry key="ini" value="2" />
           <entry key="log" value="1" />
           <entry key="png" value="1" />
-          <entry key="py" value="161" />
+          <entry key="py" value="162" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -66,7 +61,7 @@
           <entry key="HTML" value="2" />
           <entry key="Image" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="161" />
+          <entry key="Python" value="162" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -95,7 +90,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="410">
@@ -105,6 +100,15 @@
                 <marker date="1589975932664" expanded="true" signature="67835:67837" ph="..." />
                 <marker date="1589975932664" expanded="true" signature="67890:68102" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/emailer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="49" column="16" lean-forward="true" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -129,7 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>general</find>
       <find>nofinger</find>
       <find>testpage</find>
       <find>ifaceinformation</find>
@@ -159,6 +162,7 @@
       <find>mas_</find>
       <find>insert_</find>
       <find>print</find>
+      <find>timezone</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -229,7 +233,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="128" />
     <option name="y" value="222" />
     <option name="width" value="1402" />
@@ -630,15 +634,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7088792" visible="true" weight="0.13804004" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7088792" visible="true" weight="0.13804004" />
       <window_info id="Structure" order="1" sideWeight="0.29112083" side_tool="true" visible="true" weight="0.13804004" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.25568798" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.25568798" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
@@ -830,13 +834,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/error.log">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/emailer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="49" column="16" lean-forward="true" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test gui.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1066,6 +1063,13 @@
             <marker date="1589975932664" expanded="true" signature="67835:67837" ph="..." />
             <marker date="1589975932664" expanded="true" signature="67890:68102" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="49" column="16" lean-forward="true" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
         </state>
       </provider>
     </entry>
