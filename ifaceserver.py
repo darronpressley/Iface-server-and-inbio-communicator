@@ -59,6 +59,8 @@ EMAIL_TEMP_WARNING = True
 EMAIL_NO_MASK_WARNING = True
 RECORD_BOOKING_ON_WARNING = True
 MAX_TEMP = 37.3
+MAX_COMMANDS = "50"
+MAX_COMMANDS_SIZE = "39000"
 
 #mins and max stamps allowed to be recorded to prevent repoll issues
 #criteris is > and < than
@@ -285,7 +287,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
                 clear_data = 1
             else:
                 counter+=1
-                if sys.getsizeof(data+("C:ID"+str(data_list[index][0])+":"+data_list[index][1]+"\r\n"))>39000:
+                if sys.getsizeof(data+("C:ID"+str(data_list[index][0])+":"+data_list[index][1]+"\r\n"))>int(MAX_COMMANDS_SIZE):
                     break
                 data = data + "C:ID"+str(data_list[index][0])+":"+data_list[index][1]+"\r\n"
             ret = update_commands_to_sent_status(data_list[index][0])
@@ -357,7 +359,9 @@ class IfaceInformation(tornado.web.RequestHandler):
                                                 + 'Email Temperature Warning = ' + str(EMAIL_TEMP_WARNING) + '<br>' \
                                                 + 'Email Max Temp = ' + str(MAX_TEMP) + '<br>' \
                                                 + 'Email No Mask Warning = ' + str(EMAIL_NO_MASK_WARNING) + '<br>' \
-                                                + 'Record Booking on Warning = ' + str(RECORD_BOOKING_ON_WARNING) + '<br>')
+                                                + 'Record Booking on Warning = ' + str(RECORD_BOOKING_ON_WARNING) + '<br>' \
+                                                + 'Max Commands per Set = ' + str(MAX_COMMANDS) + '<br>' \
+                                                + 'Max Commands size per Set = ' + str(MAX_COMMANDS_SIZE) + '<br>')
 
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/ifaceinformation.html"
         self.render(path, data=data)
@@ -913,7 +917,7 @@ def get_commands_list(sn):
     terminal_id = sqlconns.sql_select_single_field("SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn+"'")
     if terminal_id == "": return -1
     if int(terminal_id) > 0:
-        data_list = sqlconns.sql_select_into_list("SELECT top 50 iface_command_id,command FROM d_iface_commands where sent <> 1 and terminal_id ="+terminal_id+" ORDER BY iface_command_id")
+        data_list = sqlconns.sql_select_into_list("SELECT top "+MAX_COMMANDS+" iface_command_id,command FROM d_iface_commands where sent <> 1 and terminal_id ="+terminal_id+" ORDER BY iface_command_id")
         if data_list==-1: return -1
         return data_list
     else:
@@ -1252,6 +1256,7 @@ def build_power_on_get_request(sn):
           #   "\r\nFINGERTMPStamp=0" + \
            #  "\r\nUSERPICStamp=0" + \
             # "\r\n"
+    print(xx)
     return xx
 
 def build_power_on_get_request_old(sn):
@@ -1292,6 +1297,7 @@ def build_power_on_get_request_old(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
+    print(xx)
     return xx
 
 def get_terminal_id_from_sn(sn):
@@ -1581,6 +1587,8 @@ def set_env():
     global EMAIL_NO_MASK_WARNING
     global EMAIL_TEMP_WARNING
     global MAX_TEMP
+    global MAX_COMMANDS
+    global MAX_COMMANDS_SIZE
 
     if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
         if sqlconns.readsql_connection_timeware_main_6() == 0:
@@ -1659,7 +1667,10 @@ def set_env():
                                 RECORD_BOOKING_ON_WARNING = True
                             if 'false' in str.split(listme[index], '=')[1]:
                                 RECORD_BOOKING_ON_WARNING = False
-
+                        if "max_commands" in listme[index]:
+                            MAX_COMMANDS = str.split(listme[index], '=')[1]
+                        if "max_command_size" in listme[index]:
+                            MAX_COMMANDS_SIZE = str.split(listme[index], '=')[1]
                     f.error_logging(APPNAME, "Port is now: "+str(gl.server_port), "error_log", "")
                 except Exception as e:
                     return False
@@ -1707,17 +1718,17 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
 
-    """if set_env()==True:
+    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disab1ed = True
-            tornado.ioloop.IOLoop.current().start()"""
+            tornado.ioloop.IOLoop.current().start()
 
 
 
