@@ -2,25 +2,18 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="0" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1443" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1441" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="349" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1282" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1281" mnemonic="2" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="482" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="72" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="78" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="111" />
-    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1727" />
+    <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1725" />
     <bookmark url="file://$PROJECT_DIR$/ifaceserver.py" line="1085" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/456436.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/46434.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/decoded_image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
@@ -78,7 +71,7 @@
           <entry key="CSS" value="153" />
           <entry key="HTML" value="286" />
           <entry key="PLAIN_TEXT" value="192" />
-          <entry key="Python" value="42799" />
+          <entry key="Python" value="42807" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -86,7 +79,7 @@
           <entry key="css" value="153" />
           <entry key="html" value="286" />
           <entry key="ini" value="192" />
-          <entry key="py" value="42799" />
+          <entry key="py" value="42807" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -101,7 +94,11 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="467">
+              <caret line="1729" selection-start-line="1729" selection-end-line="1729" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -158,11 +155,11 @@
       <find>build</find>
       <find>commands_list</find>
       <find>biophoto</find>
-      <find>print</find>
       <find>save_user_photo</find>
       <find>return xx</find>
       <find>set_env</find>
       <find>select top</find>
+      <find>print</find>
     </findStrings>
     <dirStrings>
       <dir>C:\code\Iface-server-and-inbio-communicator</dir>
@@ -233,7 +230,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="215" />
     <option name="y" value="41" />
     <option name="width" value="1402" />
@@ -634,15 +631,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="215" y="41" width="1402" height="1010" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7051482" visible="true" weight="0.1920821" />
-      <window_info id="Structure" order="1" sideWeight="0.29485178" side_tool="true" visible="true" weight="0.1920821" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.70596796" visible="true" weight="0.13804004" />
+      <window_info id="Structure" order="1" sideWeight="0.29403204" side_tool="true" visible="true" weight="0.13804004" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.2690992" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8540569" visible="true" weight="0.25568798" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
@@ -1030,7 +1027,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="1729" selection-start-line="1729" selection-end-line="1729" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/emailer.py">
       <provider selected="true" editor-type-id="text-editor">
