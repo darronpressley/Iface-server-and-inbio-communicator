@@ -36,7 +36,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.7000x" # X version has proface face, palm and face mask
+APP_VERSION = "proface 2020.0.7001x" # X version has proface face, palm and face mask
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -124,6 +124,36 @@ class IclockRegistry(tornado.web.RequestHandler):
         else:
             self.clear_header("Date")
 
+#handle attendance photo
+class fdataHandler(tornado.web.RequestHandler):
+    def compute_etag(self):
+        return None
+
+    def post(self):
+        path = str(self.request.uri).replace("/iclock/fdata?SN=", "")
+        list = str.split(path, "&")
+        sn = list[0]
+        terminal_id = get_terminal_id_from_sn(sn)
+        if terminal_id == -1: return -1
+        self.write("OK")
+        dte = date_time_string(sn)
+        bDateHeader = False # are we sending the date header?
+        #if dte != None: bDateHeader = True do not send dte heaaer in power on
+        self.device_headers(dte,bDateHeader)
+
+
+    def device_headers(self,dte,bDateHeader):
+        self.set_status(200)# do not know if we need this and seems to conflict with status OK?
+        self.clear_header("Server")
+        self.set_header("HTTP", "1.1")
+        self.set_header("Status","OK")
+        self.set_header("cotent-type", "text/plain")
+        #send time header or not
+        if bDateHeader:
+            self.set_header("Date",dte)
+        else:
+            self.clear_header("Date")
+
 class IclockHandler(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
@@ -155,6 +185,7 @@ class IclockHandler(tornado.web.RequestHandler):
         if 'TABLE=OPTIONS' not in str.upper(self.request.uri):   #TODO someday record the options
             postvars = self.request.body
             postvars = postvars.decode("utf-8")
+
             terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
             if terminal_id == -1: return
             if table_type =="": return
@@ -170,9 +201,6 @@ class IclockHandler(tornado.web.RequestHandler):
                         if ret==-1: return -1
                         ret = save_user_photo(list[index],terminal_id)
                         if ret==-1: return -1
-                    #if "BIODATA" in list[index]: # for palm only
-                    #    ret = save_bio_data(list[index],terminal_id)
-                     #   if ret==-1: return -1 #TOTO remove later biodata is a table
                     if "FACE PIN" in list[index]:
                         ret = save_user_face(list[index],terminal_id)
                         if ret==-1: return -1
@@ -716,6 +744,7 @@ def make_app():
         (r"/servertime", ServerTime),
         (r"/login", LoginHandler),
         (r"/iclock/cdata", IclockHandler),
+        (r"/iclock/fdata", fdataHandler),
         (r"/iclock/getrequest", IclockGetrequestHandler),
         (r"/iclock/devicecmd", IclockDevicecmdHandler),
         (r"/iclock/registry", IclockRegistry),
@@ -1347,7 +1376,8 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     list = data.split("\t")
     try:
         booking = list[1]
-    except: IndexError
+    except IndexError:
+        return 1
     if list[0]=='':
         emp_id = 0
         # check temperature
@@ -1356,6 +1386,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         try:
             temperature = float(list[8])
         except IndexError:
+
             temperature = 0.0
         if temperature >= MAX_TEMP:
             bad_temp = True
@@ -1392,6 +1423,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         temperature = float(list[8])
     except IndexError:
         temperature = 0.0
+    if temperature == 255.0: temperature = 0.0 #if not recording temps then it will report as 255
     if temperature >= MAX_TEMP:
         bad_temp = True
         if EMAIL_TEMP_WARNING: send_temperature_email(emp_id, booking, terminal_id, temperature)
@@ -1719,14 +1751,14 @@ if __name__ == "__main__":
     win32serviceutil.HandleCommandLine(AppServerSvc)
     set_env()
 
-    #if set_env()==True:
-     #   if version_check()==True:
-      #      log_initialise()
-       #     app = make_app()
-        #    app.listen(gl.server_port)
-         #   SERVER_STARTED = 1
-          #  logging.getLogger('tornado.access').disab1ed = True
-           # tornado.ioloop.IOLoop.current().start()
+    """if set_env()==True:
+        if version_check()==True:
+            log_initialise()
+            app = make_app()
+            app.listen(gl.server_port)
+            SERVER_STARTED = 1
+            logging.getLogger('tornado.access').disab1ed = True
+            tornado.ioloop.IOLoop.current().start()"""
 
 
 
