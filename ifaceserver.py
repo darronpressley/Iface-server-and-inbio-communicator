@@ -654,8 +654,8 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<tr>' #start row
             tx += '<td>' + self.terminal_list[index][0] + '</td>' #description
             tx += '<td>' + self.terminal_type + '</td>'  #configuration
-            tx += '<td><input type="checkbox" name=uface' + id + ' id=uface' + id + self.bitBoolean(self.terminal_list[index][3]) + '</td>'#uface
-            tx += '<td><input type="checkbox" name=proface' + id + ' id=proface' + id + self.bitBoolean(self.terminal_list[index][4]) + '</td>'  # proface
+            tx += '<td><input type="checkbox" name=uface' + id + ' id=uface' + id + self.bitBoolean(self.terminal_list[index][3]) + ' onclick="toggleCheckBox(this)"</td>'#uface
+            tx += '<td><input type="checkbox" name=proface' + id + ' id=proface' + id + self.bitBoolean(self.terminal_list[index][4]) + ' onclick="toggleCheckBox(this)"</td>'# proface
             tx += '<td><input type="checkbox" name=oldtime' + id + ' id=oldime' + id + self.bitBoolean(self.terminal_list[index][5]) + '</td>'#oldtime
             tx += '<td><input type="checkbox" name=prox' + id + ' id=prox' + id  + self.bitBoolean(self.terminal_list[index][6]) + '</td>'#prox
             tx += '<td><input type="checkbox" name=nophoto' + id + ' id=nophoto' + id  + self.bitBoolean(self.terminal_list[index][7]) + '</td>'#nophoto
@@ -665,6 +665,7 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][11]) + '</td>'#notime#
             tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'
             tx += '</tr>' #end row
+            print(tx)
         return tx
 
     def bitBoolean(self,bit):
@@ -1748,17 +1749,17 @@ def return_version():
 
 
 if __name__ == "__main__":
-    win32serviceutil.HandleCommandLine(AppServerSvc)
-    set_env()
+    #win32serviceutil.HandleCommandLine(AppServerSvc)
+    #set_env()
 
-    """if set_env()==True:
+    if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
             logging.getLogger('tornado.access').disab1ed = True
-            tornado.ioloop.IOLoop.current().start()"""
+            tornado.ioloop.IOLoop.current().start()
 
 
 

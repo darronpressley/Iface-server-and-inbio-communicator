@@ -34,7 +34,6 @@ function alertSavedOptions() {
   }
 
 function isNumCommandsNull(commands) {
-    console.log('these are the commands', commands)
     if (commands === '' || commands === '0') {
         alert("Number of commands cannot be null or 0 (1 to 1000).");
         return false;
@@ -42,4 +41,20 @@ function isNumCommandsNull(commands) {
         return commands;
     }
 }
-;
+
+function toggleCheckBox(object) {
+    if (object.checked){
+        console.log("true");
+        x = object.id;
+        if (x.includes("uface")){
+            eid = x.replace("uface","");
+            eid = "proface" + eid;
+            document.getElementById(eid).checked = false;
+        } else if (x.includes("proface")) {
+            eid = x.replace("proface","");
+            eid = "uface" + eid;
+            document.getElementById(eid).checked = false;
+        }
+    } 
+}
+
