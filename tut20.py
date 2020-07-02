@@ -1,4 +1,4 @@
-
+"""
 
 value1 = "hello"
 
@@ -89,4 +89,27 @@ print(list[0])
 if 'BIOPHOTO' in list[0]:
     print("yes")
 else:
-    print("no")
+    print("no")"""
+
+import sys
+
+
+def foo(*exctype):
+    print(exctype)
+
+def test():
+    listy = [1,2,3,4]
+    yoyo(listy)
+
+def yoyo(list):
+    print(listy[999])
+
+
+if __name__ == "__main__":
+    sys.excepthook = foo
+    test()
+
+
+
+
+

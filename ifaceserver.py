@@ -26,8 +26,8 @@ import asyncore
 
 import base64
 
-
 import win32serviceutil
+
 
 import functions as f
 import sqlconns
@@ -36,7 +36,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.7001x" # X version has proface face, palm and face mask
+APP_VERSION = "proface 2020.0.7004x" # X version has proface face, palm and face mask
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -157,6 +157,7 @@ class fdataHandler(tornado.web.RequestHandler):
 class IclockHandler(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
+
 ##power on request
     def get(self):
         list = self.request.uri.split("?SN=")
@@ -287,6 +288,7 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
 class IclockGetrequestHandler(tornado.web.RequestHandler):
     def compute_etag(self):
         return None
+
 ###cdata page to send commands to the clock
     def get(self):
         list = self.request.uri.split("?SN=")
@@ -410,6 +412,9 @@ class IfaceInformation(tornado.web.RequestHandler):
             self.clear_header("Date")
 
 class ServerTime(tornado.web.RequestHandler):
+    def _handle_request_exception(self, e):
+        f.error_logging(APPNAME, str(e), "error_log", "ServerTime")
+
     def get_current_user(self):
         return self.get_secure_cookie("user")
 
@@ -665,7 +670,6 @@ class DeviceOptions(tornado.web.RequestHandler):
             tx += '<td><input type="checkbox" name=notime' + id + ' id=notime' + id  + self.bitBoolean(self.terminal_list[index][11]) + '</td>'#notime#
             tx += '<td><input type="number" name=timezone' + id + ' id=timezone' + id + ' oninput="maxNumCheck(this,23)"' + ' min="-23" max="23" value="' + self.timezone + '" onkeypress="return isNumberKey(event)"</td>'
             tx += '</tr>' #end row
-            print(tx)
         return tx
 
     def bitBoolean(self,bit):
@@ -709,6 +713,9 @@ class DeviceOptions(tornado.web.RequestHandler):
 
 
 class LoginHandler(tornado.web.RequestHandler):
+    def _handle_request_exception(self, e):
+        f.error_logging(APPNAME, str(e), "error_log", "LoginHandler")
+
     def get(self):
         path = (os.path.join(os.path.dirname(__file__), "templates").replace(("\\"), ("/"))).replace("library.zip/","") + "/login.html"
         self.render(path)
@@ -1417,6 +1424,13 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     else:
         if bAttEventFound(terminal_id, emp_id, test_booking): return 1
 
+    #backup attendance clocking
+    if RAW_CLOCKINGS:
+        tx = "INSERT INTO d_iface_att (stamp,emp_id,date_and_time,sn)"\
+            " VALUES ('" + stamp + "'," + str(emp_id) + ",'" + booking + "','" + sn + "')"
+        ret = sqlconns.sql_command(tx)
+        if ret==-1: return -1
+
     #check temperature
     temperature = 0.0
     bad_temp = False
@@ -1444,12 +1458,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
 
     if IFACE_FUNCTION_KEYS == True:
         if int(list[4])  == 3: flag = 3
-    #backup attendance clocking, default not to store as it builds up massive amounts of data
-    if RAW_CLOCKINGS:
-        tx = "INSERT INTO d_iface_att (stamp,emp_id,date_and_time,sn)"\
-            " VALUES ('" + stamp + "'," + str(emp_id) + ",'" + booking + "','" + sn + "')"
-        ret = sqlconns.sql_command(tx)
-        if ret==-1: return -1
+
 
     dte = f.iface_string_to_date_format(booking)
 
@@ -1620,6 +1629,7 @@ def set_env():
     global MAX_TEMP
     global MAX_COMMANDS
     global MAX_COMMANDS_SIZE
+    global RAW_CLOCKINGS
 
     if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
         if sqlconns.readsql_connection_timeware_main_6() == 0:
@@ -1678,7 +1688,10 @@ def set_env():
                         if "min_stamp" in listme[index]:
                             MIN_STAMP = str.split(listme[index], '=')[1]
                         if "raw_clockings" in listme[index]:
-                            RAW_CLOCKINGS = str.split(listme[index], '=')[1]
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                RAW_CLOCKINGS = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                RAW_CLOCKINGS = False
                         if "check_repoll" in listme[index]:
                             CHECK_REPOLL = str.split(listme[index], '=')[1]
                         if "max_temp" in listme[index]:
@@ -1747,19 +1760,18 @@ def return_version():
         return False
 
 
-
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
 
-    if set_env()==True:
+    """if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()
             app.listen(gl.server_port)
             SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disab1ed = True
-            tornado.ioloop.IOLoop.current().start()
+            logging.getLogger('tornado.access').disab1ed = False
+            tornado.ioloop.IOLoop.current().start()"""
 
 
 

@@ -111,7 +111,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.tableWidget.setColumnCount(15)
         # TODO can this move so it shows as the table is built?
         self.tableWidget.setHorizontalHeaderLabels(
-            [' LastName               ', ' FirstName              ', ' Last Swipe Time      ', ' Swipe Date  ',
+            [' LastName               ', ' FirstName              ', ' Swipe Date      ', ' Last Swipe Time  ',
              ' Job No      ', ' Job Description     ', ' Operation Description     ',
              ' ',
              ' LastName               ', ' FirstName              ',
