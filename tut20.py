@@ -1,115 +1,166 @@
-"""
+import sqlconns, os, sys
 
-value1 = "hello"
-
-new_word = ''
-for char in reversed(value1):
-    new_word += char
+import gl
 
 
+def set_env():
+    global ACCESS_TERMINAL
+    global ATTENDANCE_TERMINAL
+    global DISTRIBUTOR
+    global OLD_TIME
+    global INBIO_USED
+    global FINGER_DELETION_MINS
+    global FUNCTION_KEYS
+    global IFACE_FUNCTION_KEYS
+    global ORIGINAL_BOOKINGS
+    global CC_FUNCTION_KEYS
+    global MIN_STAMP
+    global MAX_STAMP
+    global RECORD_BOOKING_ON_WARNING
+    global EMAIL_NO_MASK_WARNING
+    global EMAIL_TEMP_WARNING
+    global MAX_TEMP
+    global MAX_COMMANDS
+    global MAX_COMMANDS_SIZE
+    global RAW_CLOCKINGS
 
-print(new_word)
-
-
-value1 = value1[::-1]
-print(value1)
-
-
-from statistics import mode
-import datetime
-z = 1234567688890
-
-print(datetime.datetime.now())
-print(mode(str(z)))
-print(datetime.datetime.now())
-
-xx = 'ZgCiQIUbDfZpu9G2ko1QVw=='
-xx = 'aByVouKtwcq/8f0qtFRLmA=='
-xx = 'n1nD3ZsuYHu/71LrVyuXPg=='
-import sqlconns
-
-print(sqlconns.decrypt_with_key(xx))
-
-
-xlist = (1,2,3,4,5,6,7,8,9)
-
-print(sum(xlist))
-#is the same as
-x = 0
-for number in xlist:
-    x += number
-
-x = {'timezone87': [b'0'], 'uface89': [b'on'], 'timezone88': [b'0'], 'timezone85': [b'0'], 'timezone82': [b'0'], 'timezone92': [b'0'], 'timezone83': [b'0'], 'timezone86': [b'0'], 'submit': [b'Commit to Database'], 'timezone74': [b'0'], 'timezone93': [b'0'], 'timezone89': [b'0'], 'timezone81': [b'0'], 'timezone80': [b'0'], 'timezone91': [b'0'], 'timezone90': [b'0']}
-
-print(type(x))
-
-def get_terminal_options_flags(x, terminal_id):
-    uface = "0"
-    prox = "0"
-    nophoto = "0"
-    noface = "0"
-    nofinger = "0"
-    notime = "0"
-    timezone = "0"
-    value = x.get('uface' + terminal_id, "0")
-    if value != "0": uface = "1"
-    value = x.get('prox' + terminal_id, "0")
-    if value != "0": prox = "1"
-    value = x.get('nophoto' + terminal_id, "0")
-    if value != "0": nophoto = "1"
-    value = x.get('noface' + terminal_id, "0")
-    if value != "0": noface = "1"
-    value = x.get('nofinger' + terminal_id, "0")
-    if value != "0": nofinger = "1"
-    value = x.get('notime' + terminal_id, "0")
-    if value != "0": notime = "1"
-    value = x.get('timezone' + terminal_id, "0")
-    if value != "0": timezone = value[0].decode()
-
-    return uface, prox, nophoto, noface, nofinger, notime, timezone
-
-#val for key, val in my_dict.iteritems() if key.startswith('Date'))
-for key, value in x.items():
-    if 'timezone' in key:
-        terminal_id = str.replace(key, 'timezone','')
-        uface, prox, nophoto, noface, nofinger, notime, timezone = get_terminal_options_flags(x, terminal_id)
-        print(uface, notime, prox, nophoto, noface, nofinger, notime, timezone)
-
-        print(key,value, terminal_id, uface)
-
-
-import functions as f
-
-print(f.system_login_password('system','//f5m'))
-
-list = ['BIOPHOTO',0]
-
-print(list[0])
-
-if 'BIOPHOTO' in list[0]:
-    print("yes")
-else:
-    print("no")"""
+    if os.path.isfile(gl.SCRIPT_ROOT + 'database.ini'):
+        if sqlconns.readsql_connection_timeware_main_6() == 0:
+            f.error_logging(APPNAME, "Error reading database.ini file.", "error_log","")
+            return False
+        elif sqlconns.readsql_connection_timeware_main_6() == 1:
+            test_comms = sqlconns.testsql(gl.SERVER, gl.SQL_LOGIN, gl.PASSWORD, gl.DATABASE)
+            if test_comms == 0:
+                    f.error_logging(APPNAME, "Error connecting to SQL server.", "error_log","")
+            else:
+                if os.path.isfile(gl.GENERAL_INI):
+                    fob=open(gl.GENERAL_INI, "r")
+                    listme = fob.readlines()
+                    fob.close()
+                else:
+                    f.error_logging(APPNAME, "Error reading general.ini file.", "error_log","")
+                    return False
+                try:
+                    for index in range(len(listme)):
+                        if "'" in listme[index]: continue
+                        if 'distributor' in listme[index]:
+                            DISTRIBUTOR = str.split(listme[index],'=')[1]
+                        if 'server_port' in listme[index]:
+                            gl.server_port = int(str.split(listme[index],'=')[1])
+                        if 'https_port' in listme[index]:
+                            gl.https_port = int(str.split(listme[index],'=')[1])
+                        if 'face_to_personnel' in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                gl.face_to_personnel = True
+                        if "access_terminal" in listme[index]:
+                            ACCESS_TERMINAL = int(listme[index].split("=")[1])
+                        if "attendance_terminal" in listme[index]:
+                            ATTENDANCE_TERMINAL = int(listme[index].split("=")[1])
+                        if "fingerprint_deletion" in listme[index]:
+                            FINGER_DELETION_MINS = int(listme[index].split("=")[1])
+                        if 'oldtime' in listme[index]:
+                            if 'false' in str.split(listme[index],'=')[1]:
+                                OLD_TIME = False
+                        if "inbio" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                INBIO_USED = True
+                        if "s680_function_keys" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                FUNCTION_KEYS = True
+                        if "iface_function_keys" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                IFACE_FUNCTION_KEYS = True
+                        if "original_bookings" in listme[index]:
+                            if 'false' in str.split(listme[index],'=')[1]:
+                                ORIGINAL_BOOKINGS = False
+                        if "cost_centre_function_keys" in listme[index]:
+                            if 'true' in str.split(listme[index], '=')[1]:
+                                CC_FUNCTION_KEYS = True
+                        if "max_stamp" in listme[index]:
+                            MAX_STAMP = str.split(listme[index], '=')[1]
+                        if "min_stamp" in listme[index]:
+                            MIN_STAMP = str.split(listme[index], '=')[1]
+                        if "raw_clockings" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                RAW_CLOCKINGS = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                RAW_CLOCKINGS = False
+                        if "check_repoll" in listme[index]:
+                            CHECK_REPOLL = str.split(listme[index], '=')[1]
+                        if "max_temp" in listme[index]:
+                            MAX_TEMP = float(str.split(listme[index], '=')[1])
+                        if "email_temp_warning" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                EMAIL_TEMP_WARNING = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                EMAIL_TEMP_WARNING = False
+                        if "email_no_mask_detect" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                EMAIL_NO_MASK_WARNING = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                EMAIL_NO_MASK_WARNING = False
+                        if "record_booking_on_warning" in listme[index]:
+                            if 'true' in str.split(listme[index],'=')[1]:
+                                RECORD_BOOKING_ON_WARNING = True
+                            if 'false' in str.split(listme[index], '=')[1]:
+                                RECORD_BOOKING_ON_WARNING = False
+                        if "max_commands" in listme[index]:
+                            MAX_COMMANDS = str.split(listme[index], '=')[1]
+                        if "max_command_size" in listme[index]:
+                            MAX_COMMANDS_SIZE = str.split(listme[index], '=')[1]
+                    f.error_logging(APPNAME, "Port is now: "+str(gl.server_port), "error_log", "")
+                except Exception as e:
+                    return False
+                return True
+    else:
+        f.error_logging(APPNAME, "Error reading database.ini file.", "error_log","")
+        return False
 
 import sys
 
 
-def foo(*exctype):
-    print(exctype)
-
-def test():
-    listy = [1,2,3,4]
-    yoyo(listy)
-
-def yoyo(list):
-    print(listy[999])
+xx = 'ZgCiQIUbDfZpu9G2ko1QVw=='
+xx = 'n1nD3ZsuYHu/71LrVyuXPg=='
+xx = 'VPuWTZ4e5bavg3mlbavwqg=='
+#xx = '2022'
 
 
-if __name__ == "__main__":
-    sys.excepthook = foo
-    test()
+#print(sqlconns.encryption(xx))
+
+print(sqlconns.decrypt_with_key(xx))
+
+
+import sys
 
 
 
+from win32com.client import Dispatch
 
+zk = Dispatch("zkemkeeper.ZKEM")
 
+print(zk)
+
+tt = Dispatch("tscHelper.Encryption")
+
+print(tt)
+
+byteArr = "ExtraBitOfSalt".encode()
+
+#Build hash
+strDataIn = "Admin" + "Sky6fall!ng"
+strHash = tt.ComputeHash(strDataIn, "SHA256", byteArr)
+
+print(strHash)
+
+set_env()
+
+tx = """select top 1 secure_hash from tuser where user_name = 'Admin'"""
+print(tx)
+list = sqlconns.sql_select_single_field_timeware_user(tx)
+
+print(list)
+
+if strHash[0] == list: print('yer damn skippy')
+
+strHash = None
+tt = None

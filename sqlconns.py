@@ -71,6 +71,25 @@ def sql_select_single_field(sql):
         return -1
     return data
 
+def sql_select_single_field_timeware_user(sql):
+#note use of fecthone
+    try:
+        data = ""
+        dial_string = gl.python_sql
+        dial_string = str.replace(dial_string, 'timeware_main_6','timeware_user_6')
+        print(dial_string)
+        conn = p.connect(dial_string)
+        dbcursor = conn.cursor()
+        dbcursor.execute(sql)
+        row = dbcursor.fetchone()
+        if row:
+            data = str(row[0])
+        conn.close()
+    except Exception as e:
+        print(e)
+        f.error_logging("functions",e,"sql",sql)
+        return -1
+    return data
 
 def sql_command(sql,*args):
     try:

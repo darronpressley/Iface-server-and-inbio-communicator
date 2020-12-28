@@ -1,4 +1,5 @@
 #IFACE TORNADO version
+#IFACE TORNADO version
 #Author Darron Pressley darronpressley@gmail.com
 #there is a lot of commented out code in this project
 #this is to allow quickish switching between running this as a service and running as a application
@@ -36,7 +37,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.7004x" # X version has proface face, palm and face mask
+APP_VERSION = "proface 2020.0.8001x" # X version has proface face, palm and face mask
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -163,6 +164,8 @@ class IclockHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        x_real_ip = self.request.headers.get("X-Real-IP")
+        x_real_ip = self.request.remote_ip
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "":
@@ -183,10 +186,10 @@ class IclockHandler(tornado.web.RequestHandler):
 
 #data from clock to ifaceserver
     def post(self):
+        print(self.request.body)
         if 'TABLE=OPTIONS' not in str.upper(self.request.uri):   #TODO someday record the options
             postvars = self.request.body
             postvars = postvars.decode("utf-8")
-
             terminal_id, configuration, sn, table_type, stamp = get_terminal_id (self.request.uri)
             if terminal_id == -1: return
             if table_type =="": return
@@ -253,6 +256,7 @@ class IclockDevicecmdHandler(tornado.web.RequestHandler):
 #####devicecmd page, to update if commands are successful
     def post(self):
         sn = self.request.uri.replace("/iclock/devicecmd?SN=","")
+
         postvars = self.request.body
         postvars = postvars.decode("utf-8")
         cmd_list = postvars.split("\n")
@@ -294,6 +298,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
+        x_real_ip = self.request.headers.get("X-Real-IP")
         terminal_id = sqlconns.sql_select_single_field(
             "SELECT TOP 1 terminal_id FROM tterminal WHERE ip_address = '" + sn + "'")
         if terminal_id == "": return -1
@@ -346,6 +351,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         self.set_header("Status","OK")
         self.set_header("cotent-type", "text/plain")
         #send time header or not
+        #print(dte)
         if bDateHeader:
             self.set_header("Date",dte)
         else:
@@ -1293,7 +1299,7 @@ def build_power_on_get_request(sn):
           #   "\r\nFINGERTMPStamp=0" + \
            #  "\r\nUSERPICStamp=0" + \
             # "\r\n"
-    print(xx)
+
     return xx
 
 def build_power_on_get_request_old(sn):
@@ -1383,6 +1389,8 @@ def ret_error(ip_address, ret, function):
 
 def insert_booking(data,terminal_id,sn,configuration,stamp):
     list = data.split("\t")
+    temperature = 0.0
+
     try:
         booking = list[1]
     except IndexError:
@@ -1390,13 +1398,12 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     if list[0]=='':
         emp_id = 0
         # check temperature
-        temperature = 0.0
         bad_temp = False
         try:
             temperature = float(list[8])
-        except IndexError:
-
+        except:
             temperature = 0.0
+
         if temperature >= MAX_TEMP:
             bad_temp = True
             if EMAIL_TEMP_WARNING: send_temperature_email(emp_id, booking, terminal_id, temperature)
@@ -1437,7 +1444,7 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
     bad_temp = False
     try:
         temperature = float(list[8])
-    except IndexError:
+    except:
         temperature = 0.0
     if temperature == 255.0: temperature = 0.0 #if not recording temps then it will report as 255
     if temperature >= MAX_TEMP:
@@ -1482,13 +1489,18 @@ def insert_booking(data,terminal_id,sn,configuration,stamp):
         booking = f.get_sql_date(dte, "yyyy-mm-dd hh:mm")
         #cost centre clocking = 100
         #if code is differentt to 100 then it also needs an attendance entry
-        if int(list[2]) < 100 or int(list[2]) == 255: #255 is standard clocking from untweaked  UFACE
+        if int(list[2]) < 100 or int(list[2]) == 255 or int(list[2]) == 203: #255 is standard clocking from untweaked  UFACE
+            #203 is the new failed record
             #this is the ACTUAL ATTENDANCE swipe
             tx = "INSERT INTO twork_unprocessed (employee_id,terminal_id,date_and_time,[type],flag,[key],memo,authorisation,authorisation_finalised,source)"\
                 " VALUES (" + str(emp_id) + "," + str(terminal_id) + "," + booking + ",1000," + str(flag) + ",0,'',3,1,0)"
             ret = sqlconns.sql_command(tx)
             if ret==-1: return -1
             if ORIGINAL_BOOKINGS:
+                origbooking = f.get_sql_date(dte, "yyyy-mm-dd hh:mm:ss") #change the date format to include secodns for the orginal booking
+                tx = "INSERT INTO twork_unprocessed (employee_id,terminal_id,date_and_time,[type],flag,[key],memo,authorisation,authorisation_finalised,source)" \
+                     " VALUES (" + str(emp_id) + "," + str(terminal_id) + "," + origbooking + ",1000," + str(
+                    flag) + ",0,'',3,1,0)"
                 tx = tx.replace("twork_unprocessed", "twork_unprocessed_archive")
                 ret = sqlconns.sql_command(tx)
                 if ret==-1: return -1
@@ -1765,7 +1777,7 @@ if __name__ == "__main__":
     #win32serviceutil.HandleCommandLine(AppServerSvc)
     #set_env()
 
-    if set_env()==True:
+   if set_env()==True:
         if version_check()==True:
             log_initialise()
             app = make_app()

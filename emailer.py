@@ -6,7 +6,7 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
  
-SMTP_SERVER = 'smtp.gmail.com'
+SMTP_SERVER = 'smtp.sendgrid.net'
 SMTP_PORT = 587
 
 #####exhcnage version
@@ -18,10 +18,10 @@ subject = 'Timeware Alert - Urgent'
 test_message = 'The following Items require your attention.\n'
 
 
-useraccount = "darronpressley@gmail.com"
+useraccount = "darronpressley"
 sender = 'darronpressley@gmail.com'
-password = "Starfall9"
-recipient = 'Darronpressley@gmail.com'
+password = "sky6falling"
+recipient = 'darronpressley@gmail.com'
 subject = 'Timeware Alert - Urgent'
 test_message = "hey man how you do\n"
 directory = "c:/temp"
@@ -64,8 +64,9 @@ def email_txt(message,address):
     msg.attach(part)
     session = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
     session.ehlo()
-    session.starttls()
-    session.ehlo
+    #session.starttls()
+    #session.ehlo
+    print('do we get here?')
     session.login(useraccount, password)
     session.sendmail(sender, recipient, msg.as_string())
     session.quit()

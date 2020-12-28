@@ -14,7 +14,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8235126e-fd4a-4af5-b326-74271e87ed49" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/emailer.py" beforeDir="false" afterPath="$PROJECT_DIR$/emailer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/general.ini" beforeDir="false" afterPath="$PROJECT_DIR$/general.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ifaceserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifaceserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tut20.py" beforeDir="false" afterPath="$PROJECT_DIR$/tut20.py" afterDir="false" />
     </list>
     <ignored path="pythontime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,20 +34,20 @@
     <session id="551381373">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="67" />
+          <entry key="project.closed" value="68" />
           <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="7" />
           <entry key="project.open.time.11" value="3" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="3" />
-          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.3" value="2" />
           <entry key="project.open.time.5" value="15" />
           <entry key="project.open.time.6" value="31" />
           <entry key="project.open.time.7" value="12" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="85" />
+          <entry key="project.opened" value="86" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -54,7 +57,7 @@
           <entry key="ini" value="2" />
           <entry key="log" value="1" />
           <entry key="png" value="1" />
-          <entry key="py" value="186" />
+          <entry key="py" value="187" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -63,7 +66,7 @@
           <entry key="HTML" value="2" />
           <entry key="Image" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="186" />
+          <entry key="Python" value="187" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -95,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../JC CountDown/JC_Count_Down.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="290" column="8" lean-forward="true" selection-start-line="290" selection-start-column="8" selection-end-line="290" selection-end-column="47" />
+            <state relative-caret-position="4743">
+              <caret line="290" selection-start-line="290" selection-end-line="290" />
             </state>
           </provider>
         </entry>
@@ -105,16 +108,25 @@
         <entry file="file://$PROJECT_DIR$/../JC CountDown/setup_jc_countdown.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Fleming/setup_fleming_staffadp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../Fleming/setup_fleming_staffadp.py">
+        <entry file="file://$PROJECT_DIR$/ifaceserver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+            <state relative-caret-position="69">
+              <caret line="1250" column="30" lean-forward="true" selection-start-line="1250" selection-start-column="30" selection-end-line="1250" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -122,8 +134,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Fleming/staff_ADP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="185" column="54" lean-forward="true" selection-start-line="185" selection-start-column="54" selection-end-line="185" selection-end-column="54" />
+            <state relative-caret-position="2958">
+              <caret line="185" column="54" selection-start-line="185" selection-start-column="54" selection-end-line="185" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -253,6 +265,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Iface-server-and-inbio-communicator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Iface-server-and-inbio-communicator" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -264,21 +292,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Iface-server-and-inbio-communicator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Iface-server-and-inbio-communicator" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Fleming/setup.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ifaceserver.py" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Custom" />
     <property name="settings.editor.splitter.proportion" value="0.26017874" />
@@ -311,7 +328,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.setup_fleming_staffadp (1)">
+  <component name="RunManager" selected="Python.ifaceserver">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -650,15 +667,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6948148" weight="0.23551106" />
-      <window_info id="Structure" order="1" sideWeight="0.3051852" side_tool="true" visible="true" weight="0.23551106" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69344264" visible="true" weight="0.23511904" />
+      <window_info id="Structure" order="1" sideWeight="0.3065574" side_tool="true" visible="true" weight="0.23511904" />
       <window_info id="Favorites" order="2" sideWeight="0.50153846" side_tool="true" weight="0.27416798" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8540569" weight="0.26868907" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8540569" weight="0.2672131" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.3618635" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.3991276" />
@@ -855,13 +871,7 @@
         <state relative-caret-position="-1564" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../JC CountDown/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="28" column="10" lean-forward="true" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../JC CountDown/setup.py" />
     <entry file="file://$PROJECT_DIR$/iface analyser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1669">
@@ -993,19 +1003,6 @@
     <entry file="file://$PROJECT_DIR$/../Fleming/ifaceserver.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="1277" column="20" selection-start-line="1277" selection-start-column="20" selection-end-line="1277" selection-end-column="20" />
-          <folding>
-            <element signature="e#227#241#0" expanded="true" />
-            <marker date="1594211929275" expanded="true" signature="3714:4708" ph="..." />
-            <marker date="1594211929275" expanded="true" signature="3783:4253" ph="..." />
-            <marker date="1594211929275" expanded="true" signature="30377:30381" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../JC CountDown/gl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1029,37 +1026,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../JC CountDown/JC_Count_Down.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4743">
+          <caret line="290" selection-start-line="290" selection-end-line="290" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../JC CountDown/setup_jc_countdown.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../JC CountDown/JC_Count_Down.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="290" column="8" lean-forward="true" selection-start-line="290" selection-start-column="8" selection-end-line="290" selection-end-column="47" />
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Fleming/staff_ADP.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="185" column="54" lean-forward="true" selection-start-line="185" selection-start-column="54" selection-end-line="185" selection-end-column="54" />
+        <state relative-caret-position="2958">
+          <caret line="185" column="54" selection-start-line="185" selection-start-column="54" selection-end-line="185" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Fleming/setup_fleming_staffadp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        <state relative-caret-position="90">
+          <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ifaceserver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="1250" column="30" lean-forward="true" selection-start-line="1250" selection-start-column="30" selection-end-line="1250" selection-end-column="30" />
         </state>
       </provider>
     </entry>
