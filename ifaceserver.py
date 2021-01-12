@@ -87,6 +87,7 @@ class IclockRegistry(tornado.web.RequestHandler):
         return None
 
     def get(self):
+        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         sn = list[1]
         terminal_id = sqlconns.sql_select_single_field(
@@ -161,6 +162,7 @@ class IclockHandler(tornado.web.RequestHandler):
 
 ##power on request
     def get(self):
+        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
@@ -295,6 +297,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
 
 ###cdata page to send commands to the clock
     def get(self):
+        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
@@ -351,7 +354,7 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         self.set_header("Status","OK")
         self.set_header("cotent-type", "text/plain")
         #send time header or not
-        #print(dte)
+        print(dte)
         if bDateHeader:
             self.set_header("Date",dte)
         else:
@@ -1279,6 +1282,7 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
+    print(xx)
    #this part not neeed and causes time issues
   #  if proface:
    #     xx = "GET OPTION FROM:" + sn + \
