@@ -37,7 +37,7 @@ import gl
 SERVER_STARTED = 0
 
 APPNAME = "IFACESERVER"
-APP_VERSION = "proface 2020.0.8001x" # X version has proface face, palm and face mask
+APP_VERSION = "proface 2020.0.8002x" # X version has proface face, palm and face mask
 # log file names
 COMM_ERROR = "communications_log"
 ERROR_LOG =  "error_log"
@@ -731,9 +731,11 @@ class LoginHandler(tornado.web.RequestHandler):
 
     def post(self):
         username = self.get_argument("user")
+        print('usermname = ',username)
         password = self.get_argument("pass")
+        set_env()
         if f.system_login_password (username,password):
-            self.set_secure_cookie("user", self.get_argument("user"))
+            self.set_secure_cookie("user", self.get_argument("user"), expires_days=None)
             self.redirect("/")
         else:
             self.write("<script>alert('Login Unsuccessful');</script>")
@@ -1668,6 +1670,11 @@ def set_env():
                 try:
                     for index in range(len(listme)):
                         if "'" in listme[index]: continue
+                        if 'default_username' in listme[index]:
+                            gl.DEFAULT_USERNAME = str.split(listme[index],'=')[1]
+                            gl.DEFAULT_USERNAME = str.replace(gl.DEFAULT_USERNAME, '"', '')
+                            gl.DEFAULT_USERNAME = str.replace(gl.DEFAULT_USERNAME, '\n', '')
+
                         if 'distributor' in listme[index]:
                             DISTRIBUTOR = str.split(listme[index],'=')[1]
                         if 'server_port' in listme[index]:
@@ -1783,6 +1790,7 @@ if __name__ == "__main__":
     #set_env()
 
    if set_env()==True:
+        print(gl.DEFAULT_USERNAME)
         if version_check()==True:
             log_initialise()
             app = make_app()

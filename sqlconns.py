@@ -71,7 +71,7 @@ def sql_select_single_field(sql):
         return -1
     return data
 
-def sql_select_single_field_timeware_user(sql):
+def sql_select_single_field_timeware_user(sql, *args):
 #note use of fecthone
     try:
         data = ""
@@ -80,7 +80,7 @@ def sql_select_single_field_timeware_user(sql):
         print(dial_string)
         conn = p.connect(dial_string)
         dbcursor = conn.cursor()
-        dbcursor.execute(sql)
+        dbcursor.execute(sql, *args)
         row = dbcursor.fetchone()
         if row:
             data = str(row[0])

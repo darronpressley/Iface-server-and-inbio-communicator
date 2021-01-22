@@ -5,6 +5,7 @@ import datetime
 import gl
 import sqlconns
 import os
+from win32com.client import Dispatch
 
 
 def convert_sql_date(dte,type):
@@ -211,18 +212,35 @@ def convert_date_to_int(dte):
     return x
 
 def system_login_password(user, passWord): # like timeware system password except double slash
-    if user.lower() != 'system': return False
-    if len(passWord) != 4: return False
-    day = datetime.datetime.now().strftime("%A")
-    day = day[0].lower()
-    month = datetime.datetime.now().strftime("%B")
-    month = month[0].lower()
-    if passWord[0].lower() != '/': return False
-    if passWord[1].lower() != '/': return False
-    if passWord[2].lower() != day: return False
-    if passWord[3].lower() != month: return False
-    return True
-
+    if str.lower(gl.DEFAULT_USERNAME) == "system":
+        if str.lower(user) != "system": return False
+        print("fudge")
+        if user.lower() != 'system': return False
+        if len(passWord) != 4: return False
+        day = datetime.datetime.now().strftime("%A")
+        day = day[0].lower()
+        month = datetime.datetime.now().strftime("%B")
+        month = month[0].lower()
+        if passWord[0].lower() != '/': return False
+        if passWord[1].lower() != '/': return False
+        if passWord[2].lower() != day: return False
+        if passWord[3].lower() != month: return False
+        return True
+    else:
+        sql = 'SELECT top 1 secure_hash from tuser WHERE user_name =  ?'
+        ret = sqlconns.sql_select_single_field_timeware_user(sql, user)
+        if ret == -1:
+            return False
+        tschelper = Dispatch("tscHelper.Encryption")
+        byteArr = "ExtraBitOfSalt".encode()
+        # Build hash
+        strDataIn = user + passWord
+        strHash = tschelper.ComputeHash(strDataIn, "SHA256", byteArr)
+        if strHash[0] == ret:
+            return True
+        else:
+            return False
+        return False #just in case
 
 
 

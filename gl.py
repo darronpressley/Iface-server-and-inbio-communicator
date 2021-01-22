@@ -1,5 +1,6 @@
 import os
 
+DEFAULT_USERNAME = 'System'
 SERVER = ""
 DATABASE = "python_time"
 SQL_LOGIN = ""
