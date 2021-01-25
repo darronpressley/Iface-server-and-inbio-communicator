@@ -72,7 +72,7 @@ MAX_STAMP = 1999999999
 
 class MainHandler(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("user_new")
 
     @tornado.web.authenticated
     def get(self):
@@ -87,7 +87,6 @@ class IclockRegistry(tornado.web.RequestHandler):
         return None
 
     def get(self):
-        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         sn = list[1]
         terminal_id = sqlconns.sql_select_single_field(
@@ -162,7 +161,6 @@ class IclockHandler(tornado.web.RequestHandler):
 
 ##power on request
     def get(self):
-        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
@@ -188,7 +186,6 @@ class IclockHandler(tornado.web.RequestHandler):
 
 #data from clock to ifaceserver
     def post(self):
-        print(self.request.body)
         if 'TABLE=OPTIONS' not in str.upper(self.request.uri):   #TODO someday record the options
             postvars = self.request.body
             postvars = postvars.decode("utf-8")
@@ -297,7 +294,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
 
 ###cdata page to send commands to the clock
     def get(self):
-        print(self.request.uri)
         list = self.request.uri.split("?SN=")
         list2 = list[1].split("&")
         sn = list2[0]
@@ -354,7 +350,6 @@ class IclockGetrequestHandler(tornado.web.RequestHandler):
         self.set_header("Status","OK")
         self.set_header("cotent-type", "text/plain")
         #send time header or not
-        print(dte)
         if bDateHeader:
             self.set_header("Date",dte)
         else:
@@ -425,7 +420,7 @@ class ServerTime(tornado.web.RequestHandler):
         f.error_logging(APPNAME, str(e), "error_log", "ServerTime")
 
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("user_new")
 
     def compute_etag(self):
         return None
@@ -460,7 +455,7 @@ class ServerTime(tornado.web.RequestHandler):
 
 class TestPage(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("user_new")
 
     def compute_etag(self):
         return None
@@ -493,7 +488,7 @@ class TestPage(tornado.web.RequestHandler):
 
 class Analyse(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("user_new")
 
     def compute_etag(self):
         return None
@@ -586,7 +581,7 @@ class Analyse(tornado.web.RequestHandler):
 
 class ClockInfo(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("user_new")
 
     def compute_etag(self):
         return None
@@ -616,7 +611,7 @@ class ClockInfo(tornado.web.RequestHandler):
 
 class DeviceOptions(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("user")
+        return self.get_secure_cookie("user_new")
 
     @tornado.web.authenticated
     def get(self):
@@ -730,12 +725,16 @@ class LoginHandler(tornado.web.RequestHandler):
         self.render(path)
 
     def post(self):
-        username = self.get_argument("user")
-        print('usermname = ',username)
+        #postvars = self.request.body
+        #postvars = postvars.decode("utf-8")
+        #cmd_list = postvars.split("\n")
+        #print(cmd_list)
+        print("user_new", self.get_argument("user_new"))
+        username = self.get_argument("user_new")
         password = self.get_argument("pass")
         set_env()
         if f.system_login_password (username,password):
-            self.set_secure_cookie("user", self.get_argument("user"), expires_days=None)
+            self.set_secure_cookie("user_new", self.get_argument("user_new"), expires_days=1)
             self.redirect("/")
         else:
             self.write("<script>alert('Login Unsuccessful');</script>")
@@ -1284,7 +1283,6 @@ def build_power_on_get_request(sn):
             "\r\nOPERLOGStamp=" + str(op_stamp) + \
             "\r\nATTPHOTOStamp=" + str(op_stamp) + \
             "\r\n"
-    print(xx)
    #this part not neeed and causes time issues
   #  if proface:
    #     xx = "GET OPTION FROM:" + sn + \
@@ -1786,19 +1784,15 @@ def return_version():
 
 
 if __name__ == "__main__":
-    #win32serviceutil.HandleCommandLine(AppServerSvc)
-    #set_env()
+    win32serviceutil.HandleCommandLine(AppServerSvc)
+    set_env()
 
-   if set_env()==True:
-        print(gl.DEFAULT_USERNAME)
-        if version_check()==True:
-            log_initialise()
-            app = make_app()
-            app.listen(gl.server_port)
-            SERVER_STARTED = 1
-            logging.getLogger('tornado.access').disab1ed = False
-            tornado.ioloop.IOLoop.current().start()
-
-
-
-
+#   if set_env()==True:
+#
+ #       if version_check()==True:
+  #          log_initialise()
+   #         app = make_app()
+    #        app.listen(gl.server_port)
+     #       SERVER_STARTED = 1
+      #      logging.getLogger('tornado.access').disab1ed = False
+       #     tornado.ioloop.IOLoop.current().start()

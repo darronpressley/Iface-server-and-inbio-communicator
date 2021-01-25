@@ -214,7 +214,6 @@ def convert_date_to_int(dte):
 def system_login_password(user, passWord): # like timeware system password except double slash
     if str.lower(gl.DEFAULT_USERNAME) == "system":
         if str.lower(user) != "system": return False
-        print("fudge")
         if user.lower() != 'system': return False
         if len(passWord) != 4: return False
         day = datetime.datetime.now().strftime("%A")
